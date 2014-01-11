@@ -1,0 +1,19 @@
+﻿@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+
+@model FlexHtmlHelperSample.Models.Student
+@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<div class="row">
+    @Html.f("Bootstrap3").LabelFor(model => model.weight).col_xs(6)
+    @Html.f(new Bootstrap3Render()).LabelFor(model => model.weight).col_xs(6)
+</div>
+
+
+
