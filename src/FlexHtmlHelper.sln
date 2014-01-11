@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelperSample", "FlexHtmlHelperSample\FlexHtmlHelperSample.csproj", "{213348B8-F7C1-420B-B8FE-9B3037E75B7F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.Mvc", "FlexHtmlHelper.Mvc\FlexHtmlHelper.Mvc.csproj", "{143BD4CA-34E9-4F52-B349-0A2096A7C271}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.WebPages", "FlexHtmlHelper.WebPages\FlexHtmlHelper.WebPages.csproj", "{ADD53FA0-3099-4C25-AFCB-C8BF146C888C}"
@@ -26,16 +24,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Render", "Render", "{595461
 		FlexHtmlHelper\Render\Foundation5Render.cs = FlexHtmlHelper\Render\Foundation5Render.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.Sample", "FlexHtmlHelper.Sample\FlexHtmlHelper.Sample.csproj", "{213348B8-F7C1-420B-B8FE-9B3037E75B7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{143BD4CA-34E9-4F52-B349-0A2096A7C271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{143BD4CA-34E9-4F52-B349-0A2096A7C271}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143BD4CA-34E9-4F52-B349-0A2096A7C271}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +44,10 @@ Global
 		{38465D05-DF6C-4472-A160-48CC4AD7CA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38465D05-DF6C-4472-A160-48CC4AD7CA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38465D05-DF6C-4472-A160-48CC4AD7CA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
