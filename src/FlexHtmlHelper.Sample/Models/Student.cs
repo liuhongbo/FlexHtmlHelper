@@ -9,7 +9,10 @@ namespace FlexHtmlHelperSample.Models
 {
     public class Student
     {
-        [DisplayName("Student Weight")]
-        public decimal weight { get; set; }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
     }
 }

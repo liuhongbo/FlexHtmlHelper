@@ -124,25 +124,17 @@ namespace FlexHtmlHelper.Mvc.Html
             return LabelHelper(html, html.HtmlHelper.ViewData.ModelMetadata, String.Empty, labelText, htmlAttributes);
         }
 
-        internal static FlexLabel LabelHelper(FHtmlHelper html, ModelMetadata metadata, string htmlFieldName, string labelText = null, IDictionary<string, object> htmlAttributes = null)
+        internal static FlexLabel LabelHelper(this FHtmlHelper html, ModelMetadata metadata, string htmlFieldName, string labelText = null, IDictionary<string, object> htmlAttributes = null)
         {
             string resolvedLabelText = labelText ?? metadata.DisplayName ?? metadata.PropertyName ?? htmlFieldName.Split('.').Last();
             if (String.IsNullOrEmpty(resolvedLabelText))
-            {
+            {               
                 return FlexLabel.Empty;
             }
 
             FlexTagBuilder label = html.Render.LabelHelper(new FlexTagBuilder(), FlexTagBuilder.CreateSanitizedId(html.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)), resolvedLabelText, htmlAttributes);
 
-            return new FlexLabel(html, label);
-
-            //FlexTagBuilder tag = new FlexTagBuilder("label");
-            //tag.Attributes.Add("for", FlexTagBuilder.CreateSanitizedId(html.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
-            //tag.AddText(resolvedLabelText);
-            //tag.MergeAttributes(htmlAttributes, replaceExisting: true);
-
-            //var label = new FlexLabel(html, tag);
-            //return new FlexLabel(tag.ToString(TagRenderMode.Normal));
+            return new FlexLabel(html, label);            
         }   
 
     }

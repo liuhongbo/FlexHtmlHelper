@@ -1,146 +1,295 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+﻿// pCopyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
 
-namespace FlexHtmlHelper.Html
+namespace FlexHtmlHelper.Mvc.Html
 {
     public static class FormExtensions
     {
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper)
+        public static FlexForm Form(this FHtmlHelper htmlHelper)
         {
             // generates <form action="{current url}" method="post">...</form>
-            string formAction = htmlHelper.ViewContext.HttpContext.Request.RawUrl;
+            string formAction = htmlHelper.HtmlHelper.ViewContext.HttpContext.Request.RawUrl;
             return FormHelper(htmlHelper, formAction, FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, object routeValues)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, object routeValues)
         {
-            return BeginForm(htmlHelper, null, null, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+            return Form(htmlHelper, null, null, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, RouteValueDictionary routeValues)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, RouteValueDictionary routeValues)
         {
-            return BeginForm(htmlHelper, null, null, routeValues, FormMethod.Post, new RouteValueDictionary());
+            return Form(htmlHelper, null, null, routeValues, FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, routeValues, FormMethod.Post, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, routeValues, FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, routeValues, method, new RouteValueDictionary());
+            return Form(htmlHelper, actionName, controllerName, routeValues, method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, htmlAttributes);
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, htmlAttributes);
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes)
         {
-            return BeginForm(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcForm BeginForm(this FlexHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
-            string formAction = UrlHelper.GenerateUrl(null /* routeName */, actionName, controllerName, routeValues, htmlHelper.RouteCollection, htmlHelper.ViewContext.RequestContext, true /* includeImplicitMvcValues */);
+            string formAction = UrlHelper.GenerateUrl(null /* routeName */, actionName, controllerName, routeValues, htmlHelper.HtmlHelper.RouteCollection, htmlHelper.HtmlHelper.ViewContext.RequestContext, true /* includeImplicitMvcValues */);
             return FormHelper(htmlHelper, formAction, method, htmlAttributes);
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, object routeValues)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, object routeValues)
         {
-            return BeginRouteForm(htmlHelper, null /* routeName */, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+            return RouteForm(htmlHelper, null /* routeName */, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, RouteValueDictionary routeValues)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, RouteValueDictionary routeValues)
         {
-            return BeginRouteForm(htmlHelper, null /* routeName */, routeValues, FormMethod.Post, new RouteValueDictionary());
+            return RouteForm(htmlHelper, null /* routeName */, routeValues, FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName)
         {
-            return BeginRouteForm(htmlHelper, routeName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, object routeValues)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, object routeValues)
         {
-            return BeginRouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues)
         {
-            return BeginRouteForm(htmlHelper, routeName, routeValues, FormMethod.Post, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, routeValues, FormMethod.Post, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, FormMethod method)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, FormMethod method)
         {
-            return BeginRouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, object routeValues, FormMethod method)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, object routeValues, FormMethod method)
         {
-            return BeginRouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method)
         {
-            return BeginRouteForm(htmlHelper, routeName, routeValues, method, new RouteValueDictionary());
+            return RouteForm(htmlHelper, routeName, routeValues, method, new RouteValueDictionary());
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, FormMethod method, object htmlAttributes)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, FormMethod method, object htmlAttributes)
         {
-            return BeginRouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, FormMethod method, IDictionary<string, object> htmlAttributes)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
-            return BeginRouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, htmlAttributes);
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, htmlAttributes);
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, object routeValues, FormMethod method, object htmlAttributes)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, object routeValues, FormMethod method, object htmlAttributes)
         {
-            return BeginRouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcForm BeginRouteForm(this FlexHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
+        public static FlexForm RouteForm(this FHtmlHelper htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
-            string formAction = UrlHelper.GenerateUrl(routeName, null, null, routeValues, htmlHelper.RouteCollection, htmlHelper.ViewContext.RequestContext, false /* includeImplicitMvcValues */);
+            string formAction = UrlHelper.GenerateUrl(routeName, null, null, routeValues, htmlHelper.HtmlHelper.RouteCollection, htmlHelper.HtmlHelper.ViewContext.RequestContext, false /* includeImplicitMvcValues */);
             return FormHelper(htmlHelper, formAction, method, htmlAttributes);
         }
 
-        public static void EndForm(this FlexHtmlHelper htmlHelper)
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Because disposing the object would write to the response stream, you don't want to prematurely dispose of this object.")]
+        private static FlexForm FormHelper(this FHtmlHelper htmlHelper, string formAction, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
-            EndForm(htmlHelper.ViewContext);
+
+            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), formAction, HtmlHelper.GetFormMethodString(method), htmlAttributes);
+
+            return new FlexForm(htmlHelper, form);
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper)
+        {
+            // generates <form action="{current url}" method="post">...</form>
+            string formAction = htmlHelper.HtmlHelper.ViewContext.HttpContext.Request.RawUrl;
+            return FormHelper<TModel>(htmlHelper, formAction, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, object routeValues)
+        {
+            return Form(htmlHelper, null, null, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, RouteValueDictionary routeValues)
+        {
+            return Form(htmlHelper, null, null, routeValues, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName)
+        {
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, object routeValues)
+        {
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues)
+        {
+            return Form(htmlHelper, actionName, controllerName, routeValues, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, FormMethod method)
+        {
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method)
+        {
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method)
+        {
+            return Form(htmlHelper, actionName, controllerName, routeValues, method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes)
+        {
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes)
+        {
+            return Form(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, htmlAttributes);
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes)
+        {
+            return Form(htmlHelper, actionName, controllerName, TypeHelper.ObjectToDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
+        {
+            string formAction = UrlHelper.GenerateUrl(null /* routeName */, actionName, controllerName, routeValues, htmlHelper.HtmlHelper.RouteCollection, htmlHelper.HtmlHelper.ViewContext.RequestContext, true /* includeImplicitMvcValues */);
+            return FormHelper(htmlHelper, formAction, method, htmlAttributes);
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, object routeValues)
+        {
+            return RouteForm(htmlHelper, null /* routeName */, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, RouteValueDictionary routeValues)
+        {
+            return RouteForm(htmlHelper, null /* routeName */, routeValues, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName)
+        {
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, object routeValues)
+        {
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, RouteValueDictionary routeValues)
+        {
+            return RouteForm(htmlHelper, routeName, routeValues, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, FormMethod method)
+        {
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, object routeValues, FormMethod method)
+        {
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method)
+        {
+            return RouteForm(htmlHelper, routeName, routeValues, method, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, FormMethod method, object htmlAttributes)
+        {
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, FormMethod method, IDictionary<string, object> htmlAttributes)
+        {
+            return RouteForm(htmlHelper, routeName, new RouteValueDictionary(), method, htmlAttributes);
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, object routeValues, FormMethod method, object htmlAttributes)
+        {
+            return RouteForm(htmlHelper, routeName, TypeHelper.ObjectToDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexForm<TModel> RouteForm<TModel>(this FHtmlHelper<TModel> htmlHelper, string routeName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes)
+        {
+            string formAction = UrlHelper.GenerateUrl(routeName, null, null, routeValues, htmlHelper.HtmlHelper.RouteCollection, htmlHelper.HtmlHelper.ViewContext.RequestContext, false /* includeImplicitMvcValues */);
+            return FormHelper(htmlHelper, formAction, method, htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Because disposing the object would write to the response stream, you don't want to prematurely dispose of this object.")]
+        private static FlexForm<TModel> FormHelper<TModel>(this FHtmlHelper<TModel> htmlHelper, string formAction, FormMethod method, IDictionary<string, object> htmlAttributes)
+        {
+
+            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), formAction, HtmlHelper.GetFormMethodString(method), htmlAttributes);
+
+            return new FlexForm<TModel>(htmlHelper, form);
+        }
+
+        public static void EndForm(this FHtmlHelper htmlHelper)
+        {
+            EndForm(htmlHelper.HtmlHelper.ViewContext);
         }
 
         internal static void EndForm(ViewContext viewContext)
@@ -149,35 +298,6 @@ namespace FlexHtmlHelper.Html
             viewContext.OutputClientValidation();
             viewContext.FormContext = null;
         }
-
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Because disposing the object would write to the response stream, you don't want to prematurely dispose of this object.")]
-        private static MvcForm FormHelper(this FlexHtmlHelper htmlHelper, string formAction, FormMethod method, IDictionary<string, object> htmlAttributes)
-        {
-            TagBuilder tagBuilder = new TagBuilder("form");
-            tagBuilder.MergeAttributes(htmlAttributes);
-            // action is implicitly generated, so htmlAttributes take precedence.
-            tagBuilder.MergeAttribute("action", formAction);
-            // method is an explicit parameter, so it takes precedence over the htmlAttributes.
-            tagBuilder.MergeAttribute("method", FlexHtmlHelper.GetFormMethodString(method), true);
-
-            bool traditionalJavascriptEnabled = htmlHelper.ViewContext.ClientValidationEnabled
-                                                && !htmlHelper.ViewContext.UnobtrusiveJavaScriptEnabled;
-
-            if (traditionalJavascriptEnabled)
-            {
-                // forms must have an ID for client validation
-                tagBuilder.GenerateId(htmlHelper.ViewContext.FormIdGenerator());
-            }
-
-            htmlHelper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.StartTag));
-            MvcForm theForm = new MvcForm(htmlHelper.ViewContext);
-
-            if (traditionalJavascriptEnabled)
-            {
-                htmlHelper.ViewContext.FormContext.FormId = tagBuilder.Attributes["id"];
-            }
-
-            return theForm;
-        }
+        
     }
 }

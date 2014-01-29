@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
-    public class FlexLabel: FlexElement<FlexLabel>
+    public class FlexLabel: FlexElement
     {
         public FlexLabel(FHtmlHelper flexHtmlHelper,FlexTagBuilder tagBuilder)
             : base(flexHtmlHelper,tagBuilder)
@@ -20,11 +20,12 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
-        private FlexLabel()
+        public FlexLabel()
         {
 
         }
 
-        public static readonly FlexLabel Empty = new FlexLabel();
+        public static FlexLabel Empty = new FlexLabel();
+
     }
 }

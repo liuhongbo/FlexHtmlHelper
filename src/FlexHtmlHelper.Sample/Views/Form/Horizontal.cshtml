@@ -1,0 +1,16 @@
+﻿@model FlexHtmlHelperSample.Models.Student
+@{
+    ViewBag.Title = "Horizontal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Horizontal</h2>
+
+
+<div class="row">
+
+    @using (var form = Html.f().Form().Horizontal().BeginForm())
+    {
+        @form.TextBoxFor(Model => Model.FirstName)
+    }
+</div>

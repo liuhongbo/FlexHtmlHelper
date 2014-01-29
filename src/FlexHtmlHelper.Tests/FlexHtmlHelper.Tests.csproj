@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FHtmlHelperTest.cs" />
     <Compile Include="FlexLabelTest.cs" />
     <Compile Include="TagBuilderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

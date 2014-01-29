@@ -9,7 +9,7 @@ using FlexHtmlHelper.Mvc;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
-    public abstract class FlexElement<T>: IHtmlString where T : FlexElement<T>
+    public abstract class FlexElement: IHtmlString
     {
         private FlexTagBuilder _tagBuilder;
         private FHtmlHelper _flexHtmlHelper;
@@ -30,17 +30,22 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
-        protected FlexTagBuilder TagBuilder
+        internal FlexTagBuilder TagBuilder
         {
             get { return _tagBuilder; }
         }
 
-        protected IFlexRender Render
+        internal IFlexRender Render
         {
             get { return _flexHtmlHelper.Render; }
         }
 
-        protected HtmlHelper HtmlHelper
+        internal FHtmlHelper FHtmlHelper
+        {
+            get { return _flexHtmlHelper; }
+        }
+
+        internal HtmlHelper HtmlHelper
         {
             get { return _flexHtmlHelper.HtmlHelper; }
         }       
@@ -53,65 +58,122 @@ namespace FlexHtmlHelper.Mvc.Html
         public override string ToString()
         {
             return (_tagBuilder == null) ? string.Empty : _tagBuilder.ToString();
-        }
+        }       
+        
+    }
 
-        public T addClass(string className)
+
+    public static class FlexElementExtensions
+    {
+        public static  T addClass<T>(this T flexElement, string className) where T: FlexElement
         {
-            _tagBuilder.AddCssClass(className);
-            return (T)this;
+            flexElement.TagBuilder.AddCssClass(className);
+            return (T)flexElement;
         }
-
+       
         #region Grid System
 
-        public T row()
+        public static T row<T>(this T flexElement) where T:FlexElement
         {
-
-            return (T)this;
+            return (T)flexElement;
         }
 
-        public T col_xs(int columns)
+        public static T col_xs<T>(this T flexElement, int columns) where T: FlexElement
         {
-            Render.GridColumns(_tagBuilder, GridStyle.ExtraSmall, columns);
-            return (T)this;
-        }
-        
-        public T col_sm(int columns)
-        {
-            return (T)this;
+            flexElement.Render.GridColumns(flexElement.TagBuilder, GridStyle.ExtraSmall, columns);
+            return (T)flexElement;
         }
 
-        public T col_md(int columns)
+        public static T col_sm<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumns(flexElement.TagBuilder, GridStyle.Small, columns);
+            return (T)flexElement;
         }
 
-        public T col_lg(int columns)
+        public static T col_md<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumns(flexElement.TagBuilder, GridStyle.Medium, columns);
+            return (T)flexElement;
         }
 
-        public T col_xs_offset(int columns)
+        public static T col_lg<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumns(flexElement.TagBuilder, GridStyle.Large, columns);
+            return (T)flexElement;
         }
 
-        public T col_sm_offset(int columns)
+        public static T col_xs_offset<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumnOffset(flexElement.TagBuilder, GridStyle.ExtraSmall, columns);
+            return (T)flexElement;
         }
 
-        public T col_md_offset(int columns)
+        public static T col_sm_offset<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumnOffset(flexElement.TagBuilder, GridStyle.Small, columns);
+            return (T)flexElement;
         }
 
-        public T col_lg_offset(int columns)
+        public static T col_md_offset<T>(this T flexElement, int columns) where T : FlexElement
         {
-            return (T)this;
+            flexElement.Render.GridColumnOffset(flexElement.TagBuilder, GridStyle.Medium, columns);
+            return (T)flexElement;
         }
 
-        #endregion
+        public static T col_lg_offset<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnOffset(flexElement.TagBuilder, GridStyle.Large, columns);
+            return (T)flexElement;
+        }
 
-        
+        public static T col_xs_push<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPush(flexElement.TagBuilder, GridStyle.ExtraSmall, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_sm_push<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPush(flexElement.TagBuilder, GridStyle.Small, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_md_push<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPush(flexElement.TagBuilder, GridStyle.Medium, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_lg_push<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPush(flexElement.TagBuilder, GridStyle.Large, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_xs_pull<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPull(flexElement.TagBuilder, GridStyle.ExtraSmall, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_sm_pull<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPull(flexElement.TagBuilder, GridStyle.Small, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_md_pull<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPull(flexElement.TagBuilder, GridStyle.Medium, columns);
+            return (T)flexElement;
+        }
+
+        public static T col_lg_pull<T>(this T flexElement, int columns) where T : FlexElement
+        {
+            flexElement.Render.GridColumnPull(flexElement.TagBuilder, GridStyle.Large, columns);
+            return (T)flexElement;
+        }
+
+        #endregion        
     }
 }

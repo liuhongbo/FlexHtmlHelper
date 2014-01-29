@@ -1,0 +1,36 @@
+﻿@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+@model FlexHtmlHelperSample.Models.Student
+@{
+    ViewBag.Title = "Inline";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+   
+    @using (var form = Html.f().Form().Inline().BeginForm()) 
+    {
+        
+        //form.FormFieldFor(Model=>Model.FirstName)
+        //form.FormGroup()
+        
+        @Html.EditorForModel();
+        @*@Html.TextBoxFor(model => model.FirstName);*@
+        @*<div class="form-group">
+            <label class="sr-only" for="exampleInputEmail2">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputPassword2">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Remember me
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default">Sign in</button>*@
+    }
+</div>
+

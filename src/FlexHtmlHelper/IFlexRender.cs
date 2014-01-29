@@ -13,13 +13,48 @@ namespace FlexHtmlHelper
         Large
     }
 
+
+    public enum FormLayoutStyle{
+        Default,
+        Inline,
+        Horizontal
+    }
+
     public interface IFlexRender
     {
         string Name { get; }
 
-        FlexTagBuilder LabelHelper(FlexTagBuilder tagBuilder, string @for, string text, IDictionary<string, object> htmlAttributes = null);
 
-        void GridColumns(FlexTagBuilder tagBuilder, GridStyle style, int columns);
-        //void GridColumnOffset(FlexTagBuilder tagBuilder);
+        #region Helper
+
+        FlexTagBuilder LabelHelper(FlexTagBuilder tagBuilder, string @for, string text, IDictionary<string, object> htmlAttributes = null);
+        FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string formAction, string formMethod, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder CheckBoxHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder HiddenHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder PasswordHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder RadioHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder TextBoxHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder ValidationMessageHelper(FlexTagBuilder tagBuilder, string validationMessage, bool isValid, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder ValidationSummaryHelper(FlexTagBuilder tagBuilder, string validationMessage, IEnumerable<string> errorMessages, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder);
+
+        #endregion
+
+        #region Grid System
+
+        FlexTagBuilder GridColumns(FlexTagBuilder tagBuilder, GridStyle style, int columns);
+        FlexTagBuilder GridColumnOffset(FlexTagBuilder tagBuilder, GridStyle style, int columns);
+        FlexTagBuilder GridColumnPush(FlexTagBuilder tagBuilder, GridStyle style, int columns);
+        FlexTagBuilder GridColumnPull(FlexTagBuilder tagBuilder, GridStyle style, int columns);
+
+        #endregion
+
+        #region Form
+
+        FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout);
+        FlexTagBuilder FormControl(FlexTagBuilder tagBuilder);
+
+        #endregion
+
     }
 }

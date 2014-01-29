@@ -10,10 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlexHtmlHelper", "FlexHtmlHelper", "{A66BF9F3-CC45-455E-AD2F-F230D5AE725C}"
 	ProjectSection(SolutionItems) = preProject
 		FlexHtmlHelper\DefaultRender.cs = FlexHtmlHelper\DefaultRender.cs
+		FlexHtmlHelper\DictionaryHelpers.cs = FlexHtmlHelper\DictionaryHelpers.cs
+		FlexHtmlHelper\FlexFormContext.cs = FlexHtmlHelper\FlexFormContext.cs
 		FlexHtmlHelper\FlexRenderDictionary.cs = FlexHtmlHelper\FlexRenderDictionary.cs
 		FlexHtmlHelper\FlexRenders.cs = FlexHtmlHelper\FlexRenders.cs
 		FlexHtmlHelper\FlexTagBuilder.cs = FlexHtmlHelper\FlexTagBuilder.cs
 		FlexHtmlHelper\IFlexRender.cs = FlexHtmlHelper\IFlexRender.cs
+		FlexHtmlHelper\PropertyHelper.cs = FlexHtmlHelper\PropertyHelper.cs
+		FlexHtmlHelper\TypeHelper.cs = FlexHtmlHelper\TypeHelper.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.Tests", "FlexHtmlHelper.Tests\FlexHtmlHelper.Tests.csproj", "{38465D05-DF6C-4472-A160-48CC4AD7CA64}"

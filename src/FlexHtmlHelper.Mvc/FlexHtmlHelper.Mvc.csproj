@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -71,6 +72,12 @@
     <Compile Include="..\FlexHtmlHelper\DefaultRender.cs">
       <Link>DefaultRender.cs</Link>
     </Compile>
+    <Compile Include="..\FlexHtmlHelper\DictionaryHelpers.cs">
+      <Link>DictionaryHelpers.cs</Link>
+    </Compile>
+    <Compile Include="..\FlexHtmlHelper\FlexFormContext.cs">
+      <Link>FlexFormContext.cs</Link>
+    </Compile>
     <Compile Include="..\FlexHtmlHelper\FlexRenderDictionary.cs">
       <Link>FlexRenderDictionary.cs</Link>
     </Compile>
@@ -83,17 +90,39 @@
     <Compile Include="..\FlexHtmlHelper\IFlexRender.cs">
       <Link>IFlexRender.cs</Link>
     </Compile>
+    <Compile Include="..\FlexHtmlHelper\PropertyHelper.cs">
+      <Link>PropertyHelper.cs</Link>
+    </Compile>
     <Compile Include="..\FlexHtmlHelper\Render\Bootstrap3Render.cs">
       <Link>Render\Bootstrap3Render.cs</Link>
     </Compile>
     <Compile Include="..\FlexHtmlHelper\Render\Foundation5Render.cs">
       <Link>Render\Foundation5Render.cs</Link>
     </Compile>
+    <Compile Include="..\FlexHtmlHelper\TypeHelper.cs">
+      <Link>TypeHelper.cs</Link>
+    </Compile>
     <Compile Include="FHtmlHelper.cs" />
     <Compile Include="FHtmlHelperOfTModel.cs" />
+    <Compile Include="Html\FlexCheckBox.cs" />
     <Compile Include="Html\FlexElement.cs" />
+    <Compile Include="Html\FlexForm.cs" />
+    <Compile Include="Html\FlexFormGroup.cs" />
+    <Compile Include="Html\FlexHidden.cs" />
+    <Compile Include="Html\FlexInput.cs" />
     <Compile Include="Html\FlexLabel.cs" />
+    <Compile Include="Html\FlexMvcForm.cs" />
+    <Compile Include="Html\FlexPassword.cs" />
+    <Compile Include="Html\FlexRadioButton.cs" />
+    <Compile Include="Html\FlexTextBox.cs" />
+    <Compile Include="Html\FlexValidationMessage.cs" />
+    <Compile Include="Html\FlexValidationSummary.cs" />
+    <Compile Include="Html\FormExtensions.cs" />
+    <Compile Include="Html\InputExtensions.cs" />
     <Compile Include="Html\LabelExtensions.cs" />
+    <Compile Include="Html\ValidationExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

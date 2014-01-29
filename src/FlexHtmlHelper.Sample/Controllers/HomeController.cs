@@ -18,7 +18,8 @@ namespace FlexHtmlHelperSample.Controllers
         {
             var model = new Student()
             {
-                 weight = 89.5M
+                 FirstName = "Jack",
+                 LastName = "Chen"
             };
 
             return View(model);

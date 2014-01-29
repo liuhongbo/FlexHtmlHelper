@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -20,6 +21,8 @@ namespace FlexHtmlHelper
         private string _idAttributeDotReplacement;
 
         private string _text;
+
+        static private string[] _voidElements = {"area", "base", "br", "col", "command", "embed", "hr", "img", "input","keygen", "link", "meta", "param", "source", "track", "wbr" };
 
         public FlexTagBuilder()
             : this(null, null)
@@ -68,6 +71,24 @@ namespace FlexHtmlHelper
             }
         }
 
+        public FlexTagBuilder Tag(string tagName)
+        {
+            return (tagName == TagName) ? this : InnerTags.FirstOrDefault(t => t.Tag(tagName) != null);
+        }
+
+        public FlexTagBuilder this[string tagName]
+        {
+            get
+            {
+                return Tag(tagName);
+            }            
+        }
+
+        private bool IsVoidElement()
+        {
+            return string.IsNullOrEmpty(TagName) ? false : _voidElements.Contains(TagName.ToLowerInvariant());
+        }
+
         private bool IsTextTag()
         {
             return (string.IsNullOrEmpty(TagName) && (ParentTag != null));
@@ -89,6 +110,7 @@ namespace FlexHtmlHelper
         public FlexTagBuilder AddTag(FlexTagBuilder tag)
         {
             InnerTags.Add(tag);
+            tag.ParentTag = this;
             return tag;
         }
 
@@ -252,7 +274,7 @@ namespace FlexHtmlHelper
 
         public override string ToString()
         {
-            return ToString(FlexTagRenderMode.Normal);
+            return IsVoidElement() ? ToString(FlexTagRenderMode.SelfClosing) : ToString(FlexTagRenderMode.Normal);
         }
 
         private void AppendString(StringBuilder sb)
@@ -260,6 +282,14 @@ namespace FlexHtmlHelper
             if (IsTextTag())
             {
                 sb.Append(_text);
+                return;
+            }
+
+            if (IsVoidElement())
+            {
+                sb.Append('<').Append(TagName);
+                AppendAttributes(sb);
+                sb.Append(" />");
                 return;
             }
 
