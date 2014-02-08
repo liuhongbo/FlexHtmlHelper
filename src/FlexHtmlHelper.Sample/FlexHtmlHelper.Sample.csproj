@@ -121,7 +121,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +162,7 @@
     <Content Include="Views\Form\Inline.cshtml" />
     <Content Include="Views\Input\Index.cshtml" />
     <Content Include="Views\Form\Horizontal.cshtml" />
+    <Content Include="Views\Form\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

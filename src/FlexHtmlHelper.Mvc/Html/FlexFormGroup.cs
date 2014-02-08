@@ -25,8 +25,33 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
+        public FlexTagBuilder GetInputTag()
+        {
+            return TagBuilder.Tag("input");
+        }
+
         public static FlexFormGroup Empty = new FlexFormGroup();
 
+    }
+
+    public static class FlexFormGroupExtensions
+    {
+
+        public static T HelpText<T>(this T formGroup, string text) where T: FlexFormGroup
+        {
+            formGroup.Render.FormGroupHelpText(formGroup.TagBuilder, text);
+            return formGroup;
+        }        
+
+        public static T Placeholder<T>(this T formGroup, string text) where T: FlexFormGroup
+        {
+            var input = formGroup.GetInputTag();
+            if (input != null)
+            {
+                formGroup.Render.Placeholder(input, text);
+            }
+            return formGroup;
+        }
     }
 
     public class FlexFormGroup<TModel> : FlexFormGroup

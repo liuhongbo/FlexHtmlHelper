@@ -18,11 +18,15 @@ namespace FlexHtmlHelper
 
     public class FlexTagBuilder
     {
+        private IDictionary<string, string> _attributes;
+
         private string _idAttributeDotReplacement;
 
         private string _text;
 
         static private string[] _voidElements = {"area", "base", "br", "col", "command", "embed", "hr", "img", "input","keygen", "link", "meta", "param", "source", "track", "wbr" };
+
+        #region Constructor
 
         public FlexTagBuilder()
             : this(null, null)
@@ -51,13 +55,80 @@ namespace FlexHtmlHelper
 
             TagName = tagName;
             ParentTag = parentTag;
-            Attributes = new SortedDictionary<string, string>(StringComparer.Ordinal);
+            _attributes = new SortedDictionary<string, string>(StringComparer.Ordinal);
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// http://www.w3.org/TR/html-markup/syntax.html
+        /// </summary>
+        /// <returns></returns>
+        private bool IsVoidElement()
+        {
+            return string.IsNullOrEmpty(TagName) ? false : _voidElements.Contains(TagName.ToLowerInvariant());
         }
 
 
-        public IDictionary<string, string> Attributes { get; private set; }
+        /// <summary>
+        /// text tag is an abstract tag with text
+        /// </summary>
+        /// <returns></returns>
+        private bool IsTextTag()
+        {
+            return (string.IsNullOrEmpty(TagName) && (!string.IsNullOrEmpty(_text)));
+        }
+
+        private bool IsAbstractTag()
+        {
+            return (string.IsNullOrEmpty(TagName));
+        }        
+
+        /// <summary>
+        /// return the attributes of the first non abstract tag, attributes on abstract tag is useless
+        /// </summary>
+        public IDictionary<string, string> Attributes
+        {
+            get
+            {
+                if (IsAbstractTag())
+                {
+                    var tag = this.Tag();
+                    if (tag != null)
+                    {
+                        return tag.Attributes;
+                    }
+                }               
+                
+                return _attributes;
+            }
+            private set
+            {
+                _attributes = value;
+            }
+        }
+
+        /// <summary>
+        /// tag name
+        /// </summary>
+        public string TagName { get; private set; }
+
+
+        /// <summary>
+        /// children tags
+        /// </summary>
         public IList<FlexTagBuilder> InnerTags { get; private set; }
+
+
+        /// <summary>
+        /// return parent tag
+        /// </summary>
         public FlexTagBuilder ParentTag { get; private set; }
+
+        /// <summary>
+        /// return root tag
+        /// </summary>
         public FlexTagBuilder RootTag
         {
             get
@@ -71,35 +142,51 @@ namespace FlexHtmlHelper
             }
         }
 
+        /// <summary>
+        /// find the first tag with name tagName
+        /// </summary>
+        /// <param name="tagName">tag's name</param>
+        /// <returns></returns>
         public FlexTagBuilder Tag(string tagName)
         {
+            if (TagName == null) return null;
+            if (InnerTags == null) return null;
             return (tagName == TagName) ? this : InnerTags.FirstOrDefault(t => t.Tag(tagName) != null);
         }
 
+        /// <summary>
+        /// find the first tag with name tagName
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
         public FlexTagBuilder this[string tagName]
         {
             get
             {
                 return Tag(tagName);
-            }            
+            }
         }
 
-        private bool IsVoidElement()
+        /// <summary>
+        /// find the first non-abstract tag
+        /// </summary>
+        /// <returns></returns>
+        public FlexTagBuilder Tag()
         {
-            return string.IsNullOrEmpty(TagName) ? false : _voidElements.Contains(TagName.ToLowerInvariant());
+            if (!IsAbstractTag()) 
+            {
+                return this;
+            }
+            else
+            {
+                if (InnerTags == null) return null;
+                if (InnerTags.Count == 0) return null;
+                return InnerTags.FirstOrDefault(t => t.Tag() != null);
+            }
         }
 
-        private bool IsTextTag()
-        {
-            return (string.IsNullOrEmpty(TagName) && (ParentTag != null));
-        }
-
-        private bool IsFakeRootTag()
-        {
-            return (string.IsNullOrEmpty(TagName) && (ParentTag == null));
-        }
-
-
+        
+        
         public FlexTagBuilder AddTag(string tagName)
         {
             var tag = new FlexTagBuilder(tagName, this);
@@ -109,8 +196,22 @@ namespace FlexHtmlHelper
 
         public FlexTagBuilder AddTag(FlexTagBuilder tag)
         {
-            InnerTags.Add(tag);
+            InnerTags.Add(tag);            
             tag.ParentTag = this;
+            return tag;
+        }
+
+        public FlexTagBuilder InsertTag(int index, FlexTagBuilder tag)
+        {
+            InnerTags.Insert(index, tag);
+            tag.ParentTag = this;
+            return tag;
+        }
+
+        public FlexTagBuilder InsertTag(int index, string tagName)
+        {
+            var tag = new FlexTagBuilder(tagName, this);
+            InnerTags.Insert(index, tag);
             return tag;
         }
 
@@ -133,13 +234,16 @@ namespace FlexHtmlHelper
                 return _idAttributeDotReplacement;
             }
             set { _idAttributeDotReplacement = value; }
-        }
-        
+        }       
 
-        public string TagName { get; private set; }
 
-        public void AddCssClass(string value)
-        {
+        /// <summary>
+        /// add css to this tag
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private FlexTagBuilder CssClass(string value)
+        {            
             string currentValue;
 
             if (Attributes.TryGetValue("class", out currentValue))
@@ -150,6 +254,26 @@ namespace FlexHtmlHelper
             {
                 Attributes["class"] = value;
             }
+            return this;
+        }
+
+
+        /// <summary>
+        /// add css to first non-abstract tag
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public FlexTagBuilder AddCssClass(string value)
+        {
+
+            FlexTagBuilder tag = this.Tag();
+
+            if (tag != null)
+            {
+                tag.CssClass(value);
+            }
+             
+            return this;
         }
 
         public static string CreateSanitizedId(string originalId)
@@ -194,7 +318,6 @@ namespace FlexHtmlHelper
 
             return sb.ToString();
         }
-
 
         public void GenerateId(string name)
         {
@@ -293,7 +416,7 @@ namespace FlexHtmlHelper
                 return;
             }
 
-            if (!IsFakeRootTag())
+            if (!IsAbstractTag())
             {
                 sb.Append('<')
                         .Append(TagName);
@@ -306,7 +429,7 @@ namespace FlexHtmlHelper
                 t.AppendString(sb);
             }
 
-            if (!IsFakeRootTag())
+            if (!IsAbstractTag())
             {
                 sb.Append("</")
                        .Append(TagName)

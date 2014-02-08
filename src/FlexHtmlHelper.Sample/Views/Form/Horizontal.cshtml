@@ -1,16 +1,30 @@
-﻿@model FlexHtmlHelperSample.Models.Student
+﻿@model Person
 @{
     ViewBag.Title = "Horizontal";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Horizontal</h2>
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("Horizontal", "Horizontal")</li>
+        <li>@Html.ActionLink("Inline", "Inline")</li>
+        <li>@Html.ActionLink("Default", "Default")</li>
+    </ul>
+</div>
 
+<br />
 
 <div class="row">
 
-    @using (var form = Html.f().Form().Horizontal().BeginForm())
+    @using (var form = Html.f().Form().Horizontal().Label_col_sm(2).Input_col_sm(10).BeginForm())
     {
         @form.TextBoxFor(Model => Model.FirstName)
-    }
+        @form.TextBoxFor(Model=> Model.LastName)
+        @form.PasswordFor(Model=>Model.Password)
+        @form.CheckBoxFor(Model=>Model.AcceptTerms)
+        
+    } 
+
+    
 </div>

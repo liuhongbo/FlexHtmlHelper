@@ -14,7 +14,7 @@ namespace FlexHtmlHelperSample.Controllers
         // GET: /Form/
         public ActionResult Inline()
         {
-            var model = new Student()
+            var model = new Person()
             {
                 FirstName = "",
                 LastName = ""
@@ -25,7 +25,7 @@ namespace FlexHtmlHelperSample.Controllers
 
         public ActionResult Horizontal()
         {
-            var model = new Student()
+            var model = new Person()
             {
                 FirstName = "",
                 LastName = ""
@@ -34,6 +34,15 @@ namespace FlexHtmlHelperSample.Controllers
             return View(model);
         }
 
-        
+        public ActionResult Default()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = ""
+            };
+
+            return View(model);
+        }
 	}
 }

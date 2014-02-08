@@ -11,6 +11,8 @@ namespace FlexHtmlHelper.Mvc.Html
     public class FlexForm: FlexElement
     {
 
+        private FlexFormContext _formContext = new FlexFormContext();
+
         public FlexForm(FHtmlHelper flexHtmlHelper,FlexTagBuilder tagBuilder)
             : base(flexHtmlHelper,tagBuilder)
         {
@@ -29,8 +31,12 @@ namespace FlexHtmlHelper.Mvc.Html
         }
         public static FlexForm Empty = new FlexForm();
 
-        internal FlexFormContext FormContext { get; set; }        
-       
+        internal FlexFormContext FormContext
+        {
+            get { return _formContext; }
+            private set { _formContext = value; }
+        }
+      
         public FlexMvcForm BeginForm()
         {
             bool traditionalJavascriptEnabled = HtmlHelper.ViewContext.ClientValidationEnabled
@@ -80,7 +86,111 @@ namespace FlexHtmlHelper.Mvc.Html
             flexForm.FormContext.LayoutStyle = FormLayoutStyle.Horizontal;
             return flexForm;
         }
-    }
+
+        public static T Label_col_xs<T>(this T flexForm, int columns) where T: FlexForm
+        {
+            if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.ExtraSmall))
+            {
+                flexForm.FormContext.LabelColumns[GridStyle.ExtraSmall] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.LabelColumns.Add(GridStyle.ExtraSmall, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Label_col_sm<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Small))
+            {
+                flexForm.FormContext.LabelColumns[GridStyle.Small] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.LabelColumns.Add(GridStyle.Small, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Label_col_md<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Medium))
+            {
+                flexForm.FormContext.LabelColumns[GridStyle.Medium] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.LabelColumns.Add(GridStyle.Medium, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Label_col_lg<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Large))
+            {
+                flexForm.FormContext.LabelColumns[GridStyle.Large] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.LabelColumns.Add(GridStyle.Large, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Input_col_xs<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.ExtraSmall))
+            {
+                flexForm.FormContext.InputColumns[GridStyle.ExtraSmall] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.InputColumns.Add(GridStyle.ExtraSmall, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Input_col_sm<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Small))
+            {
+                flexForm.FormContext.InputColumns[GridStyle.Small] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.InputColumns.Add(GridStyle.Small, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Input_col_md<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Medium))
+            {
+                flexForm.FormContext.InputColumns[GridStyle.Medium] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.InputColumns.Add(GridStyle.Medium, columns);
+            }
+            return flexForm;
+        }
+
+        public static T Input_col_lg<T>(this T flexForm, int columns) where T : FlexForm
+        {
+            if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Large))
+            {
+                flexForm.FormContext.InputColumns[GridStyle.Large] = columns;
+            }
+            else
+            {
+                flexForm.FormContext.InputColumns.Add(GridStyle.Large, columns);
+            }
+            return flexForm;
+        }
+    } 
 
     public class FlexForm<TModel> : FlexForm
     {

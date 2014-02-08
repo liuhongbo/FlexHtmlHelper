@@ -1,0 +1,30 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Default";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
+        <li>@Html.ActionLink("Inline", "Inline")</li>
+        <li class="active">@Html.ActionLink("Default", "Default")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+
+    @using (var form = Html.f().Form().Label_col_sm(2).Input_col_sm(10).BeginForm())
+    {
+        @form.TextBoxFor(Model => Model.FirstName).HelpText("Enter First Name").Placeholder("First Name");
+        @form.TextBoxFor(Model => Model.LastName)
+        @form.PasswordFor(Model => Model.Password)
+        @form.CheckBoxFor(Model => Model.AcceptTerms)
+
+    }
+
+
+</div>

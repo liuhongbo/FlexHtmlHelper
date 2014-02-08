@@ -16,7 +16,7 @@ namespace FlexHtmlHelperSample.Controllers
 
         public ActionResult About()
         {
-            var model = new Student()
+            var model = new Person()
             {
                  FirstName = "Jack",
                  LastName = "Chen"

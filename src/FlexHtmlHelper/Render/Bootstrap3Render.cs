@@ -46,12 +46,143 @@ namespace FlexHtmlHelper.Render
             return tag;
         }
 
-        public override FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder)
+        public override FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag)
         {
             FlexTagBuilder tag = new FlexTagBuilder("div");
 
-            tag.AddCssClass("form-group");
+            if (!inputTag.Attributes.Keys.Contains("type"))
+            {
+                throw new ArgumentException("Invalid parameter inputTag");
+            }
 
+            string inputType = inputTag.Attributes["type"];
+
+            switch (formContext.LayoutStyle)
+            {
+                case FormLayoutStyle.Default:
+                    switch (inputType)
+                    {
+                        case "text":
+                        case "email":
+                        case "password":
+                            tag.AddCssClass("form-group");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        case "radio":
+                            tag.AddCssClass("radio");
+                            tag.AddTag(labelTag);
+                            labelTag.InsertTag(0, inputTag);
+                            break;
+                        case "checkbox":
+                            tag.AddCssClass("checkbox");
+                            tag.AddTag(labelTag);
+                            labelTag.InsertTag(0, inputTag);
+                            break;
+                        case "hidden":
+                            tag.AddTag(inputTag);
+                            break;
+                    }
+                    break;
+                case FormLayoutStyle.Horizontal:
+                    switch (inputType)
+                    {
+                        case "text":
+                        case "email":
+                        case "password":
+                            tag.AddCssClass("form-group");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumns(labelTag, col.Key, col.Value);
+                            }
+                            labelTag.AddCssClass("control-label");
+                            tag.AddTag(labelTag);
+                            
+                            FlexTagBuilder inputDivTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(inputDivTag, col.Key, col.Value);
+                            }
+                            inputDivTag.AddTag(inputTag).AddCssClass("form-control");
+
+                            tag.AddTag(inputDivTag);
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        case "radio":
+                             tag.AddCssClass("form-group");
+                            FlexTagBuilder radioColTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumnOffset(radioColTag, col.Key, col.Value);
+                            }
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(radioColTag, col.Key, col.Value);
+                            }
+
+                            tag.AddTag(radioColTag);
+                            FlexTagBuilder radioTag = new FlexTagBuilder("div");
+                            radioTag.AddCssClass("radio");
+                            radioColTag.AddTag(radioTag);
+
+                            radioTag.AddTag(labelTag);
+                            labelTag.InsertTag(0,inputTag);
+                            break;
+                        case "checkbox":
+                            tag.AddCssClass("form-group");
+                            FlexTagBuilder colTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumnOffset(colTag, col.Key, col.Value);
+                            }
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(colTag, col.Key, col.Value);
+                            }
+
+                            tag.AddTag(colTag);
+                            FlexTagBuilder checkBoxTag = new FlexTagBuilder("div");
+                            checkBoxTag.AddCssClass("checkbox");
+                            colTag.AddTag(checkBoxTag);
+
+                            checkBoxTag.AddTag(labelTag);
+                            labelTag.InsertTag(0,inputTag);
+                            break;
+                        case "hidden":
+                            tag.AddTag(inputTag);
+                            break;
+                    }
+                    break;
+                case FormLayoutStyle.Inline:
+                    switch (inputType)
+                    {
+                        case "text":
+                        case "email":
+                        case "password":
+                            tag.AddCssClass("form-group");
+                            labelTag.AddCssClass("sr-only");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        case "radio":
+                            tag.AddCssClass("radio");
+                            tag.AddTag(labelTag);
+                            labelTag.InsertTag(0, inputTag);
+                            break;
+                        case "checkbox":
+                            tag.AddCssClass("checkbox");
+                            tag.AddTag(labelTag);
+                            labelTag.InsertTag(0, inputTag);
+                            break;
+                        case "hidden":
+                            tag.AddTag(inputTag);
+                            break;
+                    }
+                    break;                   
+            }
+            
             tagBuilder.AddTag(tag);
 
             return tag;
@@ -89,16 +220,16 @@ namespace FlexHtmlHelper.Render
             switch (style)
             {
                 case GridStyle.ExtraSmall:
-                    cssClass = "col-xs-offset";
+                    cssClass = "col-xs-offset-";
                     break;
                 case GridStyle.Small:
-                    cssClass = "col-sm-offset";
+                    cssClass = "col-sm-offset-";
                     break;
                 case GridStyle.Medium:
-                    cssClass = "col-md-offset";
+                    cssClass = "col-md-offset-";
                     break;
                 case GridStyle.Large:
-                    cssClass = "col-lg-offset";
+                    cssClass = "col-lg-offset-";
                     break;
             }
             tagBuilder.AddCssClass(cssClass + columns.ToString());
@@ -171,6 +302,24 @@ namespace FlexHtmlHelper.Render
         public override FlexTagBuilder FormControl(FlexTagBuilder tagBuilder)
         {
             tagBuilder.AddCssClass("form-control");
+            return tagBuilder;
+        }
+
+
+        public override FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text)
+        {
+            tagBuilder.AddTag("span").AddCssClass("help-block").AddText(text);
+            return tagBuilder;
+        }
+
+        #endregion
+
+
+        #region Html
+
+        public override FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
+        {
+            tagBuilder.Attributes["placeholder"] = text;
             return tagBuilder;
         }
 

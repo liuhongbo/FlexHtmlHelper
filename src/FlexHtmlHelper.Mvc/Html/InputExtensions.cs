@@ -572,7 +572,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
             switch (inputType)
             {
-                case InputType.CheckBox:                   
+                case InputType.CheckBox:                    
                     ret = new FlexCheckBox(htmlHelper, input);
                     break;
                 case InputType.Hidden:                    

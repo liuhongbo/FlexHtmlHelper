@@ -36,7 +36,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder TextBoxHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ValidationMessageHelper(FlexTagBuilder tagBuilder, string validationMessage, bool isValid, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ValidationSummaryHelper(FlexTagBuilder tagBuilder, string validationMessage, IEnumerable<string> errorMessages, IDictionary<string, object> htmlAttributes);
-        FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder);
+        FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag);
 
         #endregion
 
@@ -53,6 +53,13 @@ namespace FlexHtmlHelper
 
         FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout);
         FlexTagBuilder FormControl(FlexTagBuilder tagBuilder);
+        FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text);
+
+        #endregion
+
+        #region Html
+
+        FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text);
 
         #endregion
 

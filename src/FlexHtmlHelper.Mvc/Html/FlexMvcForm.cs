@@ -19,6 +19,7 @@ namespace FlexHtmlHelper.Mvc.Html
             : base(htmlHelper.HtmlHelper.ViewContext)
         {
             FHtmlHelper = htmlHelper;
+            FormContext = formContext;
         }
 
         public FHtmlHelper FHtmlHelper { get; set; }
@@ -643,15 +644,13 @@ namespace FlexHtmlHelper.Mvc.Html
 
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
-            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder());
-
-
+            
             FlexLabel label = htmlHelper.LabelHelper(metadata, name);
-            FlexInput input = 
+            FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value,useViewData, isChecked, setId, isExplicitValue, format,htmlAttributes);
+            FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
-            formGroup.AddTag(htmlHelper.LabelHelper(metadata, name).TagBuilder);
-            formGroup.AddTag((htmlHelper.InputHelper<FlexTextBox>(inputType, metadata, name, value,useViewData, isChecked, setId, isExplicitValue, format,htmlAttributes).FormControl()).TagBuilder);
-            formGroup.AddTag(htmlHelper.ValidationMessageHelper(metadata, name, null, null).TagBuilder);
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder,input.TagBuilder,validateMessage.TagBuilder);
+
             return formGroup;
         }
 

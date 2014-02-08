@@ -61,7 +61,7 @@ namespace FlexHtmlHelper
 
             tagBuilder.AddTag(hiddenInput);
 
-            return tag;
+            return tagBuilder;
         }
 
         public virtual FlexTagBuilder HiddenHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes)
@@ -163,8 +163,9 @@ namespace FlexHtmlHelper
             return tag;
         }
 
-        public virtual FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder)
+        public virtual FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag)
         {
+
             return tagBuilder;
         }
 
@@ -203,6 +204,21 @@ namespace FlexHtmlHelper
         }
 
         public virtual FlexTagBuilder FormControl(FlexTagBuilder tagBuilder)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text)
+        {
+            return tagBuilder;
+        }
+
+        #endregion
+
+
+        #region Html
+
+        public virtual FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
         {
             return tagBuilder;
         }
