@@ -143,15 +143,24 @@ namespace FlexHtmlHelper
         }
 
         /// <summary>
-        /// find the first tag with name tagName
+        /// find the first inner tag with name tagName
         /// </summary>
         /// <param name="tagName">tag's name</param>
         /// <returns></returns>
         public FlexTagBuilder Tag(string tagName)
-        {
-            if (TagName == null) return null;
+        {   
+            if (tagName == TagName) return this;
             if (InnerTags == null) return null;
-            return (tagName == TagName) ? this : InnerTags.FirstOrDefault(t => t.Tag(tagName) != null);
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.Tag(tagName);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -181,12 +190,26 @@ namespace FlexHtmlHelper
             {
                 if (InnerTags == null) return null;
                 if (InnerTags.Count == 0) return null;
-                return InnerTags.FirstOrDefault(t => t.Tag() != null);
+                foreach (FlexTagBuilder tag in InnerTags)
+                {
+                    var t = tag.Tag();
+                    if (t != null)
+                    {
+                        return t;
+                    }
+                }
+                return null;
             }
         }
 
-        
-        
+        public FlexTagBuilder TextTag
+        {
+            get
+            {
+                return InnerTags.FirstOrDefault(t => (t.IsTextTag()));
+            }
+        }
+
         public FlexTagBuilder AddTag(string tagName)
         {
             var tag = new FlexTagBuilder(tagName, this);
@@ -385,7 +408,7 @@ namespace FlexHtmlHelper
             }
         }
 
-        private void SetText(string text)
+        internal void SetText(string text)
         {
             _text = HttpUtility.HtmlEncode(text);
         }

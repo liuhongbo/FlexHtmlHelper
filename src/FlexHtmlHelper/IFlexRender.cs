@@ -54,6 +54,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout);
         FlexTagBuilder FormControl(FlexTagBuilder tagBuilder);
         FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text);
+        FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text);
 
         #endregion
 

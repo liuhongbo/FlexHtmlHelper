@@ -37,6 +37,12 @@ namespace FlexHtmlHelper.Mvc.Html
     public static class FlexFormGroupExtensions
     {
 
+        public static T LabelText<T>(this T formGroup, string text) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupLabelText(formGroup.TagBuilder, text);
+            return formGroup;
+        }
+
         public static T HelpText<T>(this T formGroup, string text) where T: FlexFormGroup
         {
             formGroup.Render.FormGroupHelpText(formGroup.TagBuilder, text);

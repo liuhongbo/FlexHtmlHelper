@@ -213,6 +213,11 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
 

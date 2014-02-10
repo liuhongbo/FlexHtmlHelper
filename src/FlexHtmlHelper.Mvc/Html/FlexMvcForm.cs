@@ -649,6 +649,17 @@ namespace FlexHtmlHelper.Mvc.Html
             FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value,useViewData, isChecked, setId, isExplicitValue, format,htmlAttributes);
             FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
+            if (inputType == InputType.Radio)
+            {
+                var originalId = input.TagBuilder.Attributes["id"];
+                if ((originalId != null) && (value!= null))
+                {
+                    var newId = originalId + "_" + value.ToString();
+                    input.TagBuilder.Attributes["id"] = newId;
+                    label.TagBuilder.Attributes["for"] = newId;
+                }
+            }
+
             FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder,input.TagBuilder,validateMessage.TagBuilder);
 
             return formGroup;

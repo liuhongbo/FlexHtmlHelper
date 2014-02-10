@@ -312,6 +312,18 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
+
+        public override FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text)
+        {
+            var tag = tagBuilder.Tag("label");
+            if (tag != null)
+            {
+                tag.TextTag.SetText(text);
+            }
+            return tagBuilder;
+        }
+
+
         #endregion
 
 

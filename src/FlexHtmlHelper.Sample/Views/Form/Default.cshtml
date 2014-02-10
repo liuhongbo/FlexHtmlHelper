@@ -23,6 +23,8 @@
         @form.TextBoxFor(Model => Model.LastName)
         @form.PasswordFor(Model => Model.Password)
         @form.CheckBoxFor(Model => Model.AcceptTerms)
+        @form.RadioButtonFor(Model => Model.Gender, "M").LabelText("Male")
+        @form.RadioButtonFor(Model => Model.Gender, "F").LabelText("Female")
 
     }
 
