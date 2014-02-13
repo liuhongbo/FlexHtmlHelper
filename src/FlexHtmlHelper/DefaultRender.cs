@@ -1,5 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+#if FLEXHTMLHELPER_MVC
+using System.Web.Mvc;
+using System;
+#else
+using System.Web.WebPages;
+#endif
 
 namespace FlexHtmlHelper
 {
@@ -168,6 +174,51 @@ namespace FlexHtmlHelper
 
             return tagBuilder;
         }
+
+
+        protected FlexTagBuilder ListItemToOption(SelectListItem item)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("option");
+            tag.AddText(item.Text);
+            if (item.Value != null)
+            {
+                tag.Attributes["value"] = item.Value;
+            }
+            if (item.Selected)
+            {
+                tag.Attributes["selected"] = "selected";
+            }
+            return tag;
+        }
+
+        public virtual FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("select");
+
+            // Make optionLabel the first item that gets rendered.
+            if (optionLabel != null)
+            {
+                tag.AddTag(ListItemToOption(new SelectListItem() { Text = optionLabel, Value = String.Empty, Selected = false }));
+            }
+
+            foreach (SelectListItem item in selectList)
+            {
+                tag.AddTag(ListItemToOption(item));
+            }
+
+            tag.MergeAttributes(htmlAttributes);
+            tag.MergeAttribute("name", name, true /* replaceExisting */);
+            tag.GenerateId(name);
+            if (allowMultiple)
+            {
+                tag.MergeAttribute("multiple", "multiple");
+            }
+
+            tagBuilder.AddTag(tag);
+
+            return tagBuilder;
+        }
+
 
         #endregion
 

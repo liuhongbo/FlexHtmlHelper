@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Diagnostics.CodeAnalysis;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
@@ -644,15 +646,15 @@ namespace FlexHtmlHelper.Mvc.Html
 
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
-            
+
             FlexLabel label = htmlHelper.LabelHelper(metadata, name);
-            FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value,useViewData, isChecked, setId, isExplicitValue, format,htmlAttributes);
+            FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
             FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
             if (inputType == InputType.Radio)
             {
                 var originalId = input.TagBuilder.Attributes["id"];
-                if ((originalId != null) && (value!= null))
+                if ((originalId != null) && (value != null))
                 {
                     var newId = originalId + "_" + value.ToString();
                     input.TagBuilder.Attributes["id"] = newId;
@@ -660,8 +662,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 }
             }
 
-            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder,input.TagBuilder,validateMessage.TagBuilder);
-
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, input.TagBuilder, validateMessage.TagBuilder);
             return formGroup;
         }
 
@@ -670,5 +671,411 @@ namespace FlexHtmlHelper.Mvc.Html
             return dictionary == null ? new RouteValueDictionary() : new RouteValueDictionary(dictionary);
         }
 
+
+        #region SELECT
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name)
+        {
+            return DropDownList(form, name, null /* selectList */, null /* optionLabel */, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, string optionLabel)
+        {
+            return DropDownList(form, name, null /* selectList */, optionLabel, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList)
+        {
+            return DropDownList(form, name, selectList, null /* optionLabel */, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        {
+            return DropDownList(form, name, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            return DropDownList(form, name, selectList, null /* optionLabel */, htmlAttributes);
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, string optionLabel)
+        {
+            return DropDownList(form, name, selectList, optionLabel, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        {
+            return DropDownList(form, name, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup DropDownList(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        {
+            return DropDownListHelper(form, metadata: null, expression: name, selectList: selectList, optionLabel: optionLabel, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+        {
+            return DropDownListFor(form, expression, selectList, null /* optionLabel */, null /* htmlAttributes */);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        {
+            return DropDownListFor(form, expression, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            return DropDownListFor(form, expression, selectList, null /* optionLabel */, htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+        {
+            return DropDownListFor(form, expression, selectList, optionLabel, null /* htmlAttributes */);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        {
+            return DropDownListFor(form, expression, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Users cannot use anonymous methods with the LambdaExpression type")]
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> DropDownListFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData);
+
+            return DropDownListHelper(form, metadata, ExpressionHelper.GetExpressionText(expression), selectList, optionLabel, htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression)
+        {
+            return EnumDropDownListFor(form, expression, optionLabel: null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
+        {
+            return EnumDropDownListFor(form, expression, optionLabel: null, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            return EnumDropDownListFor(form, expression, optionLabel: null, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression, string optionLabel)
+        {
+            return EnumDropDownListFor(form, expression, optionLabel, (IDictionary<string, object>)null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression, string optionLabel, object htmlAttributes)
+        {
+            return EnumDropDownListFor(form, expression, optionLabel,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        // Unable to constrain TEnum.  Cannot include IComparable, IConvertible, IFormattable because Nullable<T> does
+        // not implement those interfaces (and Int32 does).  Enum alone is not compatible with expression restrictions
+        // because that requires a cast from all enum types.  And the struct generic constraint disallows passing a
+        // Nullable<T> expression.
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures",
+            Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> EnumDropDownListFor<TModel, TEnum>(this FlexMvcForm<TModel> form,
+            Expression<Func<TModel, TEnum>> expression, string optionLabel, IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData);
+            if (metadata == null)
+            {
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_SelectExtensions_InvalidExpressionParameterNoMetadata), expression.ToString()), "expression");
+
+            }
+
+            if (metadata.ModelType == null)
+            {
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_SelectExtensions_InvalidExpressionParameterNoModelType), expression.ToString()), "expression");
+            }
+
+            if (!EnumHelper.IsValidForEnumHelper(metadata.ModelType))
+            {
+                string formatString;
+                if (EnumHelper.HasFlags(metadata.ModelType))
+                {
+                    formatString = FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_SelectExtensions_InvalidExpressionParameterTypeHasFlags);
+                }
+                else
+                {
+                    formatString = FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_SelectExtensions_InvalidExpressionParameterType);
+                }
+
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, formatString, expression.ToString()), "expression");
+            }
+
+            // Run through same processing as SelectInternal() to determine selected value and ensure it is included
+            // in the select list.
+            string expressionName = ExpressionHelper.GetExpressionText(expression);
+            string expressionFullName =
+                form.FHtmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionName);
+            Enum currentValue = null;
+            if (!String.IsNullOrEmpty(expressionFullName))
+            {
+                currentValue = form.FHtmlHelper.GetModelStateValue(expressionFullName, metadata.ModelType) as Enum;
+            }
+
+            if (currentValue == null && !String.IsNullOrEmpty(expressionName))
+            {
+                // Ignore any select list (enumerable with this name) in the view data
+                currentValue = form.FHtmlHelper.HtmlHelper.ViewData.Eval(expressionName) as Enum;
+            }
+
+            if (currentValue == null)
+            {
+                currentValue = metadata.Model as Enum;
+            }
+
+            IList<SelectListItem> selectList = EnumHelper.GetSelectList(metadata.ModelType, currentValue);
+            if (!String.IsNullOrEmpty(optionLabel) && selectList.Count != 0 && String.IsNullOrEmpty(selectList[0].Text))
+            {
+                // Were given an optionLabel and the select list has a blank initial slot.  Combine.
+                selectList[0].Text = optionLabel;
+
+                // Use the option label just once; don't pass it down the lower-level helpers.
+                optionLabel = null;
+            }
+
+            return DropDownListHelper(form, metadata, expressionName, selectList, optionLabel, htmlAttributes);
+        }
+
+        private static FlexFormGroup DropDownListHelper(this FlexMvcForm form, ModelMetadata metadata, string expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        {
+            return SelectInternal(form, metadata, optionLabel, expression, selectList, allowMultiple: false, htmlAttributes: htmlAttributes);
+        }
+
+        private static FlexFormGroup<TModel> DropDownListHelper<TModel>(this FlexMvcForm<TModel> form, ModelMetadata metadata, string expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        {
+            return SelectInternal(form, metadata, optionLabel, expression, selectList, allowMultiple: false, htmlAttributes: htmlAttributes);
+        }
+
+        // ListBox
+
+        public static FlexFormGroup ListBox(this FlexMvcForm form, string name)
+        {
+            return ListBox(form, name, null /* selectList */, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup ListBox(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList)
+        {
+            return ListBox(form, name, selectList, (IDictionary<string, object>)null);
+        }
+
+        public static FlexFormGroup ListBox(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        {
+            return ListBox(form, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup ListBox(this FlexMvcForm form, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            return ListBoxHelper(form, metadata: null, name: name, selectList: selectList, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> ListBoxFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+        {
+            return ListBoxFor(form, expression, selectList, null /* htmlAttributes */);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> ListBoxFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        {
+            return ListBoxFor(form, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Users cannot use anonymous methods with the LambdaExpression type")]
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> ListBoxFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData);
+
+            return ListBoxHelper(form,
+                                 metadata,
+                                 ExpressionHelper.GetExpressionText(expression),
+                                 selectList,
+                                 htmlAttributes);
+        }
+
+        private static FlexFormGroup ListBoxHelper(FlexMvcForm form, ModelMetadata metadata, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            return SelectInternal(form, metadata, optionLabel: null, name: name, selectList: selectList, allowMultiple: true, htmlAttributes: htmlAttributes);
+        }
+
+        private static FlexFormGroup<TModel> ListBoxHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            return SelectInternal(form, metadata, optionLabel: null, name: name, selectList: selectList, allowMultiple: true, htmlAttributes: htmlAttributes);
+        }
+
+        // Helper methods
+
+        private static IEnumerable<SelectListItem> GetSelectData(this FHtmlHelper htmlHelper, string name)
+        {
+            object o = null;
+            if (htmlHelper.HtmlHelper.ViewData != null)
+            {
+                o = htmlHelper.HtmlHelper.ViewData.Eval(name);
+            }
+            if (o == null)
+            {
+                throw new InvalidOperationException(
+                    String.Format(
+                        CultureInfo.CurrentCulture,
+                        FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_MissingSelectData),
+                        name,
+                        "IEnumerable<SelectListItem>"));
+            }
+            IEnumerable<SelectListItem> selectList = o as IEnumerable<SelectListItem>;
+            if (selectList == null)
+            {
+                throw new InvalidOperationException(
+                    String.Format(
+                        CultureInfo.CurrentCulture,
+                        FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_WrongSelectDataType),
+                        name,
+                        o.GetType().FullName,
+                        "IEnumerable<SelectListItem>"));
+            }
+            return selectList;
+        }
+
+        internal static string ListItemToOption(SelectListItem item)
+        {
+            TagBuilder builder = new TagBuilder("option")
+            {
+                InnerHtml = HttpUtility.HtmlEncode(item.Text)
+            };
+            if (item.Value != null)
+            {
+                builder.Attributes["value"] = item.Value;
+            }
+            if (item.Selected)
+            {
+                builder.Attributes["selected"] = "selected";
+            }
+            return builder.ToString(TagRenderMode.Normal);
+        }
+
+        private static IEnumerable<SelectListItem> GetSelectListWithDefaultValue(IEnumerable<SelectListItem> selectList, object defaultValue, bool allowMultiple)
+        {
+            IEnumerable defaultValues;
+
+            if (allowMultiple)
+            {
+                defaultValues = defaultValue as IEnumerable;
+                if (defaultValues == null || defaultValues is string)
+                {
+                    throw new InvalidOperationException(
+                        String.Format(
+                            CultureInfo.CurrentCulture,
+                            FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_SelectExpressionNotEnumerable),
+                            "expression"));
+                }
+            }
+            else
+            {
+                defaultValues = new[] { defaultValue };
+            }
+
+            IEnumerable<string> values = from object value in defaultValues
+                                         select Convert.ToString(value, CultureInfo.CurrentCulture);
+
+            // ToString() by default returns an enum value's name.  But selectList may use numeric values.
+            IEnumerable<string> enumValues = from Enum value in defaultValues.OfType<Enum>()
+                                             select value.ToString("d");
+            values = values.Concat(enumValues);
+
+            HashSet<string> selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
+            List<SelectListItem> newSelectList = new List<SelectListItem>();
+
+            foreach (SelectListItem item in selectList)
+            {
+                item.Selected = (item.Value != null) ? selectedValues.Contains(item.Value) : selectedValues.Contains(item.Text);
+                newSelectList.Add(item);
+            }
+            return newSelectList;
+        }
+
+        private static FlexFormGroup SelectInternal(FlexMvcForm form, ModelMetadata metadata,
+            string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple,
+            IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroup = SelectTagBuilderHelper(form, metadata, optionLabel, name,selectList, allowMultiple, htmlAttributes);
+
+            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+        }
+
+
+        private static FlexFormGroup<TModel> SelectInternal<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata,
+            string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple,
+            IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroup = SelectTagBuilderHelper(form, metadata, optionLabel, name,selectList, allowMultiple, htmlAttributes);
+
+            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+        }
+
+
+        private static FlexTagBuilder SelectTagBuilderHelper(FlexMvcForm form,  ModelMetadata metadata,
+            string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple,
+            IDictionary<string, object> htmlAttributes)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            if (String.IsNullOrEmpty(fullName))
+            {
+                throw new ArgumentException(FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_Common_NullOrEmpty), "name");
+            }
+
+            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexSelect input = htmlHelper.SelectInternal(metadata, optionLabel, name, selectList, allowMultiple, htmlAttributes);
+            FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
+
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, input.TagBuilder, validateMessage.TagBuilder);
+            return formGroup;
+        }
+
+        #endregion
     }
 }

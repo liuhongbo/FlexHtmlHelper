@@ -11,14 +11,17 @@ namespace FlexHtmlHelperSample.Controllers
     {
         //
         // GET: /Input/
-        public ActionResult Index()
+        public ActionResult Select()
         {
-            var model = new LoginModel()
+            var model = new Person()
             {
-                Username = "test",
-                Password = "",
-                RememberMe = false
+                FirstName = "",
+                LastName = ""
             };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
 
             return View(model);           
         }

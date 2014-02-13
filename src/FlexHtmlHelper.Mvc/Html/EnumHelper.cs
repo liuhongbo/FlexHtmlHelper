@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Web.Mvc;
 using System.Web.Mvc.Properties;
 
-namespace FlexHtmlHelper.Html
+namespace FlexHtmlHelper.Mvc.Html
 {
     public static class EnumHelper
     {
@@ -83,12 +86,12 @@ namespace FlexHtmlHelper.Html
         {
             if (type == null)
             {
-                throw Error.ArgumentNull("type");
+                throw new ArgumentNullException("type");
             }
 
             if (!IsValidForEnumHelper(type))
             {
-                throw Error.Argument("type", MvcResources.EnumHelper_InvalidParameterType, type.FullName);
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidParameterType), type.FullName), "type");                
             }
 
             IList<SelectListItem> selectList = new List<SelectListItem>();
@@ -133,18 +136,17 @@ namespace FlexHtmlHelper.Html
         {
             if (metadata == null)
             {
-                throw Error.ArgumentNull("metadata");
+                throw new ArgumentNullException("metadata");
             }
 
             if (metadata.ModelType == null)
-            {
-                throw Error.Argument("metadata", MvcResources.EnumHelper_InvalidMetadataParameter);
+            {              
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidMetadataParameter)), "metadata");  
             }
 
             if (!IsValidForEnumHelper(metadata))
-            {
-                throw Error.Argument("metadata", MvcResources.EnumHelper_InvalidParameterType,
-                    metadata.ModelType.FullName);
+            {                
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidParameterType), metadata.ModelType.FullName), "type");  
             }
 
             return GetSelectList(metadata.ModelType);
@@ -173,9 +175,8 @@ namespace FlexHtmlHelper.Html
 
             Type valueType = (value == null) ? null : value.GetType();
             if (valueType != null && valueType != type && valueType != Nullable.GetUnderlyingType(type))
-            {
-                throw Error.Argument("value", MvcResources.EnumHelper_InvalidValueParameter, valueType.FullName,
-                    type.FullName);
+            {               
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidValueParameter), valueType.FullName, type.FullName), "value");  
             }
 
             if (value == null && selectList.Count != 0 && String.IsNullOrEmpty(selectList[0].Value))
@@ -239,19 +240,18 @@ namespace FlexHtmlHelper.Html
         public static IList<SelectListItem> GetSelectList(ModelMetadata metadata, Enum value)
         {
             if (metadata == null)
-            {
-                throw Error.ArgumentNull("metadata");
+            {               
+                throw new ArgumentNullException("metadata");
             }
 
             if (metadata.ModelType == null)
-            {
-                throw Error.Argument("metadata", MvcResources.EnumHelper_InvalidMetadataParameter);
+            {               
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidMetadataParameter)), "metadata"); 
             }
 
             if (!IsValidForEnumHelper(metadata))
-            {
-                throw Error.Argument("metadata", MvcResources.EnumHelper_InvalidParameterType,
-                    metadata.ModelType.FullName);
+            {                
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_EnumHelper_InvalidParameterType), metadata.ModelType.FullName), "type");  
             }
 
             return GetSelectList(metadata.ModelType, value);

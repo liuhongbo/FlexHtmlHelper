@@ -19,13 +19,15 @@
 
     @using (var form = Html.f().Form().Label_col_sm(2).Input_col_sm(10).BeginForm())
     {
-        @form.TextBoxFor(Model => Model.FirstName).HelpText("Enter First Name").Placeholder("First Name");
-        @form.TextBoxFor(Model => Model.LastName)
-        @form.PasswordFor(Model => Model.Password)
-        @form.CheckBoxFor(Model => Model.AcceptTerms)
-        @form.RadioButtonFor(Model => Model.Gender, "M").LabelText("Male")
-        @form.RadioButtonFor(Model => Model.Gender, "F").LabelText("Female")
-
+        @form.TextBoxFor(m => m.FirstName).HelpText("Enter First Name").Placeholder("First Name");
+        @form.TextBoxFor(m => m.LastName)
+        @form.PasswordFor(m => m.Password)
+        @form.CheckBoxFor(m => m.AcceptTerms)        
+        @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male")
+        @form.RadioButtonFor(m => m.Gender, "F").LabelText("Female")
+        @form.ListBoxFor(m=>m.TimeZoneId,Model.AvailableTimeZones)
+        
+        
     }
 
 

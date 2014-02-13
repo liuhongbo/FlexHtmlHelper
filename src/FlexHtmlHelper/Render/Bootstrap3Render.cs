@@ -50,12 +50,25 @@ namespace FlexHtmlHelper.Render
         {
             FlexTagBuilder tag = new FlexTagBuilder("div");
 
+            string inputType;
             if (!inputTag.Attributes.Keys.Contains("type"))
             {
-                throw new ArgumentException("Invalid parameter inputTag");
+
+                if (inputTag.Tag().TagName.Equals("select", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    inputType = "select";
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid parameter inputTag");
+                }
+            }
+            else
+            {
+                inputType = inputTag.Attributes["type"];                
             }
 
-            string inputType = inputTag.Attributes["type"];
+            
 
             switch (formContext.LayoutStyle)
             {
@@ -65,6 +78,7 @@ namespace FlexHtmlHelper.Render
                         case "text":
                         case "email":
                         case "password":
+                        case "select":
                             tag.AddCssClass("form-group");
                             tag.AddTag(labelTag);
                             tag.AddTag(inputTag).AddCssClass("form-control");
@@ -82,7 +96,7 @@ namespace FlexHtmlHelper.Render
                             break;
                         case "hidden":
                             tag.AddTag(inputTag);
-                            break;
+                            break;                        
                     }
                     break;
                 case FormLayoutStyle.Horizontal:
@@ -91,6 +105,7 @@ namespace FlexHtmlHelper.Render
                         case "text":
                         case "email":
                         case "password":
+                        case "select":
                             tag.AddCssClass("form-group");
                             foreach (var col in formContext.LabelColumns)
                             {
@@ -160,6 +175,7 @@ namespace FlexHtmlHelper.Render
                         case "text":
                         case "email":
                         case "password":
+                        case "select":
                             tag.AddCssClass("form-group");
                             labelTag.AddCssClass("sr-only");
                             tag.AddTag(labelTag);

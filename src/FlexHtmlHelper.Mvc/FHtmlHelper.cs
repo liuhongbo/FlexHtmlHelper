@@ -23,6 +23,18 @@ namespace FlexHtmlHelper.Mvc
         private IFlexRender _render;
         private static ResourceManager _mvcResource = new ResourceManager("System.Web.Mvc.Properties.MvcResources", typeof(System.Web.Mvc.MvcHtmlString).Assembly);
         internal static string MvcResources_Common_ValueNotValidForProperty = "Common_ValueNotValidForProperty";
+        internal static string MvcResources_SelectExtensions_InvalidExpressionParameterNoMetadata = "SelectExtensions_InvalidExpressionParameterNoMetadata";
+        internal static string MvcResources_SelectExtensions_InvalidExpressionParameterNoModelType = "SelectExtensions_InvalidExpressionParameterNoModelType";
+        internal static string MvcResources_SelectExtensions_InvalidExpressionParameterTypeHasFlags = "SelectExtensions_InvalidExpressionParameterTypeHasFlags";
+        internal static string MvcResources_SelectExtensions_InvalidExpressionParameterType = "SelectExtensions_InvalidExpressionParameterType";
+        internal static string MvcResources_HtmlHelper_MissingSelectData = "HtmlHelper_MissingSelectData";
+        internal static string MvcResources_HtmlHelper_WrongSelectDataType = "HtmlHelper_WrongSelectDataType";
+        internal static string MvcResources_HtmlHelper_SelectExpressionNotEnumerable = "HtmlHelper_SelectExpressionNotEnumerable";
+        internal static string MvcResources_Common_NullOrEmpty = "Common_NullOrEmpty";
+        internal static string MvcResources_EnumHelper_InvalidParameterType = "EnumHelper_InvalidParameterType";
+        internal static string MvcResources_EnumHelper_InvalidMetadataParameter = "EnumHelper_InvalidMetadataParameter";
+        internal static string MvcResources_EnumHelper_InvalidValueParameter = "EnumHelper_InvalidValueParameter";
+
 
         private static readonly object _lastFormNumKey = new object();
 

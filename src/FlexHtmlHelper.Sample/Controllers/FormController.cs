@@ -19,7 +19,8 @@ namespace FlexHtmlHelperSample.Controllers
                 FirstName = "",
                 LastName = ""
             };
-
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
             return View(model);
         }
 
@@ -30,7 +31,8 @@ namespace FlexHtmlHelperSample.Controllers
                 FirstName = "",
                 LastName = ""
             };
-
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
             return View(model);
         }
 
@@ -41,7 +43,8 @@ namespace FlexHtmlHelperSample.Controllers
                 FirstName = "",
                 LastName = ""
             };
-
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
             return View(model);
         }
 	}

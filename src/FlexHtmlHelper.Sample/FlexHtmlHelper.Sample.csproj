@@ -160,7 +160,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Form\Inline.cshtml" />
-    <Content Include="Views\Input\Index.cshtml" />
+    <Content Include="Views\Input\Select.cshtml" />
     <Content Include="Views\Form\Horizontal.cshtml" />
     <Content Include="Views\Form\Default.cshtml" />
   </ItemGroup>

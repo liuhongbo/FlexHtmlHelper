@@ -1,0 +1,21 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Textbox", "Horizontal")</li>
+        <li>@Html.ActionLink("Radio", "Radio")</li>
+        <li class="active">@Html.ActionLink("Select", "Select")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+    @Html.f().DropDownListFor(m=>m.TimeZoneId, Model.AvailableTimeZones)
+   
+</div>

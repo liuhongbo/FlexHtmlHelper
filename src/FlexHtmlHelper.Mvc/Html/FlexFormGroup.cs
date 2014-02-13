@@ -27,7 +27,12 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public FlexTagBuilder GetInputTag()
         {
-            return TagBuilder.Tag("input");
+            var tag = TagBuilder.Tag("input");
+            if (tag == null)
+            {
+                tag = TagBuilder.Tag("select");
+            }
+            return tag;
         }
 
         public static FlexFormGroup Empty = new FlexFormGroup();

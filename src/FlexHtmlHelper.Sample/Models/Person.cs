@@ -4,11 +4,17 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace FlexHtmlHelperSample.Models
 {
     public class Person
     {
+        public Person()
+        {
+            AvailableTimeZones = new List<SelectListItem>();
+        }
+
         [DisplayName("First Name")]
         public string FirstName { get; set; }
 
@@ -23,6 +29,11 @@ namespace FlexHtmlHelperSample.Models
 
         [DisplayName("Gender")]
         public string Gender { get; set; }
+
+        [DisplayName("Time Zone")]
+        public string TimeZoneId { get; set; }
+
+        public IList<SelectListItem> AvailableTimeZones { get; set; } 
 
         [DisplayName("Accept Terms")]
         public bool AcceptTerms { get; set; }
