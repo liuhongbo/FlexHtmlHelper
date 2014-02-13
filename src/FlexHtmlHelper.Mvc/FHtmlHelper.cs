@@ -34,6 +34,8 @@ namespace FlexHtmlHelper.Mvc
         internal static string MvcResources_EnumHelper_InvalidParameterType = "EnumHelper_InvalidParameterType";
         internal static string MvcResources_EnumHelper_InvalidMetadataParameter = "EnumHelper_InvalidMetadataParameter";
         internal static string MvcResources_EnumHelper_InvalidValueParameter = "EnumHelper_InvalidValueParameter";
+        internal static string MvcResources_HtmlHelper_TextAreaParameterOutOfRange = "HtmlHelper_TextAreaParameterOutOfRange";
+        
 
 
         private static readonly object _lastFormNumKey = new object();

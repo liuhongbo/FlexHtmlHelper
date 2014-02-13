@@ -1077,5 +1077,178 @@ namespace FlexHtmlHelper.Mvc.Html
         }
 
         #endregion
+
+
+        #region TEXTAREA
+
+        // These values are similar to the defaults used by WebForms
+        // when using <asp:TextBox TextMode="MultiLine"> without specifying
+        // the Rows and Columns attributes.
+        private const int TextAreaRows = 2;
+        private const int TextAreaColumns = 20;
+
+        private static Dictionary<string, object> implicitRowsAndColumns = new Dictionary<string, object>
+        {
+            { "rows", TextAreaRows.ToString(CultureInfo.InvariantCulture) },
+            { "cols", TextAreaColumns.ToString(CultureInfo.InvariantCulture) },
+        };
+
+        private static Dictionary<string, object> GetRowsAndColumnsDictionary(int rows, int columns)
+        {
+            if (rows < 0)
+            {
+                throw new ArgumentOutOfRangeException("rows", FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_TextAreaParameterOutOfRange));
+            }
+            if (columns < 0)
+            {
+                throw new ArgumentOutOfRangeException("columns", FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_TextAreaParameterOutOfRange));
+            }
+
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            if (rows > 0)
+            {
+                result.Add("rows", rows.ToString(CultureInfo.InvariantCulture));
+            }
+            if (columns > 0)
+            {
+                result.Add("cols", columns.ToString(CultureInfo.InvariantCulture));
+            }
+
+            return result;
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name)
+        {
+            return TextArea(form, name, null /* value */, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, object htmlAttributes)
+        {
+            return TextArea(form, name, null /* value */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, IDictionary<string, object> htmlAttributes)
+        {
+            return TextArea(form, name, null /* value */, htmlAttributes);
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, string value)
+        {
+            return TextArea(form, name, value, null /* htmlAttributes */);
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, string value, object htmlAttributes)
+        {
+            return TextArea(form, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, string value, IDictionary<string, object> htmlAttributes)
+        {
+            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, form.FHtmlHelper.HtmlHelper.ViewContext.ViewData);
+            if (value != null)
+            {
+                metadata.Model = value;
+            }
+
+            return TextAreaHelper(form, metadata, name, implicitRowsAndColumns, htmlAttributes);
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, string value, int rows, int columns, object htmlAttributes)
+        {
+            return TextArea(form, name, value, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup TextArea(this FlexMvcForm form, string name, string value, int rows, int columns, IDictionary<string, object> htmlAttributes)
+        {
+            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, form.FHtmlHelper.HtmlHelper.ViewContext.ViewData);
+            if (value != null)
+            {
+                metadata.Model = value;
+            }
+
+            return TextAreaHelper(form, metadata, name, GetRowsAndColumnsDictionary(rows, columns), htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> TextAreaFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression)
+        {
+            return TextAreaFor(form, expression, (IDictionary<string, object>)null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> TextAreaFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            return TextAreaFor(form, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> TextAreaFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            return TextAreaHelper(form,
+                                  ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData),
+                                  ExpressionHelper.GetExpressionText(expression),
+                                  implicitRowsAndColumns,
+                                  htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> TextAreaFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
+        {
+            return TextAreaFor(form, expression, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> TextAreaFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+
+            return TextAreaHelper(form,
+                                  ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData),
+                                  ExpressionHelper.GetExpressionText(expression),
+                                  GetRowsAndColumnsDictionary(rows, columns),
+                                  htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly", Justification = "If this fails, it is because the string-based version had an empty 'name' parameter")]
+        internal static FlexFormGroup TextAreaHelper(FlexMvcForm form, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
+        {
+            FlexTagBuilder formGroup = TextAreaTagBuilerHelper(form, modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
+            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+        }
+
+        internal static FlexFormGroup<TModel> TextAreaHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
+        {
+            FlexTagBuilder formGroup = TextAreaTagBuilerHelper(form, modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
+            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+        }
+
+
+        private static FlexTagBuilder TextAreaTagBuilerHelper(FlexMvcForm form, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            if (String.IsNullOrEmpty(fullName))
+            {
+                throw new ArgumentException(FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_Common_NullOrEmpty), "name");
+            }
+
+            FlexLabel label = htmlHelper.LabelHelper(modelMetadata, name);
+            FlexTextArea input = htmlHelper.TextAreaHelper(modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
+            FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(modelMetadata, name, null, null);
+
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, input.TagBuilder, validateMessage.TagBuilder);
+
+            return formGroup;
+        }
+        #endregion
     }
 }

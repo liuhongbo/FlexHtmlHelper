@@ -1,12 +1,15 @@
 ﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Mvc.Properties;
 
-namespace FlexHtmlHelper.Html
+namespace FlexHtmlHelper.Mvc.Html
 {
     public static class TextAreaExtensions
     {
@@ -26,11 +29,11 @@ namespace FlexHtmlHelper.Html
         {
             if (rows < 0)
             {
-                throw new ArgumentOutOfRangeException("rows", MvcResources.HtmlHelper_TextAreaParameterOutOfRange);
+                throw new ArgumentOutOfRangeException("rows", FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_TextAreaParameterOutOfRange));
             }
             if (columns < 0)
             {
-                throw new ArgumentOutOfRangeException("columns", MvcResources.HtmlHelper_TextAreaParameterOutOfRange);
+                throw new ArgumentOutOfRangeException("columns", FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_HtmlHelper_TextAreaParameterOutOfRange));
             }
 
             Dictionary<string, object> result = new Dictionary<string, object>();
@@ -46,34 +49,34 @@ namespace FlexHtmlHelper.Html
             return result;
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name)
         {
             return TextArea(htmlHelper, name, null /* value */, null /* htmlAttributes */);
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, object htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, object htmlAttributes)
         {
-            return TextArea(htmlHelper, name, null /* value */, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return TextArea(htmlHelper, name, null /* value */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
         {
             return TextArea(htmlHelper, name, null /* value */, htmlAttributes);
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, string value)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, string value)
         {
             return TextArea(htmlHelper, name, value, null /* htmlAttributes */);
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, string value, object htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, string value, object htmlAttributes)
         {
-            return TextArea(htmlHelper, name, value, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return TextArea(htmlHelper, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, string value, IDictionary<string, object> htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, string value, IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewContext.ViewData);
+            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, htmlHelper.HtmlHelper.ViewContext.ViewData);
             if (value != null)
             {
                 metadata.Model = value;
@@ -82,14 +85,14 @@ namespace FlexHtmlHelper.Html
             return TextAreaHelper(htmlHelper, metadata, name, implicitRowsAndColumns, htmlAttributes);
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, string value, int rows, int columns, object htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, string value, int rows, int columns, object htmlAttributes)
         {
-            return TextArea(htmlHelper, name, value, rows, columns, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return TextArea(htmlHelper, name, value, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static MvcHtmlString TextArea(this FlexHtmlHelper htmlHelper, string name, string value, int rows, int columns, IDictionary<string, object> htmlAttributes)
+        public static FlexTextArea TextArea(this FHtmlHelper htmlHelper, string name, string value, int rows, int columns, IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewContext.ViewData);
+            ModelMetadata metadata = ModelMetadata.FromStringExpression(name, htmlHelper.HtmlHelper.ViewContext.ViewData);
             if (value != null)
             {
                 metadata.Model = value;
@@ -99,19 +102,19 @@ namespace FlexHtmlHelper.Html
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static MvcHtmlString TextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        public static FlexTextArea TextAreaFor<TModel, TProperty>(this FHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return TextAreaFor(htmlHelper, expression, (IDictionary<string, object>)null);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static MvcHtmlString TextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static FlexTextArea TextAreaFor<TModel, TProperty>(this FHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return TextAreaFor(htmlHelper, expression, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return TextAreaFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static MvcHtmlString TextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static FlexTextArea TextAreaFor<TModel, TProperty>(this FHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             if (expression == null)
             {
@@ -119,20 +122,20 @@ namespace FlexHtmlHelper.Html
             }
 
             return TextAreaHelper(htmlHelper,
-                                  ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData),
+                                  ModelMetadata.FromLambdaExpression(expression, htmlHelper.HtmlHelper.ViewData),
                                   ExpressionHelper.GetExpressionText(expression),
                                   implicitRowsAndColumns,
                                   htmlAttributes);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static MvcHtmlString TextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
+        public static FlexTextArea TextAreaFor<TModel, TProperty>(this FHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, object htmlAttributes)
         {
-            return TextAreaFor(htmlHelper, expression, rows, columns, FlexHtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return TextAreaFor(htmlHelper, expression, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static MvcHtmlString TextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
+        public static FlexTextArea TextAreaFor<TModel, TProperty>(this FHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, int columns, IDictionary<string, object> htmlAttributes)
         {
             if (expression == null)
             {
@@ -140,36 +143,23 @@ namespace FlexHtmlHelper.Html
             }
 
             return TextAreaHelper(htmlHelper,
-                                  ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData),
+                                  ModelMetadata.FromLambdaExpression(expression, htmlHelper.HtmlHelper.ViewData),
                                   ExpressionHelper.GetExpressionText(expression),
                                   GetRowsAndColumnsDictionary(rows, columns),
                                   htmlAttributes);
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly", Justification = "If this fails, it is because the string-based version had an empty 'name' parameter")]
-        internal static MvcHtmlString TextAreaHelper(FlexHtmlHelper htmlHelper, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
+        internal static FlexTextArea TextAreaHelper(this FHtmlHelper htmlHelper, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
         {
-            string fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             if (String.IsNullOrEmpty(fullName))
             {
-                throw new ArgumentException(MvcResources.Common_NullOrEmpty, "name");
+                throw new ArgumentException(FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_Common_NullOrEmpty), "name");
             }
 
-            TagBuilder tagBuilder = new TagBuilder("textarea");
-            tagBuilder.GenerateId(fullName);
-            tagBuilder.MergeAttributes(htmlAttributes, true);
-            tagBuilder.MergeAttributes(rowsAndColumns, rowsAndColumns != implicitRowsAndColumns); // Only force explicit rows/cols
-            tagBuilder.MergeAttribute("name", fullName, true);
-
-            // If there are any errors for a named field, we add the CSS attribute.
             ModelState modelState;
-            if (htmlHelper.ViewData.ModelState.TryGetValue(fullName, out modelState) && modelState.Errors.Count > 0)
-            {
-                tagBuilder.AddCssClass(FlexHtmlHelper.ValidationInputCssClassName);
-            }
-
-            tagBuilder.MergeAttributes(htmlHelper.GetUnobtrusiveValidationAttributes(name, modelMetadata));
-
+            bool hasModelSate = htmlHelper.HtmlHelper.ViewData.ModelState.TryGetValue(fullName, out modelState);
             string value;
             if (modelState != null && modelState.Value != null)
             {
@@ -184,11 +174,21 @@ namespace FlexHtmlHelper.Html
                 value = String.Empty;
             }
 
-            // The first newline is always trimmed when a TextArea is rendered, so we add an extra one
-            // in case the value being rendered is something like "\r\nHello".
-            tagBuilder.InnerHtml = (innerHtmlPrefix ?? Environment.NewLine) + HttpUtility.HtmlEncode(value);
+            FlexTagBuilder textArea = htmlHelper.Render.TextAreaHelper(new FlexTagBuilder(), fullName, value, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
 
-            return tagBuilder.ToMvcHtmlString(TagRenderMode.Normal);
+            if (textArea != null)
+            {
+                // If there are any errors for a named field, we add the CSS attribute.
+
+                if (hasModelSate && modelState.Errors.Count > 0)
+                {
+                    textArea.AddCssClass(HtmlHelper.ValidationInputCssClassName);
+                }
+
+                textArea.MergeAttributes(htmlHelper.HtmlHelper.GetUnobtrusiveValidationAttributes(name, modelMetadata));
+            }
+
+            return new FlexTextArea(htmlHelper,textArea);
         }
     }
 }

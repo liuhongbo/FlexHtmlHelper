@@ -58,6 +58,10 @@ namespace FlexHtmlHelper.Render
                 {
                     inputType = "select";
                 }
+                else if (inputTag.Tag().TagName.Equals("textarea", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    inputType = "textarea";
+                }
                 else
                 {
                     throw new ArgumentException("Invalid parameter inputTag");
@@ -79,11 +83,7 @@ namespace FlexHtmlHelper.Render
                         case "email":
                         case "password":
                         case "select":
-                            tag.AddCssClass("form-group");
-                            tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control");
-                            tag.AddTag(validationMessageTag);
-                            break;
+                            goto default;                            
                         case "radio":
                             tag.AddCssClass("radio");
                             tag.AddTag(labelTag);
@@ -96,7 +96,19 @@ namespace FlexHtmlHelper.Render
                             break;
                         case "hidden":
                             tag.AddTag(inputTag);
-                            break;                        
+                            break;
+                        case "file":
+                            tag.AddCssClass("form-group");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag);
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        default:
+                            tag.AddCssClass("form-group");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(validationMessageTag);
+                            break;
                     }
                     break;
                 case FormLayoutStyle.Horizontal:
@@ -106,24 +118,7 @@ namespace FlexHtmlHelper.Render
                         case "email":
                         case "password":
                         case "select":
-                            tag.AddCssClass("form-group");
-                            foreach (var col in formContext.LabelColumns)
-                            {
-                                GridColumns(labelTag, col.Key, col.Value);
-                            }
-                            labelTag.AddCssClass("control-label");
-                            tag.AddTag(labelTag);
-                            
-                            FlexTagBuilder inputDivTag = new FlexTagBuilder("div");
-                            foreach (var col in formContext.InputColumns)
-                            {
-                                GridColumns(inputDivTag, col.Key, col.Value);
-                            }
-                            inputDivTag.AddTag(inputTag).AddCssClass("form-control");
-
-                            tag.AddTag(inputDivTag);
-                            tag.AddTag(validationMessageTag);
-                            break;
+                            goto default;
                         case "radio":
                              tag.AddCssClass("form-group");
                             FlexTagBuilder radioColTag = new FlexTagBuilder("div");
@@ -167,6 +162,45 @@ namespace FlexHtmlHelper.Render
                         case "hidden":
                             tag.AddTag(inputTag);
                             break;
+                        case "file":
+                            tag.AddCssClass("form-group");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumns(labelTag, col.Key, col.Value);
+                            }
+                            labelTag.AddCssClass("control-label");
+                            tag.AddTag(labelTag);
+
+                            FlexTagBuilder fileDivTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(fileDivTag, col.Key, col.Value);
+                            }
+
+                            fileDivTag.AddTag(inputTag).AddCssClass("form-control");
+
+                            tag.AddTag(fileDivTag);
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        default:                            
+                            tag.AddCssClass("form-group");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumns(labelTag, col.Key, col.Value);
+                            }
+                            labelTag.AddCssClass("control-label");
+                            tag.AddTag(labelTag);
+                            
+                            FlexTagBuilder inputDivTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(inputDivTag, col.Key, col.Value);
+                            }
+                            inputDivTag.AddTag(inputTag).AddCssClass("form-control");
+
+                            tag.AddTag(inputDivTag);
+                            tag.AddTag(validationMessageTag);
+                            break;
                     }
                     break;
                 case FormLayoutStyle.Inline:
@@ -176,12 +210,7 @@ namespace FlexHtmlHelper.Render
                         case "email":
                         case "password":
                         case "select":
-                            tag.AddCssClass("form-group");
-                            labelTag.AddCssClass("sr-only");
-                            tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control");
-                            tag.AddTag(validationMessageTag);
-                            break;
+                            goto default;
                         case "radio":
                             tag.AddCssClass("radio");
                             tag.AddTag(labelTag);
@@ -194,6 +223,20 @@ namespace FlexHtmlHelper.Render
                             break;
                         case "hidden":
                             tag.AddTag(inputTag);
+                            break;
+                        case "file":
+                            tag.AddCssClass("form-group");
+                            labelTag.AddCssClass("sr-only");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag);
+                            tag.AddTag(validationMessageTag);
+                            break;
+                        default:
+                             tag.AddCssClass("form-group");
+                            labelTag.AddCssClass("sr-only");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(validationMessageTag);
                             break;
                     }
                     break;                   

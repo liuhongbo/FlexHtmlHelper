@@ -25,15 +25,18 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
-        public FlexTagBuilder GetInputTag()
+        public FlexTagBuilder InputTag
         {
-            var tag = TagBuilder.Tag("input");
-            if (tag == null)
+            get
             {
-                tag = TagBuilder.Tag("select");
+                var tag = TagBuilder.Tag("input");
+                if (tag == null)
+                {
+                    tag = TagBuilder.Tag("select");
+                }
+                return tag;
             }
-            return tag;
-        }
+        }        
 
         public static FlexFormGroup Empty = new FlexFormGroup();
 
@@ -56,7 +59,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static T Placeholder<T>(this T formGroup, string text) where T: FlexFormGroup
         {
-            var input = formGroup.GetInputTag();
+            var input = formGroup.InputTag;
             if (input != null)
             {
                 formGroup.Render.Placeholder(input, text);

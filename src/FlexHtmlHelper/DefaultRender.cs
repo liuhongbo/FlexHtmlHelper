@@ -220,6 +220,20 @@ namespace FlexHtmlHelper
         }
 
 
+        public virtual FlexTagBuilder TextAreaHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("textarea");
+            
+            tag.GenerateId(name);
+            tag.MergeAttributes(htmlAttributes, true);
+            tag.MergeAttributes(rowsAndColumns, true);
+            tag.MergeAttribute("name", name, true);
+            tag.AddText( (innerHtmlPrefix ?? Environment.NewLine) + value);
+
+            tagBuilder.AddTag(tag);
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System

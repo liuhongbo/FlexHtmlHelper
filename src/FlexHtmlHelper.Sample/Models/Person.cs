@@ -33,9 +33,15 @@ namespace FlexHtmlHelperSample.Models
         [DisplayName("Time Zone")]
         public string TimeZoneId { get; set; }
 
-        public IList<SelectListItem> AvailableTimeZones { get; set; } 
+        public IList<SelectListItem> AvailableTimeZones { get; set; }
+
+        [DisplayName("Avator")]
+        public HttpPostedFileBase File { get; set; }
 
         [DisplayName("Accept Terms")]
         public bool AcceptTerms { get; set; }
+
+        [DisplayName("Description")]
+        public string Description { get; set; }
     }
 }

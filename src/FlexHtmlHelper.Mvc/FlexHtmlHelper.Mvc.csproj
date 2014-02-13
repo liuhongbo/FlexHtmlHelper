@@ -117,6 +117,7 @@
     <Compile Include="Html\FlexPassword.cs" />
     <Compile Include="Html\FlexRadioButton.cs" />
     <Compile Include="Html\FlexSelect.cs" />
+    <Compile Include="Html\FlexTextArea.cs" />
     <Compile Include="Html\FlexTextBox.cs" />
     <Compile Include="Html\FlexValidationMessage.cs" />
     <Compile Include="Html\FlexValidationSummary.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Html\InputExtensions.cs" />
     <Compile Include="Html\LabelExtensions.cs" />
     <Compile Include="Html\SelectExtensions.cs" />
+    <Compile Include="Html\TextAreaExtensions.cs" />
     <Compile Include="Html\ValidationExtensions.cs">
       <SubType>Code</SubType>
     </Compile>

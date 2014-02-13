@@ -26,7 +26,8 @@
         @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male")
         @form.RadioButtonFor(m => m.Gender, "F").LabelText("Female")
         @form.DropDownListFor(m=>m.TimeZoneId,Model.AvailableTimeZones)
-      
+        @form.TextBoxFor(m => m.File, new {type="file" })
+        @form.TextAreaFor(m=>m.Description)
     } 
 
     

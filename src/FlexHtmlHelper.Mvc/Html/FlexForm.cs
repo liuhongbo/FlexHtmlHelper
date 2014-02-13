@@ -66,9 +66,7 @@ namespace FlexHtmlHelper.Mvc.Html
             viewContext.Writer.Write("</form>");
             viewContext.OutputClientValidation();
             viewContext.FormContext = null;
-        }
-
-        
+        }        
     }
 
     public static class FlexFormExtensions
