@@ -24,6 +24,9 @@ namespace FlexHtmlHelperSample.Models
         [DisplayName("Email")]
         public string Email { get; set; }
 
+        [DisplayName("Title")]
+        public string Title { get; set; }
+
         [DisplayName("Password")]
         public string Password { get; set; }
 
@@ -43,5 +46,8 @@ namespace FlexHtmlHelperSample.Models
 
         [DisplayName("Description")]
         public string Description { get; set; }
+
+        [DisplayName("Log")]
+        public string Log { get; set; }
     }
 }

@@ -44,6 +44,8 @@ namespace FlexHtmlHelper.Mvc.Html
 
     public static class FlexMvcFormExtension
     {
+
+        #region CHECKBOX
         // CheckBox
 
         public static FlexFormGroup CheckBox(this FlexMvcForm form, string name)
@@ -156,6 +158,10 @@ namespace FlexHtmlHelper.Mvc.Html
                                htmlAttributes: attributes);
         }
 
+        #endregion
+
+
+        #region HIDDEN
         // Hidden
 
         public static FlexFormGroup Hidden(this FlexMvcForm form, string name)
@@ -261,6 +267,10 @@ namespace FlexHtmlHelper.Mvc.Html
                                htmlAttributes: htmlAttributes);
         }
 
+        #endregion
+
+
+        #region PASSWORD
         // Password
 
         public static FlexFormGroup Password(this FlexMvcForm form, string name)
@@ -341,6 +351,10 @@ namespace FlexHtmlHelper.Mvc.Html
                                htmlAttributes: htmlAttributes);
         }
 
+        #endregion
+
+
+        #region RADIOBUTTON
         // RadioButton
 
         public static FlexFormGroup RadioButton(this FlexMvcForm form, string name, object value)
@@ -505,6 +519,10 @@ namespace FlexHtmlHelper.Mvc.Html
                                htmlAttributes: attributes);
         }
 
+        #endregion
+
+
+        #region TEXTBOX
         // TextBox
 
         public static FlexFormGroup TextBox(this FlexMvcForm form, string name)
@@ -623,6 +641,8 @@ namespace FlexHtmlHelper.Mvc.Html
                                format: format,
                                htmlAttributes: htmlAttributes);
         }
+
+        #endregion
 
         // Helper methods
 
@@ -1249,6 +1269,156 @@ namespace FlexHtmlHelper.Mvc.Html
 
             return formGroup;
         }
+        #endregion
+
+
+        #region STATIC
+
+        // Static
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name)
+        {
+            return Static(form, name, value: null);
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value)
+        {
+            return Static(form, name, value, format: null);
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value, string format)
+        {
+            return Static(form, name, value, format, htmlAttributes: (object)null);
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value, object htmlAttributes)
+        {
+            return Static(form, name, value, format: null, htmlAttributes: htmlAttributes);
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value, string format, object htmlAttributes)
+        {
+            return Static(form, name, value, format, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value, IDictionary<string, object> htmlAttributes)
+        {
+            return Static(form, name, value, format: null, htmlAttributes: htmlAttributes);
+        }
+
+        public static FlexFormGroup Static(this FlexMvcForm form, string name, object value, string format, IDictionary<string, object> htmlAttributes)
+        {
+            return StaticInternalHelper(form,
+                               metadata: null,
+                               name: name,
+                               value: value,
+                               useViewData: (value == null),
+                               isChecked: false,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: format,
+                               htmlAttributes: htmlAttributes) as FlexFormGroup;
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression)
+        {
+            return StaticFor(form, expression, format: null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, string format)
+        {
+            return StaticFor(form, expression, format, (IDictionary<string, object>)null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            return StaticFor(form, expression, format: null, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
+        {
+            return StaticFor(form, expression, format: format, htmlAttributes: HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            return StaticFor(form, expression, format: null, htmlAttributes: htmlAttributes);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> StaticFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData);
+            return StaticHelper(form,
+                                 metadata,
+                                 metadata.Model,
+                                 ExpressionHelper.GetExpressionText(expression),
+                                 format,
+                                 htmlAttributes);
+        }
+
+        private static FlexFormGroup StaticHelper(FlexMvcForm form, ModelMetadata metadata, object model, string expression, string format, IDictionary<string, object> htmlAttributes)
+        {
+            return StaticInternalHelper(form,
+                               metadata,
+                               expression,
+                               model,
+                               useViewData: false,
+                               isChecked: false,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: format,
+                               htmlAttributes: htmlAttributes) as FlexFormGroup;
+        }
+
+        private static FlexFormGroup<TModel> StaticHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata, object model, string expression, string format, IDictionary<string, object> htmlAttributes)
+        {
+            return StaticInternalHelper(form,
+                               metadata,
+                               expression,
+                               model,
+                               useViewData: false,
+                               isChecked: false,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: format,
+                               htmlAttributes: htmlAttributes);
+        }
+
+        private static FlexFormGroup StaticInternalHelper(FlexMvcForm form, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroup = StaticTagBuilderHelper(form, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
+
+            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+        }
+
+        private static FlexFormGroup<TModel> StaticInternalHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroup = StaticTagBuilderHelper(form, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
+
+            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+        }
+
+        private static FlexTagBuilder StaticTagBuilderHelper(FlexMvcForm form, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+
+            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexInput input = htmlHelper.StaticHelper<FlexInput>(metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);            
+
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, input.TagBuilder, new FlexTagBuilder());
+            return formGroup;
+        }
+
+        
         #endregion
     }
 }

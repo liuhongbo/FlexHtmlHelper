@@ -26,6 +26,21 @@ namespace FlexHtmlHelper
         Horizontal
     }
 
+
+    public enum ValidationState
+    {
+        Warning,
+        Error,
+        Succuss
+    }
+
+    public enum InputHeightStyle
+    {
+        Small,
+        Normal,
+        Large
+    }
+
     public interface IFlexRender
     {
         string Name { get; }
@@ -45,6 +60,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag);
         FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder TextAreaHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null);
+        FlexTagBuilder StaticHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
 
         #endregion
 
@@ -59,16 +75,20 @@ namespace FlexHtmlHelper
 
         #region Form
 
-        FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout);
-        FlexTagBuilder FormControl(FlexTagBuilder tagBuilder);
+        FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout);        
         FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text);
         FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text);
+        FlexTagBuilder FormGroupValidationState(FlexTagBuilder tagBuilder, ValidationState state);
+        
 
         #endregion
 
         #region Html
 
         FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text);
+        FlexTagBuilder Disabled(FlexTagBuilder tagBuilder);
+        FlexTagBuilder Focus(FlexTagBuilder tagBuilder);
+        FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size);
 
         #endregion
 

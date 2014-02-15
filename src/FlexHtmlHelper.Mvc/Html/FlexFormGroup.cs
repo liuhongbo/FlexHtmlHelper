@@ -66,6 +66,64 @@ namespace FlexHtmlHelper.Mvc.Html
             }
             return formGroup;
         }
+
+        public static T Disabled<T>(this T formGroup) where T : FlexFormGroup
+        {
+             var input = formGroup.InputTag;
+             if (input != null)
+             {
+                 formGroup.Render.Disabled(input);
+             }
+            return formGroup;
+        }
+
+        public static T Focus<T>(this T formGroup) where T : FlexFormGroup
+        {
+            var input = formGroup.InputTag;
+            if (input != null)
+            {
+                formGroup.Render.Focus(input);
+            }
+            return formGroup;
+        }
+
+        public static T HasWarning<T>(this T formGroup) where T: FlexFormGroup
+        {
+            formGroup.Render.FormGroupValidationState(formGroup.TagBuilder,ValidationState.Warning);
+            return formGroup;
+        }
+
+        public static T HasError<T>(this T formGroup) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupValidationState(formGroup.TagBuilder, ValidationState.Error);
+            return formGroup;
+        }
+
+        public static T HasSuccess<T>(this T formGroup) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupValidationState(formGroup.TagBuilder, ValidationState.Succuss);
+            return formGroup;
+        }
+
+        public static T Large<T>(this T formGroup) where T : FlexFormGroup
+        {
+            var input = formGroup.InputTag;
+            if (input != null)
+            {
+                formGroup.Render.InputHeight(input, InputHeightStyle.Large);
+            }
+            return formGroup;
+        }
+
+        public static T Small<T>(this T formGroup) where T : FlexFormGroup
+        {
+            var input = formGroup.InputTag;
+            if (input != null)
+            {
+                formGroup.Render.InputHeight(input, InputHeightStyle.Small);
+            }
+            return formGroup;
+        }
     }
 
     public class FlexFormGroup<TModel> : FlexFormGroup

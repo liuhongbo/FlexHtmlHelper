@@ -46,6 +46,16 @@ namespace FlexHtmlHelper.Render
             return tag;
         }
 
+        public override FlexTagBuilder StaticHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("p");
+            tag.MergeAttributes(htmlAttributes);
+            tag.AddText(value);
+            tagBuilder.AddTag(tag);
+
+            return tag;
+        }
+
         public override FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag)
         {
             FlexTagBuilder tag = new FlexTagBuilder("div");
@@ -62,6 +72,10 @@ namespace FlexHtmlHelper.Render
                 {
                     inputType = "textarea";
                 }
+                else if (inputTag.Tag().TagName.Equals("p", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    inputType = "static";
+                }
                 else
                 {
                     throw new ArgumentException("Invalid parameter inputTag");
@@ -70,9 +84,7 @@ namespace FlexHtmlHelper.Render
             else
             {
                 inputType = inputTag.Attributes["type"];                
-            }
-
-            
+            }            
 
             switch (formContext.LayoutStyle)
             {
@@ -102,6 +114,11 @@ namespace FlexHtmlHelper.Render
                             tag.AddTag(labelTag);
                             tag.AddTag(inputTag);
                             tag.AddTag(validationMessageTag);
+                            break;
+                        case "static":
+                            tag.AddCssClass("form-group");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control-static");
                             break;
                         default:
                             tag.AddCssClass("form-group");
@@ -182,6 +199,23 @@ namespace FlexHtmlHelper.Render
                             tag.AddTag(fileDivTag);
                             tag.AddTag(validationMessageTag);
                             break;
+                        case "static":
+                            tag.AddCssClass("form-group");
+                            foreach (var col in formContext.LabelColumns)
+                            {
+                                GridColumns(labelTag, col.Key, col.Value);
+                            }
+                            labelTag.AddCssClass("control-label");
+                            tag.AddTag(labelTag);
+                            
+                            FlexTagBuilder staticDivTag = new FlexTagBuilder("div");
+                            foreach (var col in formContext.InputColumns)
+                            {
+                                GridColumns(staticDivTag, col.Key, col.Value);
+                            }
+                            staticDivTag.AddTag(inputTag).AddCssClass("form-control-static");
+                            tag.AddTag(staticDivTag);
+                            break;
                         default:                            
                             tag.AddCssClass("form-group");
                             foreach (var col in formContext.LabelColumns)
@@ -231,8 +265,14 @@ namespace FlexHtmlHelper.Render
                             tag.AddTag(inputTag);
                             tag.AddTag(validationMessageTag);
                             break;
+                        case "static":
+                            tag.AddCssClass("form-group");
+                            labelTag.AddCssClass("sr-only");
+                            tag.AddTag(labelTag);
+                            tag.AddTag(inputTag).AddCssClass("form-control-static");
+                            break;
                         default:
-                             tag.AddCssClass("form-group");
+                            tag.AddCssClass("form-group");
                             labelTag.AddCssClass("sr-only");
                             tag.AddTag(labelTag);
                             tag.AddTag(inputTag).AddCssClass("form-control");
@@ -356,14 +396,7 @@ namespace FlexHtmlHelper.Render
                     break;
             }
             return tagBuilder;
-        }
-
-        public override FlexTagBuilder FormControl(FlexTagBuilder tagBuilder)
-        {
-            tagBuilder.AddCssClass("form-control");
-            return tagBuilder;
-        }
-
+        }        
 
         public override FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text)
         {
@@ -382,15 +415,44 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
+        public override FlexTagBuilder FormGroupValidationState(FlexTagBuilder tagBuilder, ValidationState state)
+        {
+            switch (state)
+            {
+                case ValidationState.Warning:
+                    tagBuilder.Tag().AddCssClass("has-error");
+                    break;
+                case ValidationState.Error:
+                    tagBuilder.Tag().AddCssClass("has-warning");
+                    break;
+                case ValidationState.Succuss:
+                    tagBuilder.Tag().AddCssClass("has-success");
+                    break;
+            }
+
+            tagBuilder.Tag().AddCssClass("");
+            return tagBuilder;
+        }        
 
         #endregion
 
 
-        #region Html
+        #region Html      
 
-        public override FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
+        public override FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size)
         {
-            tagBuilder.Attributes["placeholder"] = text;
+            switch (size)
+            {
+                case InputHeightStyle.Small:
+                    tagBuilder.Tag().AddCssClass("input-sm");
+                    break;
+                case InputHeightStyle.Normal:
+                    break;
+                case InputHeightStyle.Large:
+                    tagBuilder.Tag().AddCssClass("input-lg");
+                    break;
+
+            }
             return tagBuilder;
         }
 

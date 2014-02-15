@@ -595,5 +595,30 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             return dictionary == null ? new RouteValueDictionary() : new RouteValueDictionary(dictionary);
         }
+
+        internal static T StaticHelper<T>(this FHtmlHelper htmlHelper,ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            if (String.IsNullOrEmpty(fullName))
+            {
+                throw new ArgumentException("name");
+            }
+
+            string valueParameter = htmlHelper.HtmlHelper.FormatValue(value, format);
+            
+            string attemptedValue = null;
+
+            FlexTagBuilder input = null;
+
+           
+            attemptedValue = (string)htmlHelper.GetModelStateValue(fullName, typeof(string));
+            input = htmlHelper.Render.StaticHelper(new FlexTagBuilder(), fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter), htmlAttributes);
+           
+            Object ret = null;
+
+            ret = new FlexTextBox(htmlHelper, input);
+                   
+            return (T)ret;
+        }
     }
 }

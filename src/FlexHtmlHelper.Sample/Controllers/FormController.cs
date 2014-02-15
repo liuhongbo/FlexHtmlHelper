@@ -16,8 +16,9 @@ namespace FlexHtmlHelperSample.Controllers
         {
             var model = new Person()
             {
-                FirstName = "",
-                LastName = ""
+                FirstName = "John",
+                LastName = "",
+                Log = "Login @ 127.0.0.1"
             };
             foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
                 model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
@@ -28,8 +29,9 @@ namespace FlexHtmlHelperSample.Controllers
         {
             var model = new Person()
             {
-                FirstName = "",
-                LastName = ""
+                FirstName = "John",
+                LastName = "",
+                Log = "Login @ 127.0.0.1"
             };
             foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
                 model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
@@ -40,8 +42,9 @@ namespace FlexHtmlHelperSample.Controllers
         {
             var model = new Person()
             {
-                FirstName = "",
-                LastName = ""
+                FirstName = "John",
+                LastName = "",
+                Log = "Login @ 127.0.0.1"
             };
             foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
                 model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });

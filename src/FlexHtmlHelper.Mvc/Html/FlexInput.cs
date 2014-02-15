@@ -28,9 +28,33 @@ namespace FlexHtmlHelper.Mvc.Html
 
     public static class FlexInputExtensions
     {
-        public static T FormControl<T>(this T flexInput) where T: FlexInput
+
+        public static T placeholder<T>(this T flexInput, string text) where T : FlexInput
         {
-            flexInput.Render.FormControl(flexInput.TagBuilder);
+            flexInput.Render.Placeholder(flexInput.TagBuilder, text);
+            return flexInput;
+        }
+
+        public static T disabled<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.Disabled(flexInput.TagBuilder);
+            return flexInput;
+        }
+        public static T focus<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.Focus(flexInput.TagBuilder);
+            return flexInput;
+        }
+
+        public static T large<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.InputHeight(flexInput.TagBuilder, InputHeightStyle.Large);
+            return flexInput;
+        }
+
+        public static T small<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.InputHeight(flexInput.TagBuilder, InputHeightStyle.Small);
             return flexInput;
         }
     }

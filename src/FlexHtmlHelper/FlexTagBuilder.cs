@@ -112,7 +112,7 @@ namespace FlexHtmlHelper
         /// <summary>
         /// tag name
         /// </summary>
-        public string TagName { get; private set; }
+        public string TagName { get; set; }
 
 
         /// <summary>

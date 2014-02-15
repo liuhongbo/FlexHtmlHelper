@@ -129,6 +129,11 @@ namespace FlexHtmlHelper
             return tag;
         }
 
+        public virtual FlexTagBuilder StaticHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes)
+        {
+            return tagBuilder;
+        }
+
         public virtual FlexTagBuilder ValidationMessageHelper(FlexTagBuilder tagBuilder, string validationMessage, bool isValid, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("span");
@@ -266,12 +271,7 @@ namespace FlexHtmlHelper
         public virtual FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout)
         {
             return tagBuilder;
-        }
-
-        public virtual FlexTagBuilder FormControl(FlexTagBuilder tagBuilder)
-        {
-            return tagBuilder;
-        }
+        }        
 
         public virtual FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text)
         {
@@ -283,12 +283,34 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual  FlexTagBuilder FormGroupValidationState(FlexTagBuilder tagBuilder, ValidationState state)
+        {
+            return tagBuilder;
+        }
         #endregion
 
 
         #region Html
 
         public virtual FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
+        {
+            tagBuilder.Attributes["placeholder"] = text;
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder Disabled(FlexTagBuilder tagBuilder)
+        {
+            tagBuilder.Attributes["disabled"] = "";
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder Focus(FlexTagBuilder tagBuilder)
+        {
+            tagBuilder.Attributes["autofocus"] = "";
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size)
         {
             return tagBuilder;
         }
