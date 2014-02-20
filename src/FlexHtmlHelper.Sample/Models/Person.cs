@@ -49,5 +49,8 @@ namespace FlexHtmlHelperSample.Models
 
         [DisplayName("Log")]
         public string Log { get; set; }
+
+        [DisplayName("Newsletter")]
+        public bool Newsletter { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace FlexHtmlHelper
         public virtual FlexTagBuilder LabelHelper(FlexTagBuilder tagBuilder, string @for, string text, IDictionary<string, object> htmlAttributes = null)
         {
             FlexTagBuilder tag = new FlexTagBuilder("label");
-            tag.Attributes.Add("for", @for);
+            tag.TagAttributes.Add("for", @for);
             tag.AddText(text);
             tag.MergeAttributes(htmlAttributes, replaceExisting: true);
 
@@ -187,11 +187,11 @@ namespace FlexHtmlHelper
             tag.AddText(item.Text);
             if (item.Value != null)
             {
-                tag.Attributes["value"] = item.Value;
+                tag.TagAttributes["value"] = item.Value;
             }
             if (item.Selected)
             {
-                tag.Attributes["selected"] = "selected";
+                tag.TagAttributes["selected"] = "selected";
             }
             return tag;
         }
@@ -287,6 +287,17 @@ namespace FlexHtmlHelper
         {
             return tagBuilder;
         }
+
+        public virtual FlexTagBuilder FormGroupAddCheckBox(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder checkBoxTag)
+        {
+            return formGroupTag;
+        }
+
+        public virtual FlexTagBuilder FormGroupAddRadioButton(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder radioButtonTag)
+        {
+            return formGroupTag;
+        }
+
         #endregion
 
 
@@ -294,19 +305,19 @@ namespace FlexHtmlHelper
 
         public virtual FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
         {
-            tagBuilder.Attributes["placeholder"] = text;
+            tagBuilder.TagAttributes["placeholder"] = text;
             return tagBuilder;
         }
 
         public virtual FlexTagBuilder Disabled(FlexTagBuilder tagBuilder)
         {
-            tagBuilder.Attributes["disabled"] = "";
+            tagBuilder.TagAttributes["disabled"] = "";
             return tagBuilder;
         }
 
         public virtual FlexTagBuilder Focus(FlexTagBuilder tagBuilder)
         {
-            tagBuilder.Attributes["autofocus"] = "";
+            tagBuilder.TagAttributes["autofocus"] = "";
             return tagBuilder;
         }
 

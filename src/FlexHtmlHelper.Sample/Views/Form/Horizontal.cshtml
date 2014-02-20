@@ -19,19 +19,45 @@
 
     @using (var form = Html.f().Form().Horizontal().Label_col_sm(2).Input_col_sm(4).Input_col_md(4).BeginForm())
     {
-        @form.TextBoxFor(m => m.FirstName)
-        @form.StaticFor(m=>m.FirstName)
-        @form.TextBoxFor(m=> m.LastName).HasError()
-        @form.TextBoxFor(m=>m.Title).Large()
-        @form.PasswordFor(m=>m.Password)
-        @form.CheckBoxFor(m=>m.AcceptTerms)
+        @form.TextBoxFor(m => m.FirstName).CheckBoxFor(m=>m.AcceptTerms)
+        @form.StaticFor(m => m.FirstName)
+        @form.TextBoxFor(m => m.LastName).HasError()
+        @form.TextBoxFor(m => m.Title).Large()
+        @form.PasswordFor(m => m.Password)
+        @form.CheckBoxFor(m => m.AcceptTerms).CheckBoxFor(m=>m.Newsletter)
         @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male")
         @form.RadioButtonFor(m => m.Gender, "F").LabelText("Female")
-        @form.DropDownListFor(m=>m.TimeZoneId,Model.AvailableTimeZones)
-        @form.TextBoxFor(m => m.File, new {type="file" })
-        @form.TextAreaFor(m=>m.Description)
-        @form.StaticFor(m=>m.Log)
-    } 
+        @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).HasError()
+        @form.TextBoxFor(m => m.File, new { type = "file" })
+        @form.TextAreaFor(m => m.Description)
+        @form.StaticFor(m => m.Log)
+        <div class="form-group">
+            <label class="control-label col-sm-2 col-md-2" for="FirstName">First Name</label>
+            <div class="col-sm-4 col-md-4">
+                <input class="form-control" id="FirstName" name="FirstName" type="text" value="John" autocomplete="off">
+            </div>
+            <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            </label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 col-md-4 col-sm-offset-2 col-md-offset-2">
+                <div class="radio"><label for="Gender_M"><input id="Gender_M" name="Gender" type="radio" value="M">Male</label></div>
 
-    
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                </label>
+
+            </div>
+        </div>
+    }
+
+
 </div>

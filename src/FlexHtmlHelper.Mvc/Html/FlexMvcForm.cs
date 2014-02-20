@@ -650,14 +650,14 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             FlexTagBuilder formGroup = InputTagBuilderHelper(form, inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
 
-            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
         private static FlexFormGroup<TModel> InputHelper<TModel>(FlexMvcForm<TModel> form, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder formGroup = InputTagBuilderHelper(form, inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
 
-            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup<TModel>(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
         private static FlexTagBuilder InputTagBuilderHelper(FlexMvcForm form, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
@@ -673,12 +673,12 @@ namespace FlexHtmlHelper.Mvc.Html
 
             if (inputType == InputType.Radio)
             {
-                var originalId = input.TagBuilder.Attributes["id"];
+                var originalId = input.TagBuilder.TagAttributes["id"];
                 if ((originalId != null) && (value != null))
                 {
                     var newId = originalId + "_" + value.ToString();
-                    input.TagBuilder.Attributes["id"] = newId;
-                    label.TagBuilder.Attributes["for"] = newId;
+                    input.TagBuilder.TagAttributes["id"] = newId;
+                    label.TagBuilder.TagAttributes["for"] = newId;
                 }
             }
 
@@ -1062,7 +1062,7 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             FlexTagBuilder formGroup = SelectTagBuilderHelper(form, metadata, optionLabel, name,selectList, allowMultiple, htmlAttributes);
 
-            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
 
@@ -1072,7 +1072,7 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             FlexTagBuilder formGroup = SelectTagBuilderHelper(form, metadata, optionLabel, name,selectList, allowMultiple, htmlAttributes);
 
-            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup<TModel>(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
 
@@ -1241,13 +1241,13 @@ namespace FlexHtmlHelper.Mvc.Html
         internal static FlexFormGroup TextAreaHelper(FlexMvcForm form, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
         {
             FlexTagBuilder formGroup = TextAreaTagBuilerHelper(form, modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
-            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
         internal static FlexFormGroup<TModel> TextAreaHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata modelMetadata, string name, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null)
         {
             FlexTagBuilder formGroup = TextAreaTagBuilerHelper(form, modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
-            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup<TModel>(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
 
@@ -1394,14 +1394,14 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             FlexTagBuilder formGroup = StaticTagBuilderHelper(form, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
 
-            return new FlexFormGroup(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
         private static FlexFormGroup<TModel> StaticInternalHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder formGroup = StaticTagBuilderHelper(form, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
 
-            return new FlexFormGroup<TModel>(form.FHtmlHelper, formGroup);
+            return new FlexFormGroup<TModel>(form.FormContext, form.FHtmlHelper, formGroup);
         }
 
         private static FlexTagBuilder StaticTagBuilderHelper(FlexMvcForm form, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)

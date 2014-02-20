@@ -17,9 +17,7 @@ namespace FlexHtmlHelper
     }
 
     public class FlexTagBuilder
-    {
-        private IDictionary<string, string> _attributes;
-
+    {        
         private string _idAttributeDotReplacement;
 
         private string _text;
@@ -55,11 +53,80 @@ namespace FlexHtmlHelper
 
             TagName = tagName;
             ParentTag = parentTag;
-            _attributes = new SortedDictionary<string, string>(StringComparer.Ordinal);
+            Attributes = new SortedDictionary<string, string>(StringComparer.Ordinal);
         }
 
         #endregion
 
+        
+        /// <summary>
+        /// tag name
+        /// </summary>
+        public string TagName { get; set; }
+
+
+        /// <summary>
+        /// children tags
+        /// </summary>
+        public IList<FlexTagBuilder> InnerTags { get; private set; }
+
+        /// <summary>
+        /// return parent tag
+        /// </summary>
+        public FlexTagBuilder ParentTag { get; set; }
+
+        /// <summary>
+        /// return root tag
+        /// </summary>
+        public FlexTagBuilder RootTag
+        {
+            get
+            {
+                FlexTagBuilder root = this;
+                while (root.ParentTag != null)
+                {
+                    root = root.ParentTag;
+                }
+                return root;
+            }
+        }
+
+        public IDictionary<string, string> Attributes { get; private set; }
+
+        /// <summary>
+        /// return the attributes of the first non abstract tag, attributes on abstract tag is useless
+        /// </summary>
+        public IDictionary<string, string> TagAttributes
+        {
+            get
+            {
+                if (IsAbstractTag())
+                {
+                    var tag = this.Tag();
+                    if (tag != null)
+                    {
+                        return tag.TagAttributes;
+                    }
+                }
+
+                return Attributes;
+            }
+        }
+
+        /// <summary>
+        /// return attribte with specified name, return null if not found.  
+        /// null could also means the value itself is null
+        /// try to use string.Empty for the attribute if no value to void the confusing
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public string Attribute(string name)
+        {
+            string value = null; 
+            TagAttributes.TryGetValue(name, out value);
+
+            return value;
+        }
 
         /// <summary>
         /// http://www.w3.org/TR/html-markup/syntax.html
@@ -83,72 +150,53 @@ namespace FlexHtmlHelper
         private bool IsAbstractTag()
         {
             return (string.IsNullOrEmpty(TagName));
-        }        
+        }
+
 
         /// <summary>
-        /// return the attributes of the first non abstract tag, attributes on abstract tag is useless
+        /// find the first non-abstract tag
         /// </summary>
-        public IDictionary<string, string> Attributes
+        /// <returns></returns>
+        public FlexTagBuilder Tag()
         {
-            get
+            if (!IsAbstractTag())
             {
-                if (IsAbstractTag())
+                return this;
+            }
+            else
+            {
+                if (InnerTags == null) return null;
+                if (InnerTags.Count == 0) return null;
+                foreach (FlexTagBuilder tag in InnerTags)
                 {
-                    var tag = this.Tag();
-                    if (tag != null)
+                    var t = tag.Tag();
+                    if (t != null)
                     {
-                        return tag.Attributes;
+                        return t;
                     }
-                }               
-                
-                return _attributes;
-            }
-            private set
-            {
-                _attributes = value;
+                }
+                return null;
             }
         }
 
         /// <summary>
-        /// tag name
+        /// the tag's text tag
         /// </summary>
-        public string TagName { get; set; }
-
-
-        /// <summary>
-        /// children tags
-        /// </summary>
-        public IList<FlexTagBuilder> InnerTags { get; private set; }
-
-
-        /// <summary>
-        /// return parent tag
-        /// </summary>
-        public FlexTagBuilder ParentTag { get; private set; }
-
-        /// <summary>
-        /// return root tag
-        /// </summary>
-        public FlexTagBuilder RootTag
+        public FlexTagBuilder TextTag
         {
             get
             {
-                FlexTagBuilder root = this;
-                while (root.ParentTag != null)
-                {
-                    root = root.ParentTag;
-                }
-                return root;
+                return this.Tag().InnerTags.FirstOrDefault(t => (t.IsTextTag()));
             }
         }
 
         /// <summary>
-        /// find the first inner tag with name tagName
+        /// find the first tag with name equals tagName, could be itself
         /// </summary>
         /// <param name="tagName">tag's name</param>
         /// <returns></returns>
         public FlexTagBuilder Tag(string tagName)
-        {   
+        {
             if (tagName == TagName) return this;
             if (InnerTags == null) return null;
             foreach (FlexTagBuilder tag in InnerTags)
@@ -176,38 +224,348 @@ namespace FlexHtmlHelper
             }
         }
 
-        /// <summary>
-        /// find the first non-abstract tag
-        /// </summary>
-        /// <returns></returns>
-        public FlexTagBuilder Tag()
+        public FlexTagBuilder TagWithCssClass(string value)
         {
-            if (!IsAbstractTag()) 
+            string @class = Attribute("class");
+            if (@class != null)
             {
-                return this;
+                if (@class.Split(' ').Contains(value)) return this;
             }
-            else
+
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
             {
-                if (InnerTags == null) return null;
-                if (InnerTags.Count == 0) return null;
-                foreach (FlexTagBuilder tag in InnerTags)
+                var t = tag.TagWithCssClass(value);
+                if (t != null)
                 {
-                    var t = tag.Tag();
-                    if (t != null)
-                    {
-                        return t;
-                    }
+                    return t;
                 }
-                return null;
             }
+            return null;
         }
 
-        public FlexTagBuilder TextTag
+        public FlexTagBuilder TagWithCssClass(string tagName,string value)
         {
-            get
+            if (tagName == this.TagName)
             {
-                return InnerTags.FirstOrDefault(t => (t.IsTextTag()));
+                string @class = Attribute("class");
+                if (@class != null)
+                {
+                    if (@class.Split(' ').Contains(value)) return this;
+                }
             }
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithCssClass(value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder TagWithAttribute(string name)
+        {
+
+            if (TagAttributes.ContainsKey(name)) return this;
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttribute(name);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder TagWithAttribute(string tagName, string name)
+        {
+
+            if (tagName == TagName)
+            {
+                if (TagAttributes.ContainsKey(name)) return this;
+            }
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttribute(name);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder TagWithAttributeValue(string name, string value)
+        {
+            string v;
+            if (TagAttributes.TryGetValue(name, out v))
+            {
+                if (value == v) return this;
+            }
+
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttributeValue(name,value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder TagWithAttributeValue(string tagName, string name, string value)
+        {
+            string v;
+            if (tagName == TagName)
+            {
+                if (TagAttributes.TryGetValue(name, out v))
+                {
+                    if (value == v) return this;
+                }
+            }
+
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttributeValue(tagName,name, value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// find the first inner tag with name equals tagName
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        public FlexTagBuilder InnerTag(string tagName)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.Tag(tagName);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+
+        public FlexTagBuilder InnerTagWithCssClass(string value)
+        {            
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithCssClass(value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder InnerTagWithCssClass(string tagName, string value)
+        {            
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithCssClass(value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder InnerTagWithAttribute(string name)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttribute(name);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder InnerTagWithAttribute(string tagName, string name)
+        {            
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttribute(name);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder InnerTagWithAttributeValue(string name, string value)
+        {
+            
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttribute(name, value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder InnerTagWithAttributeValue(string tagName, string name, string value)
+        {            
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in InnerTags)
+            {
+                var t = tag.TagWithAttributeValue(tagName, name, value);
+                if (t != null)
+                {
+                    return t;
+                }
+            }
+
+            return null;
+        }
+
+        public FlexTagBuilder ChildTag(string tagName)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+                if (tag.Tag().TagName == tagName)
+                {
+                    return tag.Tag();
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder ChildTagWithClass(string value)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {               
+                var s = tag.Tag().TagAttributes["class"];
+                if ((s != null) && (s.Split(' ').Contains(value)))
+                {
+                    return tag.Tag();
+                }               
+            }
+            return null;
+        }    
+
+        public FlexTagBuilder ChildTagWithClass(string tagName, string value)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+                if (tag.Tag().TagName == tagName)
+                {
+                    var s = tag.Tag().TagAttributes["class"];
+                    if ((s != null) && (s.Split(' ').Contains(value)))
+                    {
+                        return tag.Tag();
+                    }
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder ChildTagWithAttribute(string name)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+
+                if (tag.Tag().TagAttributes.ContainsKey(name))
+                {
+                    return tag.Tag();
+                }                
+            }
+            return null;
+        }
+
+        public FlexTagBuilder ChildTagWithAttribute(string tagName, string name)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+                if (tagName == Tag().TagName)
+                {
+                    if (tag.Tag().TagAttributes.ContainsKey(name))
+                    {
+                        return tag.Tag();
+                    }
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder ChildTagWithAttributeValue(string name, string value)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+                string v;
+                if (tag.Tag().TagAttributes.TryGetValue(name, out v))
+                {
+                    if (v == value)
+                    {
+                        return tag.Tag();
+                    }
+                }
+            }
+            return null;
+        }
+
+        public FlexTagBuilder ChildTagWithAttributeValue(string tagName, string name, string value)
+        {
+            if (InnerTags == null) return null;
+            foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+            {
+                if (tagName == Tag().TagName)
+                {
+                    string v;
+                    if (tag.Tag().TagAttributes.TryGetValue(name, out v))
+                    {
+                        if (v == value)
+                        {
+                            return tag.Tag();
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         public FlexTagBuilder AddTag(string tagName)
@@ -224,6 +582,14 @@ namespace FlexHtmlHelper
             return tag;
         }
 
+        public FlexTagBuilder AddText(string text)
+        {
+            var tag = new FlexTagBuilder(this);
+            tag.SetText(text);
+            InnerTags.Add(tag);
+            return this;
+        }
+
         public FlexTagBuilder InsertTag(int index, FlexTagBuilder tag)
         {
             InnerTags.Insert(index, tag);
@@ -238,13 +604,119 @@ namespace FlexHtmlHelper
             return tag;
         }
 
-        public FlexTagBuilder AddText(string text)
+
+        public bool RemoveTag(FlexTagBuilder tag)
         {
-            var tag = new FlexTagBuilder(this);
-            tag.SetText(text);
-            InnerTags.Add(tag);
-            return this;
+
+            if ((this == tag) || (this.Tag() == tag))
+            {
+                if (ParentTag != null)
+                {
+                    ParentTag.InnerTags.Remove(this);
+                }
+                else
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if (RemoveTag(tag))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+
+
+        public bool RemoveTag(string tagName)
+        {
+
+            if (this.Tag().TagName == tagName)
+            {
+                if (ParentTag != null)
+                {
+                    ParentTag.InnerTags.Remove(this);
+                }
+                else
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if (RemoveTag(tagName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        public bool RemoveInnerTag(FlexTagBuilder tag)
+        {
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if (RemoveTag(tag))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveInnerTag(string tagName)
+        {
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if (RemoveTag(tagName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveChildTag(FlexTagBuilder tag)
+        {
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if ((t == tag) || (t.Tag() == tag))
+                {
+                    this.InnerTags.Remove(t);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveChildTag(string name)
+        {
+            if (InnerTags == null) return false;
+            foreach (FlexTagBuilder t in this.Tag().InnerTags)
+            {
+                if (t.Tag().TagName == name)
+                {
+                    this.InnerTags.Remove(t);
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public string IdAttributeDotReplacement
         {
@@ -269,13 +741,13 @@ namespace FlexHtmlHelper
         {            
             string currentValue;
 
-            if (Attributes.TryGetValue("class", out currentValue))
+            if (TagAttributes.TryGetValue("class", out currentValue))
             {
-                Attributes["class"] = value + " " + currentValue;
+                TagAttributes["class"] = value + " " + currentValue;
             }
             else
             {
-                Attributes["class"] = value;
+                TagAttributes["class"] = value;
             }
             return this;
         }
@@ -344,19 +816,19 @@ namespace FlexHtmlHelper
 
         public void GenerateId(string name)
         {
-            if (!Attributes.ContainsKey("id"))
+            if (!TagAttributes.ContainsKey("id"))
             {
                 string sanitizedId = CreateSanitizedId(name, IdAttributeDotReplacement);
                 if (!String.IsNullOrEmpty(sanitizedId))
                 {
-                    Attributes["id"] = sanitizedId;
+                    TagAttributes["id"] = sanitizedId;
                 }
             }
         }
 
         private void AppendAttributes(StringBuilder sb)
         {
-            foreach (var attribute in Attributes)
+            foreach (var attribute in TagAttributes)
             {
                 string key = attribute.Key;
                 if (String.Equals(key, "id", StringComparison.Ordinal /* case-sensitive */) && String.IsNullOrEmpty(attribute.Value))
@@ -384,9 +856,9 @@ namespace FlexHtmlHelper
                 throw new ArgumentException("key");
             }
 
-            if (replaceExisting || !Attributes.ContainsKey(key))
+            if (replaceExisting || !TagAttributes.ContainsKey(key))
             {
-                Attributes[key] = value;
+                TagAttributes[key] = value;
             }
         }
 

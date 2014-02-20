@@ -53,7 +53,7 @@ namespace FlexHtmlHelper.Mvc.Html
            
             if (traditionalJavascriptEnabled)
             {
-                HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.Attributes["id"];
+                HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.TagAttributes["id"];
             }
 
             return theForm;
@@ -235,7 +235,7 @@ namespace FlexHtmlHelper.Mvc.Html
         
             if (traditionalJavascriptEnabled)
             {
-                HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.Attributes["id"];
+                HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.TagAttributes["id"];
             }
 
             return theForm;

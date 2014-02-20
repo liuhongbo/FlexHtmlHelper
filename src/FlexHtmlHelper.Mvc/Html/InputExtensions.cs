@@ -616,7 +616,7 @@ namespace FlexHtmlHelper.Mvc.Html
            
             Object ret = null;
 
-            ret = new FlexTextBox(htmlHelper, input);
+            ret = new FlexStatic(htmlHelper, input);
                    
             return (T)ret;
         }

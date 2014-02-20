@@ -227,7 +227,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
                     // client validation always requires an ID
                     vm.GenerateId(modelName + "_validationMessage");
-                    fieldMetadata.ValidationMessageId = vm.Attributes["id"];
+                    fieldMetadata.ValidationMessageId = vm.TagAttributes["id"];
                 }
             }
 
@@ -328,7 +328,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 {
                     // client val summaries need an ID
                     summary.GenerateId("validationSummary");
-                    formContext.ValidationSummaryId = summary.Attributes["id"];
+                    formContext.ValidationSummaryId = summary.TagAttributes["id"];
                     formContext.ReplaceValidationSummary = !excludePropertyErrors;
                 }
             }

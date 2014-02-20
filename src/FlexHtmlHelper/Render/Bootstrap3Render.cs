@@ -22,7 +22,7 @@ namespace FlexHtmlHelper.Render
         public override FlexTagBuilder LabelHelper(FlexTagBuilder tagBuilder, string @for, string text, IDictionary<string, object> htmlAttributes = null)
         {
             FlexTagBuilder tag = new FlexTagBuilder("label");
-            tag.Attributes.Add("for", @for);
+            tag.TagAttributes.Add("for", @for);
             tag.AddText(text);
             tag.MergeAttributes(htmlAttributes, replaceExisting: true);
 
@@ -61,7 +61,7 @@ namespace FlexHtmlHelper.Render
             FlexTagBuilder tag = new FlexTagBuilder("div");
 
             string inputType;
-            if (!inputTag.Attributes.Keys.Contains("type"))
+            if (!inputTag.TagAttributes.Keys.Contains("type"))
             {
 
                 if (inputTag.Tag().TagName.Equals("select", StringComparison.InvariantCultureIgnoreCase))
@@ -83,7 +83,7 @@ namespace FlexHtmlHelper.Render
             }
             else
             {
-                inputType = inputTag.Attributes["type"];                
+                inputType = inputTag.TagAttributes["type"];                
             }            
 
             switch (formContext.LayoutStyle)
@@ -420,10 +420,10 @@ namespace FlexHtmlHelper.Render
             switch (state)
             {
                 case ValidationState.Warning:
-                    tagBuilder.Tag().AddCssClass("has-error");
+                    tagBuilder.Tag().AddCssClass("has-warning");
                     break;
                 case ValidationState.Error:
-                    tagBuilder.Tag().AddCssClass("has-warning");
+                    tagBuilder.Tag().AddCssClass("has-error");
                     break;
                 case ValidationState.Succuss:
                     tagBuilder.Tag().AddCssClass("has-success");
@@ -432,7 +432,49 @@ namespace FlexHtmlHelper.Render
 
             tagBuilder.Tag().AddCssClass("");
             return tagBuilder;
-        }        
+        }
+
+        public override FlexTagBuilder FormGroupAddCheckBox(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder checkBoxTag)
+        {            
+
+            labelTag.Tag().AddCssClass("checkbox-inline");
+            labelTag.Tag().InsertTag(0, checkBoxTag);
+
+            switch (formContext.LayoutStyle)
+            {
+                case FormLayoutStyle.Default:
+                    formGroupTag.AddTag(labelTag);
+                    break;
+                case FormLayoutStyle.Horizontal:
+                    FlexTagBuilder colTag =  formGroupTag.Tag().ChildTag("div");
+                    if (colTag!= null)
+                    {
+                        var divCheckbox = colTag.Tag().ChildTagWithClass("div", "checkbox");
+                        if (divCheckbox != null)
+                        {
+                            var label = divCheckbox.Tag().ChildTag("label");
+                            if (label != null)
+                            {
+                                label.Tag().AddCssClass("checkbox-inline");
+                                colTag.RemoveChildTag(divCheckbox);
+                                colTag.InsertTag(0, label);                                
+                            }
+                        }
+                        colTag.AddTag(labelTag);
+                    }
+                    break;
+                case FormLayoutStyle.Inline:
+                    formGroupTag.AddTag(labelTag);
+                    break;
+            }
+
+            return formGroupTag;
+        }
+
+        public override FlexTagBuilder FormGroupAddRadioButton(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder radioButtonTag)
+        {
+            return formGroupTag;
+        }
 
         #endregion
 
