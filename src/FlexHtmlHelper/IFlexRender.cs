@@ -79,8 +79,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text);
         FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text);
         FlexTagBuilder FormGroupValidationState(FlexTagBuilder tagBuilder, ValidationState state);
-        FlexTagBuilder FormGroupAddCheckBox(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder checkBoxTag);
-        FlexTagBuilder FormGroupAddRadioButton(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder radioButtonTag);
+        FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag);        
 
         #endregion
 

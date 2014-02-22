@@ -184,7 +184,7 @@ namespace FlexHtmlHelper.Mvc.Html
             FlexLabel label = htmlHelper.LabelHelper(metadata, name);
             FlexCheckBox input = htmlHelper.InputHelper<FlexCheckBox>(InputType.CheckBox,metadata, name, "true", !explicitValue, isChecked ?? false, true, false, null, htmlAttributes);
 
-            formGroup.Render.FormGroupAddCheckBox(formGroup.FormContext,formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+            formGroup.Render.FormGroupAddInput(formGroup.FormContext,formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
 
             return formGroup;
         }
@@ -278,7 +278,7 @@ namespace FlexHtmlHelper.Mvc.Html
             FlexLabel label = htmlHelper.LabelHelper(metadata, name);
             FlexCheckBox input = htmlHelper.InputHelper<FlexCheckBox>(InputType.CheckBox, metadata, name, "true", !explicitValue, isChecked ?? false, true, false, null, htmlAttributes);
 
-            formGroup.Render.FormGroupAddCheckBox(formGroup.FormContext, formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+            formGroup.Render.FormGroupAddInput(formGroup.FormContext, formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
 
             return formGroup;
         }

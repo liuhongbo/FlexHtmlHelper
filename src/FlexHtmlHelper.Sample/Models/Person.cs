@@ -52,5 +52,13 @@ namespace FlexHtmlHelperSample.Models
 
         [DisplayName("Newsletter")]
         public bool Newsletter { get; set; }
+
+        [DisplayName("Forum Posts")]
+        public bool ForumPosts { get; set; }
+
+        [DisplayName("Blog Posts")]
+        public bool BlogPosts { get; set; }
+
+
     }
 }

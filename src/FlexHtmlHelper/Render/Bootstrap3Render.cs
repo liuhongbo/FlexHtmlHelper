@@ -56,11 +56,9 @@ namespace FlexHtmlHelper.Render
             return tag;
         }
 
-        public override FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag)
+        private string GetInputType(FlexTagBuilder inputTag)
         {
-            FlexTagBuilder tag = new FlexTagBuilder("div");
-
-            string inputType;
+            string inputType = null;
             if (!inputTag.TagAttributes.Keys.Contains("type"))
             {
 
@@ -75,16 +73,21 @@ namespace FlexHtmlHelper.Render
                 else if (inputTag.Tag().TagName.Equals("p", StringComparison.InvariantCultureIgnoreCase))
                 {
                     inputType = "static";
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid parameter inputTag");
-                }
+                }               
             }
             else
             {
-                inputType = inputTag.TagAttributes["type"];                
-            }            
+                inputType = inputTag.TagAttributes["type"];
+            }
+
+            return inputType;
+        }
+
+        public override FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("div");
+
+            string inputType = GetInputType(inputTag);
 
             switch (formContext.LayoutStyle)
             {
@@ -432,50 +435,89 @@ namespace FlexHtmlHelper.Render
 
             tagBuilder.Tag().AddCssClass("");
             return tagBuilder;
-        }
+        }        
 
-        public override FlexTagBuilder FormGroupAddCheckBox(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder checkBoxTag)
-        {            
+        public override FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
+        {
+            string inputType = GetInputType(inputTag);
 
-            labelTag.Tag().AddCssClass("checkbox-inline");
-            labelTag.Tag().InsertTag(0, checkBoxTag);
+            switch (inputType)
+            {
+                case "checkbox":
+                    labelTag.Tag().AddCssClass("checkbox-inline");
+                    labelTag.Tag().InsertTag(0, inputTag);
+                    break;
+                case "radio":
+                    labelTag.Tag().AddCssClass("radio-inline");
+                    labelTag.Tag().InsertTag(0, inputTag);
+                    break;
+                default:
+                    return formGroupTag;                    
+            }
+
+            FlexTagBuilder div = null;
 
             switch (formContext.LayoutStyle)
             {
                 case FormLayoutStyle.Default:
+                    div = formGroupTag.TagWithCssClass("div", "checkbox");
+                    if (div != null)
+                    {
+                        div.RemoveCssClass("checkbox");
+                        div.ChildTag("label").AddCssClass("checkbox-inline");
+                    }
+                    else
+                    {
+                        div = formGroupTag.TagWithCssClass("div", "radio");
+                        if (div != null)
+                        {
+                            div.RemoveCssClass("radio");
+                            div.ChildTag("label").AddCssClass("radio-inline");
+                        }
+                    }
+                    formGroupTag.AddCssClass("form-group",true);
                     formGroupTag.AddTag(labelTag);
                     break;
                 case FormLayoutStyle.Horizontal:
                     FlexTagBuilder colTag =  formGroupTag.Tag().ChildTag("div");
                     if (colTag!= null)
                     {
-                        var divCheckbox = colTag.Tag().ChildTagWithClass("div", "checkbox");
-                        if (divCheckbox != null)
+                        div = colTag.Tag().ChildTagWithClass("div", "checkbox");
+                        if (div != null)
                         {
-                            var label = divCheckbox.Tag().ChildTag("label");
+                            var label = div.Tag().ChildTag("label");
                             if (label != null)
                             {
                                 label.Tag().AddCssClass("checkbox-inline");
-                                colTag.RemoveChildTag(divCheckbox);
+                                colTag.RemoveChildTag(div);
                                 colTag.InsertTag(0, label);                                
+                            }
+                        }
+                        else 
+                        {
+                            div = colTag.Tag().ChildTagWithClass("div", "radio");
+                            if (div != null)
+                            {
+                                var label = div.Tag().ChildTag("label");
+                                if (label != null)
+                                {
+                                    label.Tag().AddCssClass("radio-inline");
+                                    colTag.RemoveChildTag(div);
+                                    colTag.InsertTag(0, label);
+                                }
                             }
                         }
                         colTag.AddTag(labelTag);
                     }
                     break;
-                case FormLayoutStyle.Inline:
+                case FormLayoutStyle.Inline:                    
                     formGroupTag.AddTag(labelTag);
                     break;
             }
 
             return formGroupTag;
         }
-
-        public override FlexTagBuilder FormGroupAddRadioButton(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder radioButtonTag)
-        {
-            return formGroupTag;
-        }
-
+        
         #endregion
 
 

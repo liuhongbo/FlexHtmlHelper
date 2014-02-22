@@ -288,16 +288,11 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder FormGroupAddCheckBox(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder checkBoxTag)
+        public virtual FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
         {
             return formGroupTag;
         }
-
-        public virtual FlexTagBuilder FormGroupAddRadioButton(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder radioButtonTag)
-        {
-            return formGroupTag;
-        }
-
+        
         #endregion
 
 

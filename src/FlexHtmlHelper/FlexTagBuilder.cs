@@ -737,13 +737,21 @@ namespace FlexHtmlHelper
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private FlexTagBuilder CssClass(string value)
+        private FlexTagBuilder CssClass(string value, bool checkDuplicate = false)
         {            
-            string currentValue;
+            string v;
 
-            if (TagAttributes.TryGetValue("class", out currentValue))
+            if (TagAttributes.TryGetValue("class", out v))
             {
-                TagAttributes["class"] = value + " " + currentValue;
+                if (checkDuplicate)
+                {
+                    var values = v.Split(' ');
+                    if (values.Contains(value))
+                    {
+                        return this;
+                    }
+                }
+                TagAttributes["class"] = value + " " + v;
             }
             else
             {
@@ -758,7 +766,7 @@ namespace FlexHtmlHelper
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public FlexTagBuilder AddCssClass(string value)
+        public FlexTagBuilder AddCssClass(string value, bool checkDuplicate = false)
         {
 
             FlexTagBuilder tag = this.Tag();
@@ -768,6 +776,27 @@ namespace FlexHtmlHelper
                 tag.CssClass(value);
             }
              
+            return this;
+        }
+
+        public FlexTagBuilder RemoveCssClass(string value)
+        {
+            string v;
+
+            if (TagAttributes.TryGetValue("class", out v))
+            {
+                var values = v.Split(' ');
+                string newValue = "";
+                foreach (var s in values)
+                {
+                    if (!s.Equals(value, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        newValue = s + " " + newValue;
+                    }
+                }
+                TagAttributes["class"] = newValue;
+            }
+            
             return this;
         }
 
