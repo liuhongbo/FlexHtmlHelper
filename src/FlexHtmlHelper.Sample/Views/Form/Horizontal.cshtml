@@ -27,12 +27,11 @@
         @form.PasswordFor(m => m.Password)
         @form.CheckBoxFor(m => m.AcceptTerms)
         @form.CheckBoxFor(m=>m.ForumPosts).CheckBoxFor(m=>m.Newsletter)
-        @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male")
-        @form.RadioButtonFor(m => m.Gender, "F").LabelText("Female")
+        @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male").RadioButtonFor(m => m.Gender, "F").LabelText("Female")
         @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).HasError()
         @form.TextBoxFor(m => m.File, new { type = "file" })
-    @form.TextAreaFor(m => m.Description)
-    @form.StaticFor(m => m.Log)
+        @form.TextAreaFor(m => m.Description)
+        @form.StaticFor(m => m.Log)
     <div class="form-group">
         <label class="control-label col-sm-2 col-md-2" for="FirstName">First Name</label>
         <div class="col-sm-4 col-md-4">

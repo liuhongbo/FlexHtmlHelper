@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -132,7 +133,7 @@ namespace FlexHtmlHelper.Mvc.Html
         }
 
 
-        #region INLINE_CHECKBOX
+        #region Inline Checkbox
         // CheckBox
 
         public static T CheckBox<T>(this T formGroup, string name) where T:FlexFormGroup
@@ -176,20 +177,133 @@ namespace FlexHtmlHelper.Mvc.Html
                 attributes.Remove("checked"); // Explicit value must override dictionary
             }
 
+
+            return (T)InputHelper((FlexFormGroup)formGroup,
+                               InputType.CheckBox,
+                               metadata,
+                               name,
+                               value: "true",
+                               useViewData: !explicitValue,
+                               isChecked: isChecked ?? false,
+                               setId: true,
+                               isExplicitValue: false,
+                               format: null,
+                               htmlAttributes: attributes);            
+        }       
+
+        #endregion
+
+        #region Inline Radio
+
+        public static T RadioButton<T>(this T formGroup, string name, object value) where T : FlexFormGroup
+        {
+            return RadioButton(formGroup, name, value, htmlAttributes: (object)null);
+        }
+
+        public static T RadioButton<T>(this T formGroup, string name, object value, object htmlAttributes) where T : FlexFormGroup
+        {
+            return RadioButton(formGroup, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static T RadioButton<T>(this T formGroup, string name, object value, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        {
+            // Determine whether or not to render the checked attribute based on the contents of ViewData.
+            string valueString = Convert.ToString(value, CultureInfo.CurrentCulture);
+            bool isChecked = (!String.IsNullOrEmpty(name)) && (String.Equals(formGroup.FHtmlHelper.EvalString(name), valueString, StringComparison.OrdinalIgnoreCase));
+            // checked attributes is implicit, so we need to ensure that the dictionary takes precedence.
+            RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+
+
+            if (attributes.ContainsKey("checked"))
+            {
+                return (T)InputHelper(formGroup,
+                                   InputType.Radio,
+                                   metadata: null,
+                                   name: name,
+                                   value: value,
+                                   useViewData: false,
+                                   isChecked: false,
+                                   setId: true,
+                                   isExplicitValue: true,
+                                   format: null,
+                                   htmlAttributes: attributes);
+            }
+
+            return RadioButton(formGroup, name, value, isChecked, htmlAttributes);
+        }
+
+        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked) where T : FlexFormGroup
+        {
+            return RadioButton(formGroup, name, value, isChecked, htmlAttributes: (object)null);
+        }
+
+        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked, object htmlAttributes) where T : FlexFormGroup
+        {
+            return RadioButton(formGroup, name, value, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+            // checked attribute is an explicit parameter so it takes precedence.
+            RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            attributes.Remove("checked");
+
+            return (T)InputHelper(formGroup,
+                               InputType.Radio,
+                               metadata: null,
+                               name: name,
+                               value: value,
+                               useViewData: false,
+                               isChecked: isChecked,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: null,
+                               htmlAttributes: attributes);
+            
+        }
+
+        #endregion
+
+
+        #region Helper
+
+        private static FlexFormGroup InputHelper(FlexFormGroup formGroup, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroupTag = InputTagBuilderHelper(formGroup, inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
+
+            return formGroup;
+        }
+
+        internal static FlexTagBuilder InputTagBuilderHelper(FlexFormGroup formGroup, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
             FHtmlHelper htmlHelper = formGroup.FHtmlHelper;
 
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
 
             FlexLabel label = htmlHelper.LabelHelper(metadata, name);
-            FlexCheckBox input = htmlHelper.InputHelper<FlexCheckBox>(InputType.CheckBox,metadata, name, "true", !explicitValue, isChecked ?? false, true, false, null, htmlAttributes);
+            FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
+            //FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
-            formGroup.Render.FormGroupAddInput(formGroup.FormContext,formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+            if (inputType == InputType.Radio)
+            {
+                var originalId = input.TagBuilder.TagAttributes["id"];
+                if ((originalId != null) && (value != null))
+                {
+                    var newId = originalId + "_" + value.ToString();
+                    input.TagBuilder.TagAttributes["id"] = newId;
+                    label.TagBuilder.TagAttributes["for"] = newId;
+                }
+            }
 
-            return formGroup;
+            formGroup.Render.FormGroupAddInput(formGroup.FormContext, formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+
+            return formGroup.TagBuilder;
         }
-
-        
 
         #endregion
     }
@@ -226,6 +340,9 @@ namespace FlexHtmlHelper.Mvc.Html
 
     public static class FlexFormGroupForModelExtensions
     {
+
+        #region Inline CheckBox
+
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
         public static FlexFormGroup<TModel> CheckBoxFor<TModel>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, bool>> expression)
         {
@@ -270,17 +387,97 @@ namespace FlexHtmlHelper.Mvc.Html
                 attributes.Remove("checked"); // Explicit value must override dictionary
             }
 
-            FHtmlHelper htmlHelper = formGroup.FHtmlHelper;
 
-            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            return InputHelper(formGroup,
+                               InputType.CheckBox,
+                               metadata,
+                               name,
+                               value: "true",
+                               useViewData: !explicitValue,
+                               isChecked: isChecked ?? false,
+                               setId: true,
+                               isExplicitValue: false,
+                               format: null,
+                               htmlAttributes: attributes);
+        }
+
+        #endregion
+
+        #region Inline Radio
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> RadioButtonFor<TModel, TProperty>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, TProperty>> expression, object value)
+        {
+            return RadioButtonFor(formGroup, expression, value, htmlAttributes: null);
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> RadioButtonFor<TModel, TProperty>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, TProperty>> expression, object value, object htmlAttributes)
+        {
+            return RadioButtonFor(formGroup, expression, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
+        public static FlexFormGroup<TModel> RadioButtonFor<TModel, TProperty>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, TProperty>> expression, object value, IDictionary<string, object> htmlAttributes)
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, formGroup.FHtmlHelper.HtmlHelper.ViewData);
+            return RadioButtonHelper(formGroup,
+                                     metadata,
+                                     metadata.Model,
+                                     ExpressionHelper.GetExpressionText(expression),
+                                     value,
+                                     null /* isChecked */,
+                                     htmlAttributes);
+        }       
+
+        private static FlexFormGroup<TModel> RadioButtonHelper<TModel>(this FlexFormGroup<TModel> formGroup, ModelMetadata metadata, object model, string name, object value, bool? isChecked, IDictionary<string, object> htmlAttributes)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+
+            bool explicitValue = isChecked.HasValue;
+            if (explicitValue)
+            {
+                attributes.Remove("checked"); // Explicit value must override dictionary
+            }
+            else
+            {
+                string valueString = Convert.ToString(value, CultureInfo.CurrentCulture);
+                isChecked = model != null &&
+                            !String.IsNullOrEmpty(name) &&
+                            String.Equals(model.ToString(), valueString, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return InputHelper(formGroup,
+                               InputType.Radio,
+                               metadata,
+                               name,
+                               value,
+                               useViewData: false,
+                               isChecked: isChecked ?? false,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: null,
+                               htmlAttributes: attributes);
+        }
 
 
-            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
-            FlexCheckBox input = htmlHelper.InputHelper<FlexCheckBox>(InputType.CheckBox, metadata, name, "true", !explicitValue, isChecked ?? false, true, false, null, htmlAttributes);
+        #endregion
 
-            formGroup.Render.FormGroupAddInput(formGroup.FormContext, formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+        #region Helper        
+
+        private static FlexFormGroup<TModel> InputHelper<TModel>(FlexFormGroup<TModel> formGroup, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder formGroupTag = FlexFormGroupExtensions.InputTagBuilderHelper(formGroup, inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
 
             return formGroup;
-        }
+        }       
+
+        #endregion
+
     }
 }

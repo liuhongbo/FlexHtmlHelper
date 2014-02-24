@@ -410,7 +410,7 @@ namespace FlexHtmlHelper.Render
 
         public override FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text)
         {
-            var tag = tagBuilder.Tag("label");
+            var tag = tagBuilder.LastTag("label");
             if (tag != null)
             {
                 tag.TextTag.SetText(text);

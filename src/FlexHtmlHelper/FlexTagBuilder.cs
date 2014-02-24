@@ -209,7 +209,7 @@ namespace FlexHtmlHelper
             }
 
             return null;
-        }
+        }        
 
         /// <summary>
         /// find the first tag with name tagName
@@ -222,6 +222,50 @@ namespace FlexHtmlHelper
             {
                 return Tag(tagName);
             }
+        }
+
+        /// <summary>
+        /// return all the tags with name tagName, including itself
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        public IList<FlexTagBuilder> Tags(string tagName)
+        {
+            List<FlexTagBuilder> list = new List<FlexTagBuilder>();
+            if (tagName == TagName) list.Add(this);
+            if (InnerTags != null)
+            {
+                foreach (FlexTagBuilder tag in InnerTags)
+                {
+                    list.AddRange(tag.Tags(tagName));
+                }
+            } 
+
+            return list;
+        }
+
+        public FlexTagBuilder LastTag(string tagName)
+        {
+            FlexTagBuilder lastTag = null;
+            InternalLastTag(tagName, ref lastTag);
+            return lastTag;
+        }
+
+        private void InternalLastTag(string tagName, ref FlexTagBuilder lastTag)
+        {
+            if (tagName == TagName) {
+                lastTag = this;
+            }           
+
+            if (InnerTags != null)
+            {
+                foreach (FlexTagBuilder tag in InnerTags)
+                {
+                    tag.InternalLastTag(tagName, ref lastTag);
+                }
+            }
+
+            return;
         }
 
         public FlexTagBuilder TagWithCssClass(string value)
@@ -365,8 +409,7 @@ namespace FlexHtmlHelper
                 }
             }
             return null;
-        }
-
+        }        
 
         public FlexTagBuilder InnerTagWithCssClass(string value)
         {            
