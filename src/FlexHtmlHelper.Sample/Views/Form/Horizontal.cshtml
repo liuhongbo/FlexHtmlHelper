@@ -21,7 +21,7 @@
     {
         @form.TextBoxFor(m => m.FirstName).CheckBoxFor(m=>m.AcceptTerms)
         @form.StaticFor(m => m.FirstName)
-        @form.TextBoxFor(m => m.LastName).HasError().Col_md(8)
+        @form.TextBoxFor(m => m.LastName).HasError().Col_md(8).hidden_sm()
         @form.TextBoxFor(m => m.Email).CheckBoxFor(m=>m.BlogPosts)
         @form.TextBoxFor(m => m.Title).Large()
         @form.PasswordFor(m => m.Password)
@@ -32,32 +32,7 @@
         @form.TextBoxFor(m => m.File, new { type = "file" })
         @form.TextAreaFor(m => m.Description)
         @form.StaticFor(m => m.Log)
-    <div class="form-group">
-        <label class="control-label col-sm-2 col-md-2" for="FirstName">First Name</label>
-        <div class="col-sm-4 col-md-4">
-            <input class="form-control" id="FirstName" name="FirstName" type="text" value="John" autocomplete="off">
-        </div>
-        <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
-        <label class="checkbox-inline">
-            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-        </label>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4 col-md-4 col-sm-offset-2 col-md-offset-2">
-            <div class="radio"><label for="Gender_M"><input id="Gender_M" name="Gender" type="radio" value="M">Male</label></div>
-
-            <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-            </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
-            </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
-            </label>
-
-        </div>
-    </div>
+       
     }
 
 

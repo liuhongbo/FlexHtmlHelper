@@ -326,6 +326,11 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
+        {
+            return tagBuilder;
+        }
+
         #endregion
     }
 

@@ -174,6 +174,66 @@ namespace FlexHtmlHelper.Mvc.Html
             return (T)flexElement;
         }
 
+        public static T visible_xs<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.ExtraSmall, true);
+            return flexElement;
+        }
+
+        public static T visible_sm<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Small, true);
+            return flexElement;
+        }
+
+        public static T visible_md<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Medium, true);
+            return flexElement;
+        }
+
+        public static T visible_lg<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, true);
+            return flexElement;
+        }
+
+        public static T visible_print<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, true);
+            return flexElement;
+        }
+
+        public static T hidden_xs<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.ExtraSmall, false);
+            return flexElement;
+        }
+
+        public static T hidden_sm<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Small, false);
+            return flexElement;
+        }
+
+        public static T hidden_md<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Medium, false);
+            return flexElement;
+        }
+
+        public static T hidden_lg<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, false);
+            return flexElement;
+        }
+
+        public static T hidden_print<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, false);
+            return flexElement;
+        }
+
         #endregion        
     }
 }

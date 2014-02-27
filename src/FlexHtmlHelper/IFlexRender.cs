@@ -16,7 +16,8 @@ namespace FlexHtmlHelper
         ExtraSmall,
         Small,
         Medium,
-        Large
+        Large,
+        Print
     }
 
 
@@ -90,6 +91,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder Disabled(FlexTagBuilder tagBuilder);
         FlexTagBuilder Focus(FlexTagBuilder tagBuilder);
         FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size);
+        FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible);
 
         #endregion
 

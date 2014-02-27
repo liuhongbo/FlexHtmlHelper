@@ -649,6 +649,38 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
+
+        public override FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
+        {
+            string s = string.Empty;
+
+            switch (style)
+            {
+                case GridStyle.ExtraSmall:
+                    s = "xs";
+                    break;
+                case GridStyle.Small:
+                    s = "sm";
+                    break;
+                case GridStyle.Medium:
+                    s = "md";
+                    break;
+                case GridStyle.Large:
+                    s = "lg";
+                    break;
+                case GridStyle.Print:
+                    s = "print";
+                    break;
+
+            }
+
+            string css = string.Format("{0}-{1}", visible ? "visible" : "hidden", s);
+
+            tagBuilder.AddCssClass(css);
+
+            return tagBuilder;
+        }
+
         #endregion
     }
 }
