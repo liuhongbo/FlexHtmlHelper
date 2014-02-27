@@ -292,7 +292,12 @@ namespace FlexHtmlHelper
         {
             return formGroupTag;
         }
-        
+
+        public virtual FlexTagBuilder FormGroupInputGridColumns(FlexFormContext formContext, FlexTagBuilder formGroupTag, GridStyle style, int columns)
+        {
+            return formGroupTag;
+        }
+
         #endregion
 
 

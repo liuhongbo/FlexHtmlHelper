@@ -79,7 +79,8 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormGroupHelpText(FlexTagBuilder tagBuilder, string text);
         FlexTagBuilder FormGroupLabelText(FlexTagBuilder tagBuilder, string text);
         FlexTagBuilder FormGroupValidationState(FlexTagBuilder tagBuilder, ValidationState state);
-        FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag);        
+        FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag);
+        FlexTagBuilder FormGroupInputGridColumns(FlexFormContext formContext, FlexTagBuilder formGroupTag, GridStyle style, int columns);
 
         #endregion
 

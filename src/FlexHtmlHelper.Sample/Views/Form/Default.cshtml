@@ -25,9 +25,9 @@
         @form.PasswordFor(m => m.Password)
         @form.CheckBoxFor(m => m.AcceptTerms)        
         @form.RadioButtonFor(m => m.Gender, "M").LabelText("Male").RadioButtonFor(m => m.Gender, "F").LabelText("Female")
-        @form.ListBoxFor(m=>m.TimeZoneId,Model.AvailableTimeZones)
+        @form.ListBoxFor(m=>m.TimeZoneId,Model.AvailableTimeZones).Col_md(6)
         @form.TextBoxFor(m => m.File, new {type="file" })
-        @form.TextAreaFor(m=>m.Description)
+        @form.TextAreaFor(m=>m.Description).Col_md(6)
         @form.CheckBoxFor(m=>m.ForumPosts).CheckBoxFor(m=>m.Newsletter)
         
         <div class="form-group">

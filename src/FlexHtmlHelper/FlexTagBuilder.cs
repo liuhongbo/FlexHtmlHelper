@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 
@@ -52,7 +53,7 @@ namespace FlexHtmlHelper
             }
 
             TagName = tagName;
-            ParentTag = parentTag;
+            Parent = parentTag;
             Attributes = new SortedDictionary<string, string>(StringComparer.Ordinal);
         }
 
@@ -73,19 +74,19 @@ namespace FlexHtmlHelper
         /// <summary>
         /// return parent tag
         /// </summary>
-        public FlexTagBuilder ParentTag { get; set; }
+        public FlexTagBuilder Parent { get; set; }
 
         /// <summary>
         /// return root tag
         /// </summary>
-        public FlexTagBuilder RootTag
+        public FlexTagBuilder Root
         {
             get
             {
                 FlexTagBuilder root = this;
-                while (root.ParentTag != null)
+                while (root.Parent != null)
                 {
-                    root = root.ParentTag;
+                    root = root.Parent;
                 }
                 return root;
             }
@@ -187,6 +188,29 @@ namespace FlexHtmlHelper
             get
             {
                 return this.Tag().InnerTags.FirstOrDefault(t => (t.IsTextTag()));
+            }
+        }
+
+        /// <summary>
+        /// get the non-abstract parent tag
+        /// </summary>
+        public FlexTagBuilder ParentTag
+        {
+            get
+            {
+                var p = this.Parent;
+                if (p == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (p.IsAbstractTag())
+                    {
+                        return p.ParentTag;
+                    }
+                }
+                return p;
             }
         }
 
@@ -621,7 +645,7 @@ namespace FlexHtmlHelper
         public FlexTagBuilder AddTag(FlexTagBuilder tag)
         {
             InnerTags.Add(tag);            
-            tag.ParentTag = this;
+            tag.Parent = this;
             return tag;
         }
 
@@ -636,7 +660,7 @@ namespace FlexHtmlHelper
         public FlexTagBuilder InsertTag(int index, FlexTagBuilder tag)
         {
             InnerTags.Insert(index, tag);
-            tag.ParentTag = this;
+            tag.Parent = this;
             return tag;
         }
 
@@ -653,9 +677,9 @@ namespace FlexHtmlHelper
 
             if ((this == tag) || (this.Tag() == tag))
             {
-                if (ParentTag != null)
+                if (Parent != null)
                 {
-                    ParentTag.InnerTags.Remove(this);
+                    Parent.InnerTags.Remove(this);
                 }
                 else
                 {
@@ -682,9 +706,9 @@ namespace FlexHtmlHelper
 
             if (this.Tag().TagName == tagName)
             {
-                if (ParentTag != null)
+                if (Parent != null)
                 {
-                    ParentTag.InnerTags.Remove(this);
+                    Parent.InnerTags.Remove(this);
                 }
                 else
                 {
@@ -760,6 +784,38 @@ namespace FlexHtmlHelper
             return false;
         }
 
+        /// <summary>
+        /// replace itself
+        /// </summary>
+        /// <param name="newTag"></param>
+        /// <returns></returns>
+        public bool Replace(FlexTagBuilder newTag)
+        {
+            return Replace(this, newTag);
+        }
+
+        /// <summary>
+        /// replace
+        /// </summary>
+        /// <param name="oldTag"></param>
+        /// <param name="newTag"></param>
+        /// <returns></returns>
+        public bool Replace(FlexTagBuilder oldTag, FlexTagBuilder newTag)
+        {
+            var p = oldTag.Parent;
+            if (p != null)
+            {
+                var index = p.InnerTags.IndexOf(oldTag);
+                if (index >= 0)
+                {
+                    p.InnerTags.Remove(oldTag);
+                    p.InnerTags.Insert(index, newTag);
+                    return true;
+                }
+
+            }
+            return false;
+        }
 
         public string IdAttributeDotReplacement
         {
@@ -840,6 +896,26 @@ namespace FlexHtmlHelper
                 TagAttributes["class"] = newValue;
             }
             
+            return this;
+        }
+
+        public FlexTagBuilder RemoveCssClass(Regex r)
+        {
+            string v;
+
+            if (TagAttributes.TryGetValue("class", out v))
+            {
+                var values = v.Split(' ');
+                string newValue = "";
+                foreach (var s in values)
+                {
+                    if (!r.Match(s).Success)
+                    {
+                        newValue = s + " " + newValue;
+                    }
+                }
+                TagAttributes["class"] = newValue;
+            }
             return this;
         }
 

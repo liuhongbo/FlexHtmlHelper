@@ -132,6 +132,30 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
+        public static T Col_xs<T>(this T formGroup, int columns) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.ExtraSmall, columns);
+            return formGroup;
+        }
+
+        public static T Col_sm<T>(this T formGroup, int columns) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Small, columns);
+            return formGroup;
+        }
+
+        public static T Col_md<T>(this T formGroup, int columns) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Medium, columns);
+            return formGroup;
+        }
+
+        public static T Col_lg<T>(this T formGroup, int columns) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Large, columns);
+            return formGroup;
+        }
+
 
         #region Inline Checkbox
         // CheckBox

@@ -52,7 +52,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public string ToHtmlString()
         {
-            return (_tagBuilder == null) ? string.Empty : _tagBuilder.RootTag.ToString();
+            return (_tagBuilder == null) ? string.Empty : _tagBuilder.Root.ToString();
         }
 
         public override string ToString()

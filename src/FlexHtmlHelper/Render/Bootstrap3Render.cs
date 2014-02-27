@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -517,7 +518,115 @@ namespace FlexHtmlHelper.Render
 
             return formGroupTag;
         }
-        
+
+        public override FlexTagBuilder FormGroupInputGridColumns(FlexFormContext formContext, FlexTagBuilder formGroupTag, GridStyle style, int columns)
+        {
+            FlexTagBuilder div = null;
+            FlexTagBuilder input = null;
+            int index = 0;
+            string inputType = string.Empty;
+
+            string cssClass = "";
+            switch (style)
+            {
+                case GridStyle.ExtraSmall:
+                    cssClass = "col-xs-";
+                    break;
+                case GridStyle.Small:
+                    cssClass = "col-sm-";
+                    break;
+                case GridStyle.Medium:
+                    cssClass = "col-md-";
+                    break;
+                case GridStyle.Large:
+                    cssClass = "col-lg-";
+                    break;
+            }
+
+            switch (formContext.LayoutStyle)
+            {
+                case FormLayoutStyle.Default:
+                    input = formGroupTag.LastTag("input");
+                    if (input != null)
+                    {
+                        inputType = GetInputType(input);
+                        switch (inputType)
+                        {
+                            case "text":
+                            case "password":
+                            case "hidden":
+                            case "email":                
+                            case "file":
+                                div = new FlexTagBuilder("div");
+                                input.Replace(div);
+                                div.AddCssClass("row").AddTag("div").AddCssClass(cssClass + columns.ToString()).AddTag(input);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        input = formGroupTag.LastTag("select");
+                        if (input != null)
+                        {
+                            div = new FlexTagBuilder("div");
+                            input.Replace(div);
+                            div.AddCssClass("row").AddTag("div").AddCssClass(cssClass + columns.ToString()).AddTag(input);
+                        }
+                        else
+                        {
+                            input = formGroupTag.LastTag("textarea");
+                            if (input != null)
+                            {
+                                div = new FlexTagBuilder("div");
+                                input.Replace(div);
+                                div.AddCssClass("row").AddTag("div").AddCssClass(cssClass + columns.ToString()).AddTag(input);
+                            }
+                        }
+                    }
+                    break;
+                case FormLayoutStyle.Horizontal:
+                     input = formGroupTag.LastTag("input");
+                    if (input != null)
+                    {
+                        inputType = GetInputType(input);
+                        switch (inputType)
+                        {
+                            case "text":
+                            case "password":
+                            case "hidden":
+                            case "email":                
+                            case "file":
+                                div = input.ParentTag;
+                                div.RemoveCssClass(new Regex(@"\A"+cssClass+@"\d+"));
+                                div.AddCssClass(cssClass + columns.ToString());
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        input = formGroupTag.LastTag("select");
+                        if (input != null)
+                        {
+                            div = input.ParentTag;
+                            div.AddCssClass(cssClass + columns.ToString());
+                        }
+                        else
+                        {
+                            input = formGroupTag.LastTag("textarea");
+                            if (input != null)
+                            {
+                                div = input.ParentTag;
+                                div.AddCssClass(cssClass + columns.ToString());
+                            }
+                        }
+                    }
+                    break;
+                case FormLayoutStyle.Inline:
+                    break;
+            }
+            return formGroupTag;
+        }
+
         #endregion
 
 

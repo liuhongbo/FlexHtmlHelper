@@ -21,7 +21,7 @@
     {
         @form.TextBoxFor(m => m.FirstName).CheckBoxFor(m=>m.AcceptTerms)
         @form.StaticFor(m => m.FirstName)
-        @form.TextBoxFor(m => m.LastName).HasError()
+        @form.TextBoxFor(m => m.LastName).HasError().Col_md(8)
         @form.TextBoxFor(m => m.Email).CheckBoxFor(m=>m.BlogPosts)
         @form.TextBoxFor(m => m.Title).Large()
         @form.PasswordFor(m => m.Password)
