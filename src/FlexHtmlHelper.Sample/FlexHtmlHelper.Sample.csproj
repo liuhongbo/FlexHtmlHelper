@@ -14,7 +14,7 @@
     <RootNamespace>FlexHtmlHelperSample</RootNamespace>
     <AssemblyName>FlexHtmlHelperSample</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -115,12 +115,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FormController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\InputController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -155,14 +154,22 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Grid\Row.cshtml" />
+    <Content Include="Views\Grid\ColumnOffset.cshtml" />
+    <Content Include="Views\Grid\Column.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Form\Inline.cshtml" />
     <Content Include="Views\Input\Select.cshtml" />
     <Content Include="Views\Form\Horizontal.cshtml" />
     <Content Include="Views\Form\Default.cshtml" />
+    <Content Include="Views\Grid\ColumnOrder.cshtml" />
+    <Content Include="Views\Grid\ColumnVisible.cshtml" />
+    <Content Include="Views\Input\Label.cshtml" />
+    <Content Include="Views\Input\TextBox.cshtml" />
+    <Content Include="Views\Input\CheckBox.cshtml" />
+    <Content Include="Views\Input\Radio.cshtml" />
+    <Content Include="Views\Input\TextArea.cshtml" />
+    <Content Include="Views\Input\Style.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

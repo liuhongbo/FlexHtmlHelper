@@ -67,10 +67,12 @@ namespace FlexHtmlHelper
 
         #region Grid System
 
+        FlexTagBuilder GridRow(FlexTagBuilder tagBuilder);
         FlexTagBuilder GridColumns(FlexTagBuilder tagBuilder, GridStyle style, int columns);
         FlexTagBuilder GridColumnOffset(FlexTagBuilder tagBuilder, GridStyle style, int columns);
         FlexTagBuilder GridColumnPush(FlexTagBuilder tagBuilder, GridStyle style, int columns);
         FlexTagBuilder GridColumnPull(FlexTagBuilder tagBuilder, GridStyle style, int columns);
+        FlexTagBuilder GridColumnVisible(FlexTagBuilder tagBuilder, GridStyle style, bool visible);
 
         #endregion
 
@@ -85,13 +87,17 @@ namespace FlexHtmlHelper
 
         #endregion
 
-        #region Html
+        #region Input
 
-        FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text);
+        FlexTagBuilder InputPlaceholder(FlexTagBuilder tagBuilder, string text);        
+        FlexTagBuilder InputFocus(FlexTagBuilder tagBuilder);
+        FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size);               
+        
+        #endregion
+
+        #region Element
+
         FlexTagBuilder Disabled(FlexTagBuilder tagBuilder);
-        FlexTagBuilder Focus(FlexTagBuilder tagBuilder);
-        FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size);
-        FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible);
 
         #endregion
 

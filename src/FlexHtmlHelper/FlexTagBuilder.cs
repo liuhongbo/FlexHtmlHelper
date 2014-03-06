@@ -17,7 +17,7 @@ namespace FlexHtmlHelper
         SelfClosing
     }
 
-    public class FlexTagBuilder
+    public class FlexTagBuilder : IHtmlString
     {        
         private string _idAttributeDotReplacement;
 
@@ -59,7 +59,15 @@ namespace FlexHtmlHelper
 
         #endregion
 
+
+        public string ToHtmlString()
+        {
+            return Root.ToString();
+        }
         
+
+        public object BuildContext { get; set; }
+
         /// <summary>
         /// tag name
         /// </summary>

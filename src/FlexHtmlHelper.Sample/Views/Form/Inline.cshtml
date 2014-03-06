@@ -10,9 +10,9 @@
 <br />
 <div class="row">
     <ul class="nav nav-pills">
-        <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
-        <li class="active">@Html.ActionLink("Inline", "Inline")</li>
         <li>@Html.ActionLink("Default", "Default")</li>
+        <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
+        <li class="active">@Html.ActionLink("Inline", "Inline")</li>        
     </ul>
 </div>
 
@@ -20,7 +20,7 @@
 
 <div class="row">
 
-    @using (var form = Html.f().Form().Inline().Label_col_sm(2).Input_col_sm(10).BeginForm())
+    @using (var form = Html.f().Form().inline().BeginForm())
     {
         @form.TextBoxFor(m => m.FirstName)
         @form.TextBoxFor(m => m.LastName)

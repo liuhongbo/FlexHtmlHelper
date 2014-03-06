@@ -93,6 +93,7 @@ namespace FlexHtmlHelper.Render
             switch (formContext.LayoutStyle)
             {
                 case FormLayoutStyle.Default:
+                    labelTag.AddCssClass("control-label");
                     switch (inputType)
                     {
                         case "text":
@@ -295,6 +296,15 @@ namespace FlexHtmlHelper.Render
 
         #region Grid System
 
+        public override FlexTagBuilder GridRow(FlexTagBuilder tagBuilder)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("div");
+            tag.AddCssClass("row");
+            tag.AddTag(tagBuilder.Root);
+
+            return tagBuilder;
+        }
+
         public override FlexTagBuilder GridColumns(FlexTagBuilder tagBuilder, GridStyle style, int columns)
         {
             string cssClass = "";
@@ -345,16 +355,16 @@ namespace FlexHtmlHelper.Render
             switch (style)
             {
                 case GridStyle.ExtraSmall:
-                    cssClass = "col-xs-push";
+                    cssClass = "col-xs-push-";
                     break;
                 case GridStyle.Small:
-                    cssClass = "col-sm-push";
+                    cssClass = "col-sm-push-";
                     break;
                 case GridStyle.Medium:
-                    cssClass = "col-md-push";
+                    cssClass = "col-md-push-";
                     break;
                 case GridStyle.Large:
-                    cssClass = "col-lg-push";
+                    cssClass = "col-lg-push-";
                     break;
             }
             tagBuilder.AddCssClass(cssClass + columns.ToString());
@@ -367,19 +377,50 @@ namespace FlexHtmlHelper.Render
             switch (style)
             {
                 case GridStyle.ExtraSmall:
-                    cssClass = "col-xs-pull";
+                    cssClass = "col-xs-pull-";
                     break;
                 case GridStyle.Small:
-                    cssClass = "col-sm-pull";
+                    cssClass = "col-sm-pull-";
                     break;
                 case GridStyle.Medium:
-                    cssClass = "col-md-pull";
+                    cssClass = "col-md-pull-";
                     break;
                 case GridStyle.Large:
-                    cssClass = "col-lg-pull";
+                    cssClass = "col-lg-pull-";
                     break;
             }
             tagBuilder.AddCssClass(cssClass + columns.ToString());
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder GridColumnVisible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
+        {
+            string s = string.Empty;
+
+            switch (style)
+            {
+                case GridStyle.ExtraSmall:
+                    s = "xs";
+                    break;
+                case GridStyle.Small:
+                    s = "sm";
+                    break;
+                case GridStyle.Medium:
+                    s = "md";
+                    break;
+                case GridStyle.Large:
+                    s = "lg";
+                    break;
+                case GridStyle.Print:
+                    s = "print";
+                    break;
+
+            }
+
+            string css = string.Format("{0}-{1}", visible ? "visible" : "hidden", s);
+
+            tagBuilder.AddCssClass(css);
+
             return tagBuilder;
         }
 
@@ -630,7 +671,7 @@ namespace FlexHtmlHelper.Render
         #endregion
 
 
-        #region Html      
+        #region Input      
 
         public override FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size)
         {
@@ -647,39 +688,7 @@ namespace FlexHtmlHelper.Render
 
             }
             return tagBuilder;
-        }
-
-
-        public override FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
-        {
-            string s = string.Empty;
-
-            switch (style)
-            {
-                case GridStyle.ExtraSmall:
-                    s = "xs";
-                    break;
-                case GridStyle.Small:
-                    s = "sm";
-                    break;
-                case GridStyle.Medium:
-                    s = "md";
-                    break;
-                case GridStyle.Large:
-                    s = "lg";
-                    break;
-                case GridStyle.Print:
-                    s = "print";
-                    break;
-
-            }
-
-            string css = string.Format("{0}-{1}", visible ? "visible" : "hidden", s);
-
-            tagBuilder.AddCssClass(css);
-
-            return tagBuilder;
-        }
+        }       
 
         #endregion
     }

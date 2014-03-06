@@ -9,6 +9,70 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class InputController : Controller
     {
+
+        public ActionResult Label()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = ""
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
+        }
+
+        public ActionResult TextBox()
+        {
+            var model = new Person()
+            {
+                FirstName = "John",
+                LastName = "Phillips",
+                Password = "flex",
+                PersonId = 1001
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
+        }
+
+        public ActionResult CheckBox()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = "",
+                Newsletter = true
+
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
+        }
+        public ActionResult Radio()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = ""
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
+        }
+
         //
         // GET: /Input/
         public ActionResult Select()
@@ -24,6 +88,36 @@ namespace FlexHtmlHelperSample.Controllers
 
 
             return View(model);           
+        }
+
+        public ActionResult TextArea()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = ""
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
+        }
+
+        public ActionResult Style()
+        {
+            var model = new Person()
+            {
+                FirstName = "",
+                LastName = ""
+            };
+
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+
+            return View(model);
         }
 	}
 }

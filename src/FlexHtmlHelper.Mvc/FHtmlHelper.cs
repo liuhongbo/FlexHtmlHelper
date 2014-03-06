@@ -132,5 +132,10 @@ namespace FlexHtmlHelper.Mvc
         {
             return new FHtmlHelper(htmlHelper, render);
         }
+
+        public static FlexTagBuilder Tag(this FHtmlHelper htmlHelper, string tagName)
+        {
+            return new FlexTagBuilder(tagName);
+        }
     }
 }

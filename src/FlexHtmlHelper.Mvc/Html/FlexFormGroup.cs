@@ -40,7 +40,12 @@ namespace FlexHtmlHelper.Mvc.Html
                 if (tag == null)
                 {
                     tag = TagBuilder.Tag("select");
+                    if (tag == null)
+                    {
+                        tag = TagBuilder.Tag("textarea");                        
+                    }
                 }
+                
                 return tag;
             }
         }        
@@ -52,29 +57,29 @@ namespace FlexHtmlHelper.Mvc.Html
     public static class FlexFormGroupExtensions
     {
 
-        public static T LabelText<T>(this T formGroup, string text) where T : FlexFormGroup
+        public static T label_text<T>(this T formGroup, string text) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupLabelText(formGroup.TagBuilder, text);
             return formGroup;
         }
 
-        public static T HelpText<T>(this T formGroup, string text) where T: FlexFormGroup
+        public static T help_text<T>(this T formGroup, string text) where T: FlexFormGroup
         {
             formGroup.Render.FormGroupHelpText(formGroup.TagBuilder, text);
             return formGroup;
         }        
 
-        public static T Placeholder<T>(this T formGroup, string text) where T: FlexFormGroup
+        public static T input_placeholder<T>(this T formGroup, string text) where T: FlexFormGroup
         {
             var input = formGroup.InputTag;
             if (input != null)
             {
-                formGroup.Render.Placeholder(input, text);
+                formGroup.Render.InputPlaceholder(input, text);
             }
             return formGroup;
         }
 
-        public static T Disabled<T>(this T formGroup) where T : FlexFormGroup
+        public static T input_disabled<T>(this T formGroup) where T : FlexFormGroup
         {
              var input = formGroup.InputTag;
              if (input != null)
@@ -84,35 +89,35 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
-        public static T Focus<T>(this T formGroup) where T : FlexFormGroup
+        public static T input_focus<T>(this T formGroup) where T : FlexFormGroup
         {
             var input = formGroup.InputTag;
             if (input != null)
             {
-                formGroup.Render.Focus(input);
+                formGroup.Render.InputFocus(input);
             }
             return formGroup;
         }
 
-        public static T HasWarning<T>(this T formGroup) where T: FlexFormGroup
+        public static T has_warning<T>(this T formGroup) where T: FlexFormGroup
         {
             formGroup.Render.FormGroupValidationState(formGroup.TagBuilder,ValidationState.Warning);
             return formGroup;
         }
 
-        public static T HasError<T>(this T formGroup) where T : FlexFormGroup
+        public static T has_error<T>(this T formGroup) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupValidationState(formGroup.TagBuilder, ValidationState.Error);
             return formGroup;
         }
 
-        public static T HasSuccess<T>(this T formGroup) where T : FlexFormGroup
+        public static T has_success<T>(this T formGroup) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupValidationState(formGroup.TagBuilder, ValidationState.Succuss);
             return formGroup;
         }
 
-        public static T Large<T>(this T formGroup) where T : FlexFormGroup
+        public static T input_lg<T>(this T formGroup) where T : FlexFormGroup
         {
             var input = formGroup.InputTag;
             if (input != null)
@@ -122,7 +127,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
-        public static T Small<T>(this T formGroup) where T : FlexFormGroup
+        public static T input_sm<T>(this T formGroup) where T : FlexFormGroup
         {
             var input = formGroup.InputTag;
             if (input != null)
@@ -132,25 +137,25 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
-        public static T Col_xs<T>(this T formGroup, int columns) where T : FlexFormGroup
+        public static T input_col_xs<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.ExtraSmall, columns);
             return formGroup;
         }
 
-        public static T Col_sm<T>(this T formGroup, int columns) where T : FlexFormGroup
+        public static T input_col_sm<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Small, columns);
             return formGroup;
         }
 
-        public static T Col_md<T>(this T formGroup, int columns) where T : FlexFormGroup
+        public static T input_col_md<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Medium, columns);
             return formGroup;
         }
 
-        public static T Col_lg<T>(this T formGroup, int columns) where T : FlexFormGroup
+        public static T input_col_lg<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Large, columns);
             return formGroup;
@@ -160,38 +165,38 @@ namespace FlexHtmlHelper.Mvc.Html
         #region Inline Checkbox
         // CheckBox
 
-        public static T CheckBox<T>(this T formGroup, string name) where T:FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name)
         {
             return CheckBox(formGroup, name, htmlAttributes: (object)null);
         }
 
-        public static T CheckBox<T>(this T formGroup, string name, bool isChecked) where T : FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name, bool isChecked)
         {
             return CheckBox(formGroup, name, isChecked, htmlAttributes: (object)null);
         }
 
-        public static T CheckBox<T>(this T formGroup, string name, bool isChecked, object htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name, bool isChecked, object htmlAttributes)
         {
             return CheckBox(formGroup, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static T CheckBox<T>(this T formGroup, string name, object htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name, object htmlAttributes)
         {
             return CheckBox(formGroup, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static T CheckBox<T>(this T formGroup, string name, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name, IDictionary<string, object> htmlAttributes)
         {
             return CheckBoxHelper(formGroup, metadata: null, name: name, isChecked: null, htmlAttributes: htmlAttributes);
         }
 
-        public static T CheckBox<T>(this T formGroup, string name, bool isChecked, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup CheckBox(this FlexFormGroup formGroup, string name, bool isChecked, IDictionary<string, object> htmlAttributes)
         {
             return CheckBoxHelper(formGroup, metadata: null, name: name, isChecked: isChecked, htmlAttributes: htmlAttributes);
         }
 
 
-        private static T CheckBoxHelper<T>(this T formGroup, ModelMetadata metadata, string name, bool? isChecked, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        private static FlexFormGroup CheckBoxHelper(FlexFormGroup formGroup, ModelMetadata metadata, string name, bool? isChecked, IDictionary<string, object> htmlAttributes)
         {
             RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
 
@@ -202,7 +207,7 @@ namespace FlexHtmlHelper.Mvc.Html
             }
 
 
-            return (T)InputHelper((FlexFormGroup)formGroup,
+            return InputHelper((FlexFormGroup)formGroup,
                                InputType.CheckBox,
                                metadata,
                                name,
@@ -219,17 +224,17 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #region Inline Radio
 
-        public static T RadioButton<T>(this T formGroup, string name, object value) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value)
         {
             return RadioButton(formGroup, name, value, htmlAttributes: (object)null);
         }
 
-        public static T RadioButton<T>(this T formGroup, string name, object value, object htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value, object htmlAttributes)
         {
             return RadioButton(formGroup, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static T RadioButton<T>(this T formGroup, string name, object value, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value, IDictionary<string, object> htmlAttributes)
         {
             // Determine whether or not to render the checked attribute based on the contents of ViewData.
             string valueString = Convert.ToString(value, CultureInfo.CurrentCulture);
@@ -240,7 +245,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
             if (attributes.ContainsKey("checked"))
             {
-                return (T)InputHelper(formGroup,
+                return (FlexFormGroup)InputHelper(formGroup,
                                    InputType.Radio,
                                    metadata: null,
                                    name: name,
@@ -256,17 +261,17 @@ namespace FlexHtmlHelper.Mvc.Html
             return RadioButton(formGroup, name, value, isChecked, htmlAttributes);
         }
 
-        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value, bool isChecked)
         {
             return RadioButton(formGroup, name, value, isChecked, htmlAttributes: (object)null);
         }
 
-        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked, object htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value, bool isChecked, object htmlAttributes)
         {
             return RadioButton(formGroup, name, value, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        public static T RadioButton<T>(this T formGroup, string name, object value, bool isChecked, IDictionary<string, object> htmlAttributes) where T : FlexFormGroup
+        public static FlexFormGroup RadioButton(this FlexFormGroup formGroup, string name, object value, bool isChecked, IDictionary<string, object> htmlAttributes)
         {
             if (value == null)
             {
@@ -276,7 +281,7 @@ namespace FlexHtmlHelper.Mvc.Html
             RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             attributes.Remove("checked");
 
-            return (T)InputHelper(formGroup,
+            return (FlexFormGroup)InputHelper(formGroup,
                                InputType.Radio,
                                metadata: null,
                                name: name,
@@ -367,6 +372,36 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #region Inline CheckBox
 
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name)
+        {
+            return CheckBox(formGroup, name, htmlAttributes: (object)null);
+        }
+
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name, bool isChecked)
+        {
+            return CheckBox(formGroup, name, isChecked, htmlAttributes: (object)null);
+        }
+
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name, bool isChecked, object htmlAttributes)
+        {
+            return CheckBox(formGroup, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name, object htmlAttributes)
+        {
+            return CheckBox(formGroup, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name, IDictionary<string, object> htmlAttributes)
+        {
+            return CheckBoxHelper(formGroup, metadata: null, name: name, isChecked: null, htmlAttributes: htmlAttributes);
+        }
+
+        public static FlexFormGroup<TModel> CheckBox<TModel>(this FlexFormGroup<TModel> formGroup, string name, bool isChecked, IDictionary<string, object> htmlAttributes)
+        {
+            return CheckBoxHelper(formGroup, metadata: null, name: name, isChecked: isChecked, htmlAttributes: htmlAttributes);
+        }        
+
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
         public static FlexFormGroup<TModel> CheckBoxFor<TModel>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, bool>> expression)
         {
@@ -428,6 +463,77 @@ namespace FlexHtmlHelper.Mvc.Html
         #endregion
 
         #region Inline Radio
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value)
+        {
+            return RadioButton(formGroup, name, value, htmlAttributes: (object)null);
+        }
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value, object htmlAttributes)
+        {
+            return RadioButton(formGroup, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value, IDictionary<string, object> htmlAttributes)
+        {
+            // Determine whether or not to render the checked attribute based on the contents of ViewData.
+            string valueString = Convert.ToString(value, CultureInfo.CurrentCulture);
+            bool isChecked = (!String.IsNullOrEmpty(name)) && (String.Equals(formGroup.FHtmlHelper.EvalString(name), valueString, StringComparison.OrdinalIgnoreCase));
+            // checked attributes is implicit, so we need to ensure that the dictionary takes precedence.
+            RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+
+
+            if (attributes.ContainsKey("checked"))
+            {
+                return InputHelper(formGroup,
+                                   InputType.Radio,
+                                   metadata: null,
+                                   name: name,
+                                   value: value,
+                                   useViewData: false,
+                                   isChecked: false,
+                                   setId: true,
+                                   isExplicitValue: true,
+                                   format: null,
+                                   htmlAttributes: attributes);
+            }
+
+            return RadioButton(formGroup, name, value, isChecked, htmlAttributes);
+        }
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value, bool isChecked)
+        {
+            return RadioButton(formGroup, name, value, isChecked, htmlAttributes: (object)null);
+        }
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value, bool isChecked, object htmlAttributes)
+        {
+            return RadioButton(formGroup, name, value, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        public static FlexFormGroup<TModel> RadioButton<TModel>(this FlexFormGroup<TModel> formGroup, string name, object value, bool isChecked, IDictionary<string, object> htmlAttributes)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+            // checked attribute is an explicit parameter so it takes precedence.
+            RouteValueDictionary attributes = htmlAttributes == null ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            attributes.Remove("checked");
+
+            return InputHelper(formGroup,
+                               InputType.Radio,
+                               metadata: null,
+                               name: name,
+                               value: value,
+                               useViewData: false,
+                               isChecked: isChecked,
+                               setId: true,
+                               isExplicitValue: true,
+                               format: null,
+                               htmlAttributes: attributes);
+
+        }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
         public static FlexFormGroup<TModel> RadioButtonFor<TModel, TProperty>(this FlexFormGroup<TModel> formGroup, Expression<Func<TModel, TProperty>> expression, object value)

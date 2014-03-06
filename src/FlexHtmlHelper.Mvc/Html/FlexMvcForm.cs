@@ -190,15 +190,15 @@ namespace FlexHtmlHelper.Mvc.Html
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static FlexFormGroup HiddenFor<TModel, TProperty>(Expression<Func<TModel, TProperty>> expression)
+        public static FlexFormGroup HiddenFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression)
         {
-            return HiddenFor(expression, (IDictionary<string, object>)null);
+            return HiddenFor(form, expression, (IDictionary<string, object>)null);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]
-        public static FlexFormGroup HiddenFor<TModel, TProperty>(Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static FlexFormGroup HiddenFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return HiddenFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return HiddenFor(form, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "This is an appropriate nesting of generic types")]

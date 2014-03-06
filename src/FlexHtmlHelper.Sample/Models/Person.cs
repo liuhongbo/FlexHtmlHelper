@@ -13,7 +13,11 @@ namespace FlexHtmlHelperSample.Models
         public Person()
         {
             AvailableTimeZones = new List<SelectListItem>();
+            AvailableFavoriteMusicGenres = new List<SelectListItem>();
         }
+
+        [DisplayName("PersonId")]
+        public int PersonId { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName { get; set; }
@@ -33,10 +37,18 @@ namespace FlexHtmlHelperSample.Models
         [DisplayName("Gender")]
         public string Gender { get; set; }
 
+        [DisplayName("Race")]
+        public string Race { get; set; }
+
         [DisplayName("Time Zone")]
         public string TimeZoneId { get; set; }
 
         public IList<SelectListItem> AvailableTimeZones { get; set; }
+
+        [DisplayName("Fafavorite Music Genres")]
+        public string FavoriteMusicGenres { get; set; }
+
+        public IList<SelectListItem> AvailableFavoriteMusicGenres { get; set; }
 
         [DisplayName("Avator")]
         public HttpPostedFileBase File { get; set; }
@@ -57,8 +69,7 @@ namespace FlexHtmlHelperSample.Models
         public bool ForumPosts { get; set; }
 
         [DisplayName("Blog Posts")]
-        public bool BlogPosts { get; set; }
-
+        public bool BlogPosts { get; set; }      
 
     }
 }

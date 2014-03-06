@@ -1,0 +1,61 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Label", "Label")</li>
+        <li class="active">@Html.ActionLink("TextBox", "TextBox")</li>
+        <li>@Html.ActionLink("CheckBox", "CheckBox")</li>
+        <li>@Html.ActionLink("Radio", "Radio")</li>
+        <li>@Html.ActionLink("Select", "Select")</li>
+        <li>@Html.ActionLink("TextArea", "TextArea")</li>
+        <li>@Html.ActionLink("Style", "Style")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+    @Html.f().TextBox("FirstName")
+</div>
+<br />
+<div class="row">
+    @Html.f().TextBox("FirstName","John Junior")
+</div>
+<br />
+<div class="row">
+    @Html.f().TextBox("FirstName", "John Junior", "First Name: {0}")
+</div>
+<br />
+<div class="row">
+    @Html.f().TextBoxFor(m=>m.FirstName)
+</div>
+<br />
+<div class="row">
+    @Html.f().TextBoxFor(m => m.FirstName,"First Name: {0}")
+</div>
+<br />
+<div class="row">
+    @Html.f().Password("Password")
+</div>
+<br />
+<div class="row">
+    @Html.f().Password("Password","1234")
+</div>
+<br />
+<div class="row">
+    @Html.f().PasswordFor(m=>m.Password)
+</div>
+<br />
+<div class="row">
+    @Html.f().Hidden("PersonId")
+</div>
+<br />
+<div class="row">
+    @Html.f().HiddenFor(m=>m.PersonId)
+</div>
+

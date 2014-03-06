@@ -9,7 +9,7 @@ using FlexHtmlHelper.Mvc;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
-    public abstract class FlexElement: IHtmlString
+    public class FlexElement: IHtmlString
     {
         private FlexTagBuilder _tagBuilder;
         private FHtmlHelper _flexHtmlHelper;
@@ -65,6 +65,12 @@ namespace FlexHtmlHelper.Mvc.Html
 
     public static class FlexElementExtensions
     {
+
+        public static FlexElement Rent(this FlexTagBuilder tagBuilder)
+        {
+            return new FlexElement((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
+        }
+
         public static  T addClass<T>(this T flexElement, string className) where T: FlexElement
         {
             flexElement.TagBuilder.AddCssClass(className);
@@ -75,6 +81,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static T row<T>(this T flexElement) where T:FlexElement
         {
+            flexElement.Render.GridRow(flexElement.TagBuilder);
             return (T)flexElement;
         }
 
@@ -176,64 +183,75 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static T visible_xs<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.ExtraSmall, true);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.ExtraSmall, true);
             return flexElement;
         }
 
         public static T visible_sm<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Small, true);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Small, true);
             return flexElement;
         }
 
         public static T visible_md<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Medium, true);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Medium, true);
             return flexElement;
         }
 
         public static T visible_lg<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, true);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Large, true);
             return flexElement;
         }
 
         public static T visible_print<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, true);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Print, true);
             return flexElement;
         }
 
         public static T hidden_xs<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.ExtraSmall, false);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.ExtraSmall, false);
             return flexElement;
         }
 
         public static T hidden_sm<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Small, false);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Small, false);
             return flexElement;
         }
 
         public static T hidden_md<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Medium, false);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Medium, false);
             return flexElement;
         }
 
         public static T hidden_lg<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, false);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Large, false);
             return flexElement;
         }
 
         public static T hidden_print<T>(this T flexElement) where T : FlexElement
         {
-            flexElement.Render.Visible(flexElement.TagBuilder, GridStyle.Large, false);
+            flexElement.Render.GridColumnVisible(flexElement.TagBuilder, GridStyle.Print, false);
             return flexElement;
         }
 
         #endregion        
+
+
+        #region Element
+
+        public static T disabled<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.Disabled(flexInput.TagBuilder);
+            return flexInput;
+        }
+
+        #endregion
     }
 }

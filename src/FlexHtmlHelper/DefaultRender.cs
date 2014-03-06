@@ -243,6 +243,11 @@ namespace FlexHtmlHelper
 
         #region Grid System
 
+        public virtual FlexTagBuilder GridRow(FlexTagBuilder tagBuilder)
+        {
+            return tagBuilder;
+        }
+
         public virtual FlexTagBuilder GridColumns(FlexTagBuilder tagBuilder, GridStyle style, int columns)
         {
             return tagBuilder;
@@ -259,6 +264,11 @@ namespace FlexHtmlHelper
         }
 
         public virtual FlexTagBuilder GridColumnPull(FlexTagBuilder tagBuilder, GridStyle style, int columns)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder GridColumnVisible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
         {
             return tagBuilder;
         }
@@ -301,21 +311,15 @@ namespace FlexHtmlHelper
         #endregion
 
 
-        #region Html
+        #region Input
 
-        public virtual FlexTagBuilder Placeholder(FlexTagBuilder tagBuilder, string text)
+        public virtual FlexTagBuilder InputPlaceholder(FlexTagBuilder tagBuilder, string text)
         {
             tagBuilder.TagAttributes["placeholder"] = text;
             return tagBuilder;
-        }
+        }        
 
-        public virtual FlexTagBuilder Disabled(FlexTagBuilder tagBuilder)
-        {
-            tagBuilder.TagAttributes["disabled"] = "";
-            return tagBuilder;
-        }
-
-        public virtual FlexTagBuilder Focus(FlexTagBuilder tagBuilder)
+        public virtual FlexTagBuilder InputFocus(FlexTagBuilder tagBuilder)
         {
             tagBuilder.TagAttributes["autofocus"] = "";
             return tagBuilder;
@@ -324,14 +328,20 @@ namespace FlexHtmlHelper
         public virtual FlexTagBuilder InputHeight(FlexTagBuilder tagBuilder, InputHeightStyle size)
         {
             return tagBuilder;
-        }
+        }       
 
-        public virtual FlexTagBuilder Visible(FlexTagBuilder tagBuilder, GridStyle style, bool visible)
+        #endregion
+
+        #region Element
+
+        public virtual FlexTagBuilder Disabled(FlexTagBuilder tagBuilder)
         {
+            tagBuilder.TagAttributes["disabled"] = "";
             return tagBuilder;
         }
 
         #endregion
+
     }
 
 }

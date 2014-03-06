@@ -11,35 +11,32 @@
         <li>@Html.ActionLink("TextBox", "TextBox")</li>
         <li>@Html.ActionLink("CheckBox", "CheckBox")</li>
         <li>@Html.ActionLink("Radio", "Radio")</li>
-        <li class="active">@Html.ActionLink("Select", "Select")</li>
-        <li>@Html.ActionLink("TextArea", "TextArea")</li>
+        <li>@Html.ActionLink("Select", "Select")</li>
+        <li class="active">@Html.ActionLink("TextArea", "TextArea")</li>
         <li>@Html.ActionLink("Style", "Style")</li>
     </ul>
 </div>
 
+<br />
 
-<br />
 <div class="row">
-    @Html.f().DropDownList("AvailableTimeZones")
+    @Html.f().TextArea("Description")   
 </div>
-<br />
 <div class="row">
-    @Html.f().DropDownList("AvailableTimeZones", "Select one")
+    @Html.f().TextArea("Description","25 years old")
 </div>
-<br />
 <div class="row">
-    @Html.f().DropDownList("TimeZoneId", Model.AvailableTimeZones)
+    @Html.f().TextArea("Description", "25 years old",10)
 </div>
-<br />
 <div class="row">
-    @Html.f().DropDownList("TimeZoneId", Model.AvailableTimeZones, "Choose one")
+    @Html.f().TextArea("Description", "50 years old", 10,40,null)
 </div>
-<br />
 <div class="row">
-    @Html.f().DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones)
+    @Html.f().TextAreaFor(m=>m.Description)
 </div>
-<br />
 <div class="row">
-    @Html.f().DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones, "Pick up one")
+    @Html.f().TextAreaFor(m => m.Description,10)
 </div>
-
+<div class="row">
+    @Html.f().TextAreaFor(m => m.Description, 10,50, null)    
+</div>

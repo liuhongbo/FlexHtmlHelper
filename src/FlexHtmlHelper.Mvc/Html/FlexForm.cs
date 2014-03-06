@@ -71,21 +71,21 @@ namespace FlexHtmlHelper.Mvc.Html
 
     public static class FlexFormExtensions
     {
-        public static T Inline<T>(this T flexForm) where T:FlexForm
+        public static T inline<T>(this T flexForm) where T:FlexForm
         {
             flexForm.Render.FormLayout(flexForm.TagBuilder, FormLayoutStyle.Inline);
             flexForm.FormContext.LayoutStyle = FormLayoutStyle.Inline;
             return flexForm;
         }
 
-        public static T Horizontal<T>(this T flexForm) where T : FlexForm
+        public static T horizontal<T>(this T flexForm) where T : FlexForm
         {
             flexForm.Render.FormLayout(flexForm.TagBuilder, FormLayoutStyle.Horizontal);
             flexForm.FormContext.LayoutStyle = FormLayoutStyle.Horizontal;
             return flexForm;
         }
 
-        public static T Label_col_xs<T>(this T flexForm, int columns) where T: FlexForm
+        public static T control_label_col_xs<T>(this T flexForm, int columns) where T: FlexForm
         {
             if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.ExtraSmall))
             {
@@ -98,7 +98,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Label_col_sm<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_label_col_sm<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Small))
             {
@@ -111,7 +111,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Label_col_md<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_label_col_md<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Medium))
             {
@@ -124,7 +124,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Label_col_lg<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_label_col_lg<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.LabelColumns.Keys.Contains(GridStyle.Large))
             {
@@ -137,7 +137,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Input_col_xs<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_col_xs<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.ExtraSmall))
             {
@@ -150,7 +150,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Input_col_sm<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_col_sm<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Small))
             {
@@ -163,7 +163,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Input_col_md<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_col_md<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Medium))
             {
@@ -176,7 +176,7 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexForm;
         }
 
-        public static T Input_col_lg<T>(this T flexForm, int columns) where T : FlexForm
+        public static T control_col_lg<T>(this T flexForm, int columns) where T : FlexForm
         {
             if (flexForm.FormContext.InputColumns.Keys.Contains(GridStyle.Large))
             {

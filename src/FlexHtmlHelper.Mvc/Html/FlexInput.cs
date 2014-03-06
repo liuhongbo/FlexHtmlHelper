@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
-    public abstract class FlexInput: FlexElement
+    public class FlexInput: FlexElement
     {
         public FlexInput(FHtmlHelper flexHtmlHelper, FlexTagBuilder tagBuilder)
             : base(flexHtmlHelper, tagBuilder)
@@ -31,18 +31,13 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static T placeholder<T>(this T flexInput, string text) where T : FlexInput
         {
-            flexInput.Render.Placeholder(flexInput.TagBuilder, text);
+            flexInput.Render.InputPlaceholder(flexInput.TagBuilder, text);
             return flexInput;
         }
-
-        public static T disabled<T>(this T flexInput) where T : FlexInput
-        {
-            flexInput.Render.Disabled(flexInput.TagBuilder);
-            return flexInput;
-        }
+        
         public static T focus<T>(this T flexInput) where T : FlexInput
         {
-            flexInput.Render.Focus(flexInput.TagBuilder);
+            flexInput.Render.InputFocus(flexInput.TagBuilder);
             return flexInput;
         }
 

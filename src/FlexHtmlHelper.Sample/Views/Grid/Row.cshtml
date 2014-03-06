@@ -1,0 +1,27 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Grid Row";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("Row", "Row")</li>
+        <li>@Html.ActionLink("Column", "Column")</li>
+        <li>@Html.ActionLink("Column Offset", "ColumnOffset")</li>
+        <li>@Html.ActionLink("Column Order", "ColumnOrder")</li>
+        <li>@Html.ActionLink("Column Visible", "ColumnVisible")</li>
+    </ul>
+</div>
+
+<br />
+    @Html.f().TextBoxFor(m => m.FirstName).col_md(4).placeholder("text col_md(4).row").row()   
+<br />
+    @Html.f().PasswordFor(m => m.Password).col_md(4).placeholder("password col_md(4).row").row()
+<br />    
+    @Html.f().TextBoxFor(m => m.File, new { type = "file" }).row()
+<br />
+    @Html.f().DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).row()
+<br />
+    @Html.f().TextAreaFor(m=>m.Description).col_md(4).placeholder("textarea col_md(4).row").row()
