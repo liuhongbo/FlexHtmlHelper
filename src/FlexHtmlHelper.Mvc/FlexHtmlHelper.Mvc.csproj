@@ -105,7 +105,9 @@
     </Compile>
     <Compile Include="FHtmlHelper.cs" />
     <Compile Include="FHtmlHelperOfTModel.cs" />
+    <Compile Include="Html\ButtonExtensions.cs" />
     <Compile Include="Html\EnumHelper.cs" />
+    <Compile Include="Html\FlexButton.cs" />
     <Compile Include="Html\FlexCheckBox.cs" />
     <Compile Include="Html\FlexElement.cs" />
     <Compile Include="Html\FlexForm.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Html\FlexHidden.cs" />
     <Compile Include="Html\FlexInput.cs" />
     <Compile Include="Html\FlexLabel.cs" />
+    <Compile Include="Html\FlexLink.cs" />
     <Compile Include="Html\FlexMvcForm.cs" />
     <Compile Include="Html\FlexPassword.cs" />
     <Compile Include="Html\FlexRadioButton.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Html\FormExtensions.cs" />
     <Compile Include="Html\InputExtensions.cs" />
     <Compile Include="Html\LabelExtensions.cs" />
+    <Compile Include="Html\LinkExtensions.cs" />
     <Compile Include="Html\SelectExtensions.cs" />
     <Compile Include="Html\TagBuilderExtensions.cs" />
     <Compile Include="Html\TextAreaExtensions.cs" />

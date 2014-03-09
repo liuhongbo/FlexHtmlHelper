@@ -239,6 +239,26 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder LinkHelper(FlexTagBuilder tagBuilder, string linkText, string url, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("a");
+            tag.AddText(linkText);
+            tag.MergeAttributes(htmlAttributes);
+            tag.MergeAttribute("href", url);
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ButtonHelper(FlexTagBuilder tagBuilder, string type, string text, string value, string name, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("button");
+            tag.AddText(text);
+            tag.MergeAttributes(htmlAttributes);
+            tag.MergeAttribute("type", type);
+            tag.MergeAttribute("value", value);
+            tag.MergeAttribute("name", name);
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System
@@ -298,16 +318,25 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
+        public virtual FlexTagBuilder FormGroupAddInput(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
         {
-            return formGroupTag;
+            return tagBuilder;
         }
 
-        public virtual FlexTagBuilder FormGroupInputGridColumns(FlexFormContext formContext, FlexTagBuilder formGroupTag, GridStyle style, int columns)
+        public virtual FlexTagBuilder FormGroupInputGridColumns(FlexTagBuilder tagBuilder, FlexFormContext formContext, GridStyle style, int columns)
         {
-            return formGroupTag;
+            return tagBuilder;
         }
 
+        public virtual FlexTagBuilder FormGroupButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder FormGroupAddButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag)
+        {
+            return tagBuilder;
+        }
         #endregion
 
 

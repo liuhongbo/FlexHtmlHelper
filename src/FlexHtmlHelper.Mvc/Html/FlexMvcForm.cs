@@ -1420,5 +1420,26 @@ namespace FlexHtmlHelper.Mvc.Html
 
         
         #endregion
+
+
+        #region Button
+
+        public static FlexFormGroup Button(this FlexMvcForm form, FlexButton button)
+        {            
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+            
+            return new FlexFormGroup(form.FormContext, htmlHelper, htmlHelper.Render.FormGroupButton(new FlexTagBuilder(), form.FormContext, button.TagBuilder));           
+        
+        }
+
+        public static FlexFormGroup Button(this FlexMvcForm form, FlexTagBuilder buttonTag)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            return new FlexFormGroup(form.FormContext, htmlHelper, htmlHelper.Render.FormGroupButton(new FlexTagBuilder(), form.FormContext, buttonTag));
+
+        }
+
+        #endregion        
     }
 }

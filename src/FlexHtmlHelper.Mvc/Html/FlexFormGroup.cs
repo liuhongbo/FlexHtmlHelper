@@ -139,25 +139,25 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static T input_col_xs<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
-            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.ExtraSmall, columns);
+            formGroup.Render.FormGroupInputGridColumns(formGroup.TagBuilder, formGroup.FormContext, GridStyle.ExtraSmall, columns);
             return formGroup;
         }
 
         public static T input_col_sm<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
-            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Small, columns);
+            formGroup.Render.FormGroupInputGridColumns(formGroup.TagBuilder, formGroup.FormContext, GridStyle.Small, columns);
             return formGroup;
         }
 
         public static T input_col_md<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
-            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Medium, columns);
+            formGroup.Render.FormGroupInputGridColumns(formGroup.TagBuilder, formGroup.FormContext, GridStyle.Medium, columns);
             return formGroup;
         }
 
         public static T input_col_lg<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
-            formGroup.Render.FormGroupInputGridColumns(formGroup.FormContext, formGroup.TagBuilder, GridStyle.Large, columns);
+            formGroup.Render.FormGroupInputGridColumns(formGroup.TagBuilder, formGroup.FormContext, GridStyle.Large, columns);
             return formGroup;
         }
 
@@ -297,7 +297,6 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #endregion
 
-
         #region Helper
 
         private static FlexFormGroup InputHelper(FlexFormGroup formGroup, InputType inputType, ModelMetadata metadata, string name, object value, bool useViewData, bool isChecked, bool setId, bool isExplicitValue, string format, IDictionary<string, object> htmlAttributes)
@@ -329,12 +328,32 @@ namespace FlexHtmlHelper.Mvc.Html
                 }
             }
 
-            formGroup.Render.FormGroupAddInput(formGroup.FormContext, formGroup.TagBuilder, label.TagBuilder, input.TagBuilder);
+            formGroup.Render.FormGroupAddInput(formGroup.TagBuilder, formGroup.FormContext, label.TagBuilder, input.TagBuilder);
 
             return formGroup.TagBuilder;
         }
 
         #endregion
+
+        #region Button
+
+        public static FlexFormGroup Button(this FlexFormGroup formGroup, FlexButton button)
+        {
+            formGroup.Render.FormGroupAddButton(formGroup.TagBuilder, formGroup.FormContext, button.TagBuilder);
+
+            return formGroup;
+
+        }
+
+        public static FlexFormGroup Button(this FlexFormGroup formGroup, FlexTagBuilder buttonTag)
+        {
+            formGroup.Render.FormGroupAddButton(formGroup.TagBuilder, formGroup.FormContext, buttonTag);
+
+            return formGroup;
+
+        }
+
+        #endregion   
     }
 
     public class FlexFormGroup<TModel> : FlexFormGroup

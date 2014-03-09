@@ -292,6 +292,21 @@ namespace FlexHtmlHelper.Render
             return tag;
         }
 
+        public override FlexTagBuilder ButtonHelper(FlexTagBuilder tagBuilder, string type, string text, string value, string name, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("button");
+            tag.AddText(text);
+            tag.MergeAttributes(htmlAttributes);
+            tag.MergeAttribute("type", type);
+            tag.MergeAttribute("value", value);
+            tag.MergeAttribute("name", name);
+            tag.AddCssClass("btn").AddCssClass("btn-default");
+
+            tagBuilder.AddTag(tag);
+            return tagBuilder;
+        }
+
+
         #endregion
 
         #region Grid System
@@ -477,9 +492,9 @@ namespace FlexHtmlHelper.Render
 
             tagBuilder.Tag().AddCssClass("");
             return tagBuilder;
-        }        
+        }
 
-        public override FlexTagBuilder FormGroupAddInput(FlexFormContext formContext, FlexTagBuilder formGroupTag, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
+        public override FlexTagBuilder FormGroupAddInput(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag)
         {
             string inputType = GetInputType(inputTag);
 
@@ -494,7 +509,7 @@ namespace FlexHtmlHelper.Render
                     labelTag.Tag().InsertTag(0, inputTag);
                     break;
                 default:
-                    return formGroupTag;                    
+                    return tagBuilder;                    
             }
 
             FlexTagBuilder div = null;
@@ -502,7 +517,7 @@ namespace FlexHtmlHelper.Render
             switch (formContext.LayoutStyle)
             {
                 case FormLayoutStyle.Default:
-                    div = formGroupTag.TagWithCssClass("div", "checkbox");
+                    div = tagBuilder.TagWithCssClass("div", "checkbox");
                     if (div != null)
                     {
                         div.RemoveCssClass("checkbox");
@@ -510,18 +525,18 @@ namespace FlexHtmlHelper.Render
                     }
                     else
                     {
-                        div = formGroupTag.TagWithCssClass("div", "radio");
+                        div = tagBuilder.TagWithCssClass("div", "radio");
                         if (div != null)
                         {
                             div.RemoveCssClass("radio");
                             div.ChildTag("label").AddCssClass("radio-inline");
                         }
                     }
-                    formGroupTag.AddCssClass("form-group",true);
-                    formGroupTag.AddTag(labelTag);
+                    tagBuilder.AddCssClass("form-group",true);
+                    tagBuilder.AddTag(labelTag);
                     break;
                 case FormLayoutStyle.Horizontal:
-                    FlexTagBuilder colTag =  formGroupTag.Tag().ChildTag("div");
+                    FlexTagBuilder colTag =  tagBuilder.Tag().ChildTag("div");
                     if (colTag!= null)
                     {
                         div = colTag.Tag().ChildTagWithClass("div", "checkbox");
@@ -553,14 +568,14 @@ namespace FlexHtmlHelper.Render
                     }
                     break;
                 case FormLayoutStyle.Inline:                    
-                    formGroupTag.AddTag(labelTag);
+                    tagBuilder.AddTag(labelTag);
                     break;
             }
 
-            return formGroupTag;
+            return tagBuilder;
         }
 
-        public override FlexTagBuilder FormGroupInputGridColumns(FlexFormContext formContext, FlexTagBuilder formGroupTag, GridStyle style, int columns)
+        public override FlexTagBuilder FormGroupInputGridColumns(FlexTagBuilder tagBuilder, FlexFormContext formContext, GridStyle style, int columns)
         {
             FlexTagBuilder div = null;
             FlexTagBuilder input = null;
@@ -587,7 +602,7 @@ namespace FlexHtmlHelper.Render
             switch (formContext.LayoutStyle)
             {
                 case FormLayoutStyle.Default:
-                    input = formGroupTag.LastTag("input");
+                    input = tagBuilder.LastTag("input");
                     if (input != null)
                     {
                         inputType = GetInputType(input);
@@ -606,7 +621,7 @@ namespace FlexHtmlHelper.Render
                     }
                     else
                     {
-                        input = formGroupTag.LastTag("select");
+                        input = tagBuilder.LastTag("select");
                         if (input != null)
                         {
                             div = new FlexTagBuilder("div");
@@ -615,7 +630,7 @@ namespace FlexHtmlHelper.Render
                         }
                         else
                         {
-                            input = formGroupTag.LastTag("textarea");
+                            input = tagBuilder.LastTag("textarea");
                             if (input != null)
                             {
                                 div = new FlexTagBuilder("div");
@@ -626,7 +641,7 @@ namespace FlexHtmlHelper.Render
                     }
                     break;
                 case FormLayoutStyle.Horizontal:
-                     input = formGroupTag.LastTag("input");
+                     input = tagBuilder.LastTag("input");
                     if (input != null)
                     {
                         inputType = GetInputType(input);
@@ -645,7 +660,7 @@ namespace FlexHtmlHelper.Render
                     }
                     else
                     {
-                        input = formGroupTag.LastTag("select");
+                        input = tagBuilder.LastTag("select");
                         if (input != null)
                         {
                             div = input.ParentTag;
@@ -653,7 +668,7 @@ namespace FlexHtmlHelper.Render
                         }
                         else
                         {
-                            input = formGroupTag.LastTag("textarea");
+                            input = tagBuilder.LastTag("textarea");
                             if (input != null)
                             {
                                 div = input.ParentTag;
@@ -665,7 +680,56 @@ namespace FlexHtmlHelper.Render
                 case FormLayoutStyle.Inline:
                     break;
             }
-            return formGroupTag;
+            return tagBuilder;
+        }
+
+
+        public override FlexTagBuilder FormGroupButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("div");
+            tag.AddCssClass("form-group");
+            switch (formContext.LayoutStyle)
+            {
+                case FormLayoutStyle.Default:
+                    tag.AddTag(buttonTag);
+                    break;
+                case FormLayoutStyle.Horizontal:
+                    FlexTagBuilder colTag = new FlexTagBuilder("div");
+                    foreach (var col in formContext.LabelColumns)
+                    {
+                        GridColumnOffset(colTag, col.Key, col.Value);
+                    }
+                    foreach (var col in formContext.InputColumns)
+                    {
+                        GridColumns(colTag, col.Key, col.Value);
+                    }
+                    tag.AddTag(colTag);
+                    colTag.AddTag(buttonTag);
+                    break;
+                case FormLayoutStyle.Inline:
+                    break;
+
+            } 
+
+            return tagBuilder.AddTag(tag);
+        }
+
+        public override FlexTagBuilder FormGroupAddButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag)
+        {
+            FlexTagBuilder p = null;           
+
+            var input = tagBuilder.LastTag("button");
+            if (input != null)
+            {
+                p = input.ParentTag;
+            }            
+
+            if (p != null)
+            {
+                p.AddText(" ");
+                p.AddTag(buttonTag);
+            }
+            return tagBuilder;
         }
 
         #endregion
