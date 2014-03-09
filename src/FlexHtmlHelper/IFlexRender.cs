@@ -42,6 +42,24 @@ namespace FlexHtmlHelper
         Large
     }
 
+    public enum ButtonSizeStyle
+    {
+        Large,
+        Small,
+        ExtraSmall
+    }
+
+    public enum ButtonOptionStyle
+    {
+        Default,
+        Primary,
+        Success,
+        Info,
+        Warning,
+        Danger,
+        Link
+    }
+
     public interface IFlexRender
     {
         string Name { get; }
@@ -102,6 +120,15 @@ namespace FlexHtmlHelper
         #region Element
 
         FlexTagBuilder Disabled(FlexTagBuilder tagBuilder);
+        FlexTagBuilder Active(FlexTagBuilder tagBuilder);
+
+        #endregion
+
+        #region Button
+
+        FlexTagBuilder ButtonSize(FlexTagBuilder tagBuilder, ButtonSizeStyle size);
+        FlexTagBuilder ButtonStyle(FlexTagBuilder tagBuilder, ButtonOptionStyle style);
+        FlexTagBuilder ButtonBlock(FlexTagBuilder tagBuilder);
 
         #endregion
 

@@ -369,8 +369,32 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder Active(FlexTagBuilder tagBuilder)
+        {
+            tagBuilder.AddCssClass("active");
+            return tagBuilder;
+        }
+
         #endregion
 
+        #region Button
+
+        public virtual FlexTagBuilder ButtonSize(FlexTagBuilder tagBuilder, ButtonSizeStyle size)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ButtonStyle(FlexTagBuilder tagBuilder, ButtonOptionStyle style)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ButtonBlock(FlexTagBuilder tagBuilder)
+        {
+            return tagBuilder;
+        }
+
+        #endregion
     }
 
 }

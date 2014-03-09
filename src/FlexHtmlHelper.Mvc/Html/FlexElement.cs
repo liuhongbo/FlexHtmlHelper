@@ -252,6 +252,12 @@ namespace FlexHtmlHelper.Mvc.Html
             return flexInput;
         }
 
+        public static T active<T>(this T flexInput) where T : FlexInput
+        {
+            flexInput.Render.Active(flexInput.TagBuilder);
+            return flexInput;
+        }
+
         #endregion
     }
 }

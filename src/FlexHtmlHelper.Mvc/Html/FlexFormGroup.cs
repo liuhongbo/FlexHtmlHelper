@@ -628,5 +628,24 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #endregion
 
+        #region Button
+
+        public static FlexFormGroup<TModel> Button<TModel>(this FlexFormGroup<TModel> formGroup, FlexButton button)
+        {
+            formGroup.Render.FormGroupAddButton(formGroup.TagBuilder, formGroup.FormContext, button.TagBuilder);
+
+            return formGroup;
+
+        }
+
+        public static FlexFormGroup<TModel> Button<TModel>(this FlexFormGroup<TModel> formGroup, FlexTagBuilder buttonTag)
+        {
+            formGroup.Render.FormGroupAddButton(formGroup.TagBuilder, formGroup.FormContext, buttonTag);
+
+            return formGroup;
+
+        }
+
+        #endregion   
     }
 }

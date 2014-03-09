@@ -755,5 +755,66 @@ namespace FlexHtmlHelper.Render
         }       
 
         #endregion
+
+        #region Button
+
+        public override FlexTagBuilder ButtonSize(FlexTagBuilder tagBuilder, ButtonSizeStyle size)
+        {
+            switch (size)
+            {
+                case ButtonSizeStyle.Large:
+                    tagBuilder.Tag().AddCssClass("btn-lg");
+                    break;
+                case ButtonSizeStyle.Small:
+                    tagBuilder.Tag().AddCssClass("btn-sm");
+                    break;
+                case ButtonSizeStyle.ExtraSmall:
+                    tagBuilder.Tag().AddCssClass("btn-xs");
+                    break;
+
+            }
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder ButtonStyle(FlexTagBuilder tagBuilder, ButtonOptionStyle style)
+        {
+
+            tagBuilder.Tag().RemoveCssClass("btn-default");
+
+            switch (style)
+            {
+                case ButtonOptionStyle.Default:
+                    tagBuilder.Tag().AddCssClass("btn-default");
+                    break;
+                case ButtonOptionStyle.Primary:
+                    tagBuilder.Tag().AddCssClass("btn-primary");
+                    break;
+                case ButtonOptionStyle.Success:
+                    tagBuilder.Tag().AddCssClass("btn-success");
+                    break;
+                case ButtonOptionStyle.Warning:
+                    tagBuilder.Tag().AddCssClass("btn-warning");
+                    break;
+                case ButtonOptionStyle.Info:
+                    tagBuilder.Tag().AddCssClass("btn-info");
+                    break;
+                case ButtonOptionStyle.Danger:
+                    tagBuilder.Tag().AddCssClass("btn-danger");
+                    break;
+                case ButtonOptionStyle.Link:
+                    tagBuilder.Tag().AddCssClass("btn-link");
+                    break;
+
+            }
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder ButtonBlock(FlexTagBuilder tagBuilder)
+        {
+            tagBuilder.Tag().AddCssClass("btn-block");
+            return tagBuilder;
+        }
+
+        #endregion
     }
 }

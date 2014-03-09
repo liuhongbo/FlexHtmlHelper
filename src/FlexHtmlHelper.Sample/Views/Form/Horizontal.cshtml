@@ -36,8 +36,10 @@
         @form.CheckBoxFor(m => m.AcceptTerms).label_text("I have read and accepted the terms and conditions")
         @form.StaticFor(m => m.Log)
 
-        @form.Button(Html.f().Button("submit", "Submit")).Button(Html.f().Button("button", "Cancel"))
+        @form.Button(Html.f().Button("submit", "Submit").btn_primary()).Button(Html.f().Button("button", "Cancel"))
+        @form.Button(Html.f().Button("button","Delete").btn_danger().btn_block())
     }
+    
 
 
 
