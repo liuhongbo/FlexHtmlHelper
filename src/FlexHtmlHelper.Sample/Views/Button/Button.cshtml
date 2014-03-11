@@ -1,0 +1,80 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Button";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("Button", "Button")</li>
+        <li>@Html.ActionLink("Button Group", " Group")</li>
+        <li>@Html.ActionLink("Button Toolbar", "Toolbar")</li>
+     
+    </ul>
+</div>
+
+<br />
+<div class="row">
+    Options
+</div>
+<br />
+<div class="row">
+   @Html.f().Button("button", "Default")
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Primary").btn_primary()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Success").btn_success()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Info").btn_info()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Warning").btn_warning()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Danger").btn_danger()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Link").btn_link()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Primary Large").btn_primary().btn_lg()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Primary Small").btn_primary().btn_sm()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Primary Extra Small").btn_primary().btn_xs()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Default block level").btn_block()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Default col-md-6 col-md-offset-2").col_md(6).col_md_offset(2)
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Success Active").btn_success().active()
+</div>
+<br />
+<div class="row">
+    @Html.f().Button("button", "Success Disabled").btn_success().disabled()
+</div>
+<br />
+<div class="row">
+    @Html.f().ActionLink("Button Group","Group").Button()
+</div>

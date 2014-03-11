@@ -120,7 +120,9 @@ namespace FlexHtmlHelper.Mvc
     {
         public static FHtmlHelper f(this HtmlHelper htmlHelper)
         {
-            return new FHtmlHelper(htmlHelper);
+            var f = (FHtmlHelper)htmlHelper.ViewData["__fhtmlhelper__"] ?? new FHtmlHelper(htmlHelper);
+            htmlHelper.ViewData["__fhtmlhelper__"] = f;
+            return f;
         }
 
         public static FHtmlHelper f(this HtmlHelper htmlHelper, string renderName)

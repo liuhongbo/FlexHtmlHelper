@@ -82,6 +82,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder StaticHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder LinkHelper(FlexTagBuilder tagBuilder, string linkText, string url, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ButtonHelper(FlexTagBuilder tagBuilder, string type, string text, string value, string name, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder LinkButtonHelper(FlexTagBuilder tagBuilder);
 
         #endregion
 

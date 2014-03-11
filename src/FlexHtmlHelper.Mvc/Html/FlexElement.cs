@@ -246,13 +246,13 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #region Element
 
-        public static T disabled<T>(this T flexInput) where T : FlexInput
+        public static T disabled<T>(this T flexInput) where T : FlexElement
         {
             flexInput.Render.Disabled(flexInput.TagBuilder);
             return flexInput;
         }
 
-        public static T active<T>(this T flexInput) where T : FlexInput
+        public static T active<T>(this T flexInput) where T : FlexElement
         {
             flexInput.Render.Active(flexInput.TagBuilder);
             return flexInput;

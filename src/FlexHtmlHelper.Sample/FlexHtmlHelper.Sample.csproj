@@ -114,9 +114,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ButtonController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\InputController.cs" />
+    <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +172,9 @@
     <Content Include="Views\Input\Radio.cshtml" />
     <Content Include="Views\Input\TextArea.cshtml" />
     <Content Include="Views\Input\Style.cshtml" />
+    <Content Include="Views\Button\Button.cshtml" />
+    <Content Include="Views\Link\Link.cshtml" />
+    <Content Include="Views\Link\Button.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

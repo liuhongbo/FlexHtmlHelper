@@ -295,17 +295,39 @@ namespace FlexHtmlHelper.Render
         public override FlexTagBuilder ButtonHelper(FlexTagBuilder tagBuilder, string type, string text, string value, string name, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("button");
-            tag.AddText(text);
+            if (!string.IsNullOrEmpty(text))
+            {
+                tag.AddText(text);
+            }
+
             tag.MergeAttributes(htmlAttributes);
-            tag.MergeAttribute("type", type);
-            tag.MergeAttribute("value", value);
-            tag.MergeAttribute("name", name);
+            
+            if (!string.IsNullOrEmpty(type))
+            {
+                tag.MergeAttribute("type", type);
+            }
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                tag.MergeAttribute("value", value);
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                tag.MergeAttribute("name", name);
+            }
+
             tag.AddCssClass("btn").AddCssClass("btn-default");
 
             tagBuilder.AddTag(tag);
             return tagBuilder;
         }
 
+        public override FlexTagBuilder LinkButtonHelper(FlexTagBuilder tagBuilder)
+        {
+            tagBuilder.Tag().AddCssClass("btn").AddCssClass("btn-default");
+            return tagBuilder;
+        }
 
         #endregion
 

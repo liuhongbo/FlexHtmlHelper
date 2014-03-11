@@ -245,6 +245,7 @@ namespace FlexHtmlHelper
             tag.AddText(linkText);
             tag.MergeAttributes(htmlAttributes);
             tag.MergeAttribute("href", url);
+            tagBuilder.AddTag(tag);
             return tagBuilder;
         }
 
@@ -256,6 +257,11 @@ namespace FlexHtmlHelper
             tag.MergeAttribute("type", type);
             tag.MergeAttribute("value", value);
             tag.MergeAttribute("name", name);
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder LinkButtonHelper(FlexTagBuilder tagBuilder)
+        {            
             return tagBuilder;
         }
 

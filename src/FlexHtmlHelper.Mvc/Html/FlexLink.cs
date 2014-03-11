@@ -27,5 +27,12 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static FlexLink Empty = new FlexLink();
 
+        public FlexButton Button()
+        {
+            var btn = new FlexButton(this.FHtmlHelper, this.TagBuilder);
+            Render.LinkButtonHelper(this.TagBuilder);
+            return btn;
+        }
+
     }
 }
