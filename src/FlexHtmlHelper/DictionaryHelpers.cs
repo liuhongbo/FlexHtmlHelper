@@ -1,5 +1,5 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
-
+﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. see http://aspnetwebstack.codeplex.com/SourceControl/latest#License.txt for license information.
+// ported from aspnetwebstack
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,4 @@
-﻿// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
-
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FlexHtmlHelper.Render;
 
