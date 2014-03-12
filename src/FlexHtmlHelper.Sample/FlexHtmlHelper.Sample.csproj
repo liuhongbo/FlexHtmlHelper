@@ -175,6 +175,8 @@
     <Content Include="Views\Button\Button.cshtml" />
     <Content Include="Views\Link\Link.cshtml" />
     <Content Include="Views\Link\Button.cshtml" />
+    <Content Include="Views\Form\Partial.cshtml" />
+    <Content Include="Views\Form\_Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

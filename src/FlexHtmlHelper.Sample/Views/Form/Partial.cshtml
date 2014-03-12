@@ -1,0 +1,39 @@
+﻿@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+@model Person
+@{
+    ViewBag.Title = "Partial";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Default", "Default")</li>
+        <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
+        <li>@Html.ActionLink("Inline", "Inline")</li>
+        <li class="active">@Html.ActionLink("Partial", "Partial")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+
+    @using (var form = Html.f().Form().horizontal().BeginForm())
+    {
+        @form.TextBoxFor(m => m.FirstName)
+        @form.TextBoxFor(m => m.LastName)
+        @form.PasswordFor(m => m.Password)
+       
+        @Html.Partial("_Address", Model.Address)
+
+        @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones)
+        @form.TextBoxFor(m => m.File, new { type = "file" })
+        @form.CheckBoxFor(m => m.AcceptTerms)
+    }
+
+
+
+</div>

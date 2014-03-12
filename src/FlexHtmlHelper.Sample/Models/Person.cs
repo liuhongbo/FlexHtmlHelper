@@ -8,12 +8,32 @@ using System.Web.Mvc;
 
 namespace FlexHtmlHelperSample.Models
 {
+
+    public class Address
+    {
+        [DisplayName("Address 1")]
+        public string Address1 { get; set; }
+
+        [DisplayName("Address 2")]
+        public string Address2 { get; set; }
+
+        [DisplayName("City")]
+        public string City { get; set; }
+
+        [DisplayName("State")]
+        public string State { get; set; }
+
+        [DisplayName("Zip Code")]
+        public string ZipCode { get; set; }
+    }
+
     public class Person
     {
         public Person()
         {
             AvailableTimeZones = new List<SelectListItem>();
             AvailableFavoriteMusicGenres = new List<SelectListItem>();
+            Address = new Address();
         }
 
         [DisplayName("PersonId")]
@@ -27,6 +47,9 @@ namespace FlexHtmlHelperSample.Models
         
         [DisplayName("Email")]
         public string Email { get; set; }
+
+        [DisplayName("Address")]
+        public Address Address { get; set; }
 
         [DisplayName("Title")]
         public string Title { get; set; }

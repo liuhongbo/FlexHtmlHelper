@@ -18,7 +18,7 @@ namespace FlexHtmlHelper.Mvc
         public FHtmlHelper(HtmlHelper<TModel> htmlHelper,string renderName)
             : base(htmlHelper,renderName)
         {
-            _htmlHelper = htmlHelper;
+            _htmlHelper = htmlHelper;           
         }
 
         public FHtmlHelper(HtmlHelper<TModel> htmlHelper,IFlexRender render)
@@ -37,19 +37,30 @@ namespace FlexHtmlHelper.Mvc
 
     public static class FlexHtmlHelperForModelExtentions
     {
+        private static string _viewDataKey = "__fhtmlhelper_model__";
+
         public static FHtmlHelper<TModel> f<TModel>(this HtmlHelper<TModel> htmlHelper)
         {
-            return new FHtmlHelper<TModel>(htmlHelper);
+            string k = _viewDataKey + typeof(TModel).Name;
+            var f = (FHtmlHelper<TModel>)htmlHelper.ViewData[k] ?? new FHtmlHelper<TModel>(htmlHelper);
+            htmlHelper.ViewData[k] = f;
+            return f;
         }
 
         public static FHtmlHelper<TModel> f<TModel>(this HtmlHelper<TModel> htmlHelper, string renderName)
         {
-            return new FHtmlHelper<TModel>(htmlHelper,renderName);
+            string k = _viewDataKey + typeof(TModel).Name + "_" + renderName;
+            var f = (FHtmlHelper<TModel>)htmlHelper.ViewData[k] ?? new FHtmlHelper<TModel>(htmlHelper, renderName);
+            htmlHelper.ViewData[k] = f;
+            return f;           
         }
 
         public static FHtmlHelper<TModel> f<TModel>(this HtmlHelper<TModel> htmlHelper, IFlexRender render)
         {
-            return new FHtmlHelper<TModel>(htmlHelper,render);
+            string k = _viewDataKey + typeof(TModel).Name + "_" + render.Name;
+            var f = (FHtmlHelper<TModel>)htmlHelper.ViewData[k] ?? new FHtmlHelper<TModel>(htmlHelper, render);
+            htmlHelper.ViewData[k] = f;
+            return f;    
         }
     }
 }

@@ -10,6 +10,7 @@
         <li class="active">@Html.ActionLink("Default", "Default")</li>
         <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
         <li>@Html.ActionLink("Inline", "Inline")</li>
+        <li>@Html.ActionLink("Partial", "Partial")</li>
     </ul>
 </div>
 
@@ -38,6 +39,5 @@
         @form.Button(Html.f().Button("submit", "Submit").btn_primary()).Button(Html.f().Button("button", "Cancel"))
         @form.Button(Html.f().Button("button","Delete").btn_danger().btn_block()).input_col_md(4)
     }
-
 
 </div>

@@ -20,7 +20,8 @@ namespace FlexHtmlHelper.Mvc
     public class FHtmlHelper
     {
         private HtmlHelper _htmlHelper;
-        private IFlexRender _render;
+        private IFlexRender _render;        
+
         private static ResourceManager _mvcResource = new ResourceManager("System.Web.Mvc.Properties.MvcResources", typeof(System.Web.Mvc.MvcHtmlString).Assembly);
         internal static string MvcResources_Common_ValueNotValidForProperty = "Common_ValueNotValidForProperty";
         internal static string MvcResources_SelectExtensions_InvalidExpressionParameterNoMetadata = "SelectExtensions_InvalidExpressionParameterNoMetadata";
@@ -114,25 +115,46 @@ namespace FlexHtmlHelper.Mvc
         {
             return _mvcResource.GetString(name);
         }
+
+        public FlexFormContext FormConext
+        {
+            get
+            {
+                return this.HtmlHelper.ViewData["__FLEX_FORM_CONTEXT__"] as FlexFormContext;
+            }
+            set
+            {
+                this.HtmlHelper.ViewData["__FLEX_FORM_CONTEXT__"] = value;
+            }
+        }
     }
 
     public static class FlexHtmlHelperExtentions
     {
+        private static string _viewDataKey = "__fhtmlhelper__";
+
         public static FHtmlHelper f(this HtmlHelper htmlHelper)
         {
-            var f = (FHtmlHelper)htmlHelper.ViewData["__fhtmlhelper__"] ?? new FHtmlHelper(htmlHelper);
-            htmlHelper.ViewData["__fhtmlhelper__"] = f;
+            string k = _viewDataKey;
+            var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper);
+            htmlHelper.ViewData[k] = f;
             return f;
         }
 
         public static FHtmlHelper f(this HtmlHelper htmlHelper, string renderName)
         {
-            return new FHtmlHelper(htmlHelper,renderName);
+            string k = _viewDataKey + renderName;
+            var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper, renderName);
+            htmlHelper.ViewData[k] = f;
+            return f;
         }
 
         public static FHtmlHelper f(this HtmlHelper htmlHelper, IFlexRender render)
         {
-            return new FHtmlHelper(htmlHelper, render);
+            string k = _viewDataKey + render.Name;
+            var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper, render);
+            htmlHelper.ViewData[k] = f;
+            return f;
         }
 
         public static FlexTagBuilder Tag(this FHtmlHelper htmlHelper, string tagName)

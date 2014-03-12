@@ -1,0 +1,14 @@
+﻿@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+
+@model Address
+@{
+    var form = Html.f().PartialForm();
+}
+
+@form.TextBoxFor(m=>m.Address1)
+@form.TextBoxFor(m => m.Address2)
+@form.TextBoxFor(m => m.City).input_placeholder("City")
+@form.TextBoxFor(m => m.State)
+@form.TextBoxFor(m => m.ZipCode).input_col_md(4)

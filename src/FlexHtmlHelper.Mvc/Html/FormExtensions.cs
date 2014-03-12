@@ -298,6 +298,19 @@ namespace FlexHtmlHelper.Mvc.Html
             viewContext.OutputClientValidation();
             viewContext.FormContext = null;
         }
-        
+
+
+        public static FlexMvcForm PartialForm(this FHtmlHelper htmlHelper)
+        {
+            var formContext = htmlHelper.FormConext ?? new FlexFormContext();
+            return new FlexMvcForm(htmlHelper, formContext);
+        }
+
+        public static FlexMvcForm<TModel> PartialForm<TModel>(this FHtmlHelper<TModel> htmlHelper)
+        {
+            var formContext = htmlHelper.FormConext ?? new FlexFormContext();
+            return new FlexMvcForm<TModel>(htmlHelper, formContext);
+        }
+
     }
 }

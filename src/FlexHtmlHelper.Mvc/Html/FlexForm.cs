@@ -55,7 +55,7 @@ namespace FlexHtmlHelper.Mvc.Html
             {
                 HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.TagAttributes["id"];
             }
-
+            FHtmlHelper.FormConext = FormContext;
             return theForm;
         }
 
@@ -66,7 +66,13 @@ namespace FlexHtmlHelper.Mvc.Html
             viewContext.Writer.Write("</form>");
             viewContext.OutputClientValidation();
             viewContext.FormContext = null;
-        }        
+        }
+
+        public FlexMvcForm PartialForm()
+        {
+            FHtmlHelper.FormConext = FormContext;
+            return new FlexMvcForm(this.FHtmlHelper, FormContext);
+        }
     }
 
     public static class FlexFormExtensions
@@ -238,7 +244,15 @@ namespace FlexHtmlHelper.Mvc.Html
                 HtmlHelper.ViewContext.FormContext.FormId = TagBuilder.TagAttributes["id"];
             }
 
+            FHtmlHelper.FormConext = FormContext;
+
             return theForm;
+        }
+
+        public new FlexMvcForm<TModel> PartialForm()
+        {
+            FHtmlHelper.FormConext = FormContext;
+            return new FlexMvcForm<TModel>(this.FHtmlHelper, FormContext);
         }
     }
   
