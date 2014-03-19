@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FlexHtmlHelper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A Flexible Html Helper Library for ASP.NET Mvc")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("liuhongbo@live.com")]
 [assembly: AssemblyProduct("FlexHtmlHelper")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©  2014 liuhongbo@live.com")]
+[assembly: AssemblyTrademark("FlexHtmlHelper")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
