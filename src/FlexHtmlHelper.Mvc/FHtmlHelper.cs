@@ -18,7 +18,7 @@ using FlexHtmlHelper.Render;
 namespace FlexHtmlHelper.Mvc
 {
     public class FHtmlHelper
-    {
+    {        
         private HtmlHelper _htmlHelper;
         private IFlexRender _render;        
 

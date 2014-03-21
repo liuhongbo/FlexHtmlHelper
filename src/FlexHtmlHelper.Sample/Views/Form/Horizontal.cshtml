@@ -28,7 +28,7 @@
         @form.PasswordFor(m => m.Password).input_col_md(3).help_text("at least 6 characters")
 
         @form.RadioButtonFor(m => m.Gender, "M").label_text("Male").RadioButtonFor(m => m.Gender, "F").label_text("Female")
-        @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).input_col_md(6)
+        @form.DropDownList("TimeZoneId", Model.AvailableTimeZones).input_col_md(6)
         @form.ListBoxFor(m => m.FavoriteMusicGenres, Model.AvailableFavoriteMusicGenres).input_col_md(6).help_text("You can select multiple genres by holding the ctrl key on your keyboard")
         @form.RadioButtonFor(m => m.Race, "W").label_text("White").RadioButtonFor(m => m.Race, "B").label_text("Black").RadioButtonFor(m => m.Race, "A").label_text("Asian").RadioButtonFor(m => m.Race, "L").label_text("latin")
         @form.TextBoxFor(m => m.File, new { type = "file" })

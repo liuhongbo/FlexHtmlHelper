@@ -667,7 +667,7 @@ namespace FlexHtmlHelper.Mvc.Html
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
 
-            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexLabel label = (metadata != null) ? htmlHelper.LabelHelper(metadata, name) : htmlHelper.Label(name);
             FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
             FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
@@ -1088,7 +1088,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 throw new ArgumentException(FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_Common_NullOrEmpty), "name");
             }
 
-            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexLabel label = (metadata != null) ? htmlHelper.LabelHelper(metadata, name) : htmlHelper.Label(name);
             FlexSelect input = htmlHelper.SelectInternal(metadata, optionLabel, name, selectList, allowMultiple, htmlAttributes);
             FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
@@ -1261,7 +1261,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 throw new ArgumentException(FHtmlHelper.MvcResource(FHtmlHelper.MvcResources_Common_NullOrEmpty), "name");
             }
 
-            FlexLabel label = htmlHelper.LabelHelper(modelMetadata, name);
+            FlexLabel label = (modelMetadata != null) ? htmlHelper.LabelHelper(modelMetadata, name) : htmlHelper.Label(name);
             FlexTextArea input = htmlHelper.TextAreaHelper(modelMetadata, name, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
             FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(modelMetadata, name, null, null);
 
@@ -1411,7 +1411,7 @@ namespace FlexHtmlHelper.Mvc.Html
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
 
-            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexLabel label = (metadata != null) ? htmlHelper.LabelHelper(metadata, name) : htmlHelper.Label(name);
             FlexInput input = htmlHelper.StaticHelper<FlexInput>(metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);            
 
             FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, input.TagBuilder, new FlexTagBuilder());

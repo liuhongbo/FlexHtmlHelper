@@ -313,7 +313,7 @@ namespace FlexHtmlHelper.Mvc.Html
             string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
 
-            FlexLabel label = htmlHelper.LabelHelper(metadata, name);
+            FlexLabel label = (metadata != null) ? htmlHelper.LabelHelper(metadata, name) : htmlHelper.Label(name);
             FlexInput input = htmlHelper.InputHelper<FlexInput>(inputType, metadata, name, value, useViewData, isChecked, setId, isExplicitValue, format, htmlAttributes);
             //FlexValidationMessage validateMessage = htmlHelper.ValidationMessageHelper(metadata, name, null, null);
 
