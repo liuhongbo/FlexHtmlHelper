@@ -71,12 +71,18 @@ namespace FlexHtmlHelper.Mvc.Html
             return new FlexElement((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
         }
 
-        public static  T addClass<T>(this T flexElement, string className) where T: FlexElement
+        public static  T css<T>(this T flexElement, string className) where T: FlexElement
         {
             flexElement.TagBuilder.AddCssClass(className);
             return (T)flexElement;
         }
-       
+
+        public static T attr<T>(this T flexElement, string name, string value) where T : FlexElement
+        {
+            flexElement.TagBuilder.Attributes[name] = value;
+            return (T)flexElement;
+        }
+
         #region Grid System
 
         public static T row<T>(this T flexElement) where T:FlexElement
@@ -246,16 +252,45 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #region Element
 
-        public static T disabled<T>(this T flexInput) where T : FlexElement
+        public static T disabled<T>(this T flexElement) where T : FlexElement
         {
-            flexInput.Render.Disabled(flexInput.TagBuilder);
-            return flexInput;
+            flexElement.Render.Disabled(flexElement.TagBuilder);
+            return flexElement;
         }
 
-        public static T active<T>(this T flexInput) where T : FlexElement
+        public static T active<T>(this T flexElement) where T : FlexElement
         {
-            flexInput.Render.Active(flexInput.TagBuilder);
-            return flexInput;
+            flexElement.Render.Active(flexElement.TagBuilder);
+            return flexElement;
+        }
+
+        public static T id<T>(this T flexElement, string id) where T: FlexElement
+        {
+            flexElement.Render.Id(flexElement.TagBuilder, id);
+            return flexElement;
+        }
+
+        #endregion
+
+
+        #region Collapse
+
+        public static T collapse<T>(this T flexElement, string target) where T : FlexElement
+        {
+            flexElement.Render.Collapse(flexElement.TagBuilder,target);
+            return flexElement;
+        }
+
+        public static T collapsible<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.Collapsible(flexElement.TagBuilder);
+            return flexElement;
+        }
+
+        public static T collapsible<T>(this T flexElement, bool show = false) where T : FlexElement
+        {
+            flexElement.Render.Collapsible(flexElement.TagBuilder, show);
+            return flexElement;
         }
 
         #endregion

@@ -838,5 +838,29 @@ namespace FlexHtmlHelper.Render
         }
 
         #endregion
+
+        #region Element
+
+        public override FlexTagBuilder Collapse(FlexTagBuilder tagBuilder, string target)
+        {
+            tagBuilder.Tag().MergeAttribute("data-toggle", "collapse");
+            tagBuilder.Tag().MergeAttribute("data-target", target);
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder Collapsible(FlexTagBuilder tagBuilder, bool show = false)
+        {
+            if (show)
+            {
+                tagBuilder.Tag().AddCssClass("collapse").AddCssClass("in");
+            }
+            else
+            {
+                tagBuilder.Tag().AddCssClass("collapse");
+            }
+            return tagBuilder;
+        }
+
+        #endregion
     }
 }

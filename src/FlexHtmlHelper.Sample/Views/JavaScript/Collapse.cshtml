@@ -1,0 +1,27 @@
+﻿@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+@model FindPerson
+@{
+    ViewBag.Title = "Collapse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">       
+        <li class="active">@Html.ActionLink("Collapse", "Collapse")</li>
+    </ul>
+</div>
+
+<br />
+
+@Html.f().Button("button", "Search").collapse("#search1").row()
+
+@using (var form = @Html.f().Form().id("search1").collapsible().BeginForm())
+{
+    @form.TextBoxFor(m=>m.FirstName)
+    @form.TextBoxFor(m=>m.LastName)
+    @form.TextBoxFor(m=>m.Email)
+    @form.Button(Html.f().Button("submit", "Submit").btn_primary())
+}

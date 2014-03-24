@@ -19,7 +19,7 @@ namespace FlexHtmlHelper.Tests
 
             FlexLabel label = new FlexLabel(null,tag);
 
-            string str = label.addClass("b").ToHtmlString();
+            string str = label.css("b").ToHtmlString();
         }   
     }
 }

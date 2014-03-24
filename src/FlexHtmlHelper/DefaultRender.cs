@@ -381,6 +381,22 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder Id(FlexTagBuilder tagBuilder, string id)
+        {
+            tagBuilder.TagAttributes["id"] = id;
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder Collapse(FlexTagBuilder tagBuilder, string target)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder Collapsible(FlexTagBuilder tagBuilder, bool show = false)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Button

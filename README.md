@@ -1,8 +1,9 @@
 FlexHtmlHelper
 ==============
 
-A flexible html helper library for asp.net mvc and asp.net webpages application
+A flexible html helper library for asp.net mvc and asp.net webpages application.
 
+V1.0 is really just a htmlhelper for bootstrap 3.
 
 Quick Start
 ----------
@@ -55,4 +56,10 @@ Quick Start
             @form.Button(Html.f().Button("button","Delete").btn_danger().btn_block())
         }
 		
+
+Why FlexHtmlHelper
+----------
+
+
+
 

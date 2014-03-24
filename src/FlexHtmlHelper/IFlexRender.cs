@@ -122,6 +122,9 @@ namespace FlexHtmlHelper
 
         FlexTagBuilder Disabled(FlexTagBuilder tagBuilder);
         FlexTagBuilder Active(FlexTagBuilder tagBuilder);
+        FlexTagBuilder Id(FlexTagBuilder tagBuilder, string id);
+        FlexTagBuilder Collapse(FlexTagBuilder tagBuilder, string target);
+        FlexTagBuilder Collapsible(FlexTagBuilder tagBuilder, bool show = false);
 
         #endregion
 

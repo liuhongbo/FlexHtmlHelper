@@ -120,10 +120,12 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\InputController.cs" />
+    <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FindPerson.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,6 +181,7 @@
     <Content Include="Views\Link\Button.cshtml" />
     <Content Include="Views\Form\Partial.cshtml" />
     <Content Include="Views\Form\_Address.cshtml" />
+    <Content Include="Views\JavaScript\Collapse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
