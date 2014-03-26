@@ -236,9 +236,8 @@ namespace FlexHtmlHelper.Render
                                 GridColumns(inputDivTag, col.Key, col.Value);
                             }
                             inputDivTag.AddTag(inputTag).AddCssClass("form-control");
-
-                            tag.AddTag(inputDivTag);
-                            tag.AddTag(validationMessageTag);
+                            inputDivTag.AddTag(validationMessageTag);
+                            tag.AddTag(inputDivTag);                            
                             break;
                     }
                     break;

@@ -46,6 +46,8 @@ namespace FlexHtmlHelperSample.Models
         public string LastName { get; set; }
         
         [DisplayName("Email")]
+        [EmailAddress]
+        [Required]
         public string Email { get; set; }
 
         [DisplayName("Address")]
