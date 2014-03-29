@@ -126,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FindPerson.cs" />
+    <Compile Include="Models\PagingModel.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -187,6 +188,7 @@
     <Content Include="Views\Form\Partial.cshtml" />
     <Content Include="Views\Form\_Address.cshtml" />
     <Content Include="Views\JavaScript\Collapse.cshtml" />
+    <Content Include="Views\Link\Paging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

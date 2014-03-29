@@ -119,6 +119,7 @@
     <Compile Include="Html\FlexLabel.cs" />
     <Compile Include="Html\FlexLink.cs" />
     <Compile Include="Html\FlexMvcForm.cs" />
+    <Compile Include="Html\FlexPagingLink.cs" />
     <Compile Include="Html\FlexPassword.cs" />
     <Compile Include="Html\FlexRadioButton.cs" />
     <Compile Include="Html\FlexSelect.cs" />

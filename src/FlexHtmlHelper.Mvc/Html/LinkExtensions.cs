@@ -163,5 +163,25 @@ namespace FlexHtmlHelper.Mvc.Html
         }
 
         #endregion
+
+        #region PagingLink 
+
+        public static FlexPagingLink PagingLink(this FHtmlHelper html, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver)
+        {
+            return PagingLink(html, totalItemCount, pageNumber, pageSize,maxPagingLinks, pagingUrlResolver, null /*htmlAttributes*/);
+        }
+
+        public static FlexPagingLink PagingLink(this FHtmlHelper html, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, object htmlAttributes)
+        {
+            return PagingLink(html, totalItemCount, pageNumber, pageSize, maxPagingLinks, pagingUrlResolver, htmlAttributes); 
+        }
+
+        public static FlexPagingLink PagingLink(this FHtmlHelper html, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tagBuilder = html.Render.PagingLinkHelper(new FlexTagBuilder(), totalItemCount, pageNumber, pageSize,maxPagingLinks, pagingUrlResolver, htmlAttributes);
+            return new FlexPagingLink(html, tagBuilder);
+        }
+
+        #endregion
     }
 }

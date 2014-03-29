@@ -328,6 +328,96 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
+        public override FlexTagBuilder PagingLinkHelper(FlexTagBuilder tagBuilder, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, IDictionary<string, object> htmlAttributes)
+        {
+            if (pageNumber < 1)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber cannot be below 1.");
+            if (pageSize < 1)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "PageSize cannot be less than 1.");
+            if (totalItemCount < pageNumber)
+                throw new ArgumentOutOfRangeException("totalItemCount", totalItemCount, "totalItemCount can not be less than pageNumber");
+
+            // set source to blank list if superset is null to prevent exceptions           
+            var pageCount = totalItemCount > 0
+                            ? (int)Math.Ceiling(totalItemCount / (double)pageSize)
+                            : 0;
+            var hasPreviousPage = pageNumber > 1;
+            var hasNextPage = pageNumber < pageCount;
+            var isFirstPage = pageNumber == 1;
+            var isLastPage = pageNumber >= pageCount;
+            var firstItemOnPage = (pageNumber - 1) * pageSize + 1;
+            var numberOfLastItemOnPage = firstItemOnPage + pageSize - 1;
+            var lastItemOnPage = numberOfLastItemOnPage > totalItemCount
+                                ? totalItemCount
+                                : numberOfLastItemOnPage;
+
+            int halfPagingLinks = maxPagingLinks / 2;
+            int startPageNumber = 1;
+            int endPageNumber = 1;
+            if (pageNumber < halfPagingLinks)
+            {
+                startPageNumber = 1;
+                endPageNumber = pageCount > maxPagingLinks ? maxPagingLinks : pageCount;
+            }
+            else
+            {
+                if (pageNumber + halfPagingLinks > pageCount)
+                {
+                    endPageNumber = pageCount;
+                    startPageNumber = pageCount > maxPagingLinks ? pageCount - maxPagingLinks + 1: 1 ;
+                }
+                else
+                {
+                    startPageNumber = pageNumber - halfPagingLinks + 1;
+                    endPageNumber = pageCount > (startPageNumber + maxPagingLinks - 1) ? (startPageNumber + maxPagingLinks - 1) : pageCount;
+                }
+            }
+
+            FlexTagBuilder ul = new FlexTagBuilder("ul");
+            ul.AddCssClass("pagination");
+            
+            FlexTagBuilder preLi = new FlexTagBuilder("li");            
+            if (hasPreviousPage)
+            {
+                preLi.AddTag("a").AddHtmlText(@"&laquo;").Attributes.Add("href", pagingUrlResolver(pageNumber - 1));
+            }
+            else
+            {
+                preLi.AddCssClass("disabled").AddTag("a").AddHtmlText(@"&laquo;").Attributes.Add("href", "#");
+            }
+            ul.AddTag(preLi);
+
+
+            for(int i=startPageNumber; i<=endPageNumber; i++)
+            {
+                FlexTagBuilder li = new FlexTagBuilder("li");
+                
+                li.AddTag("a").AddText(i.ToString()).Attributes.Add("href", pagingUrlResolver(i));
+                if (i == pageNumber)
+                {
+                    li.AddCssClass("active");
+                }
+               
+                ul.AddTag(li);
+            }
+
+            FlexTagBuilder nextLi = new FlexTagBuilder("li");
+            if (hasNextPage)
+            {
+                nextLi.AddTag("a").AddHtmlText(@"&raquo;").Attributes.Add("href", pagingUrlResolver(pageNumber + 1));
+            }
+            else
+            {
+                nextLi.AddCssClass("disabled").AddTag("a").AddHtmlText(@"&raquo;").Attributes.Add("href", "#");
+            }
+
+            ul.AddTag(nextLi);
+
+            tagBuilder.AddTag(ul);
+
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System
@@ -856,6 +946,24 @@ namespace FlexHtmlHelper.Render
             else
             {
                 tagBuilder.Tag().AddCssClass("collapse");
+            }
+            return tagBuilder;
+        }
+
+        #endregion
+
+        #region Link
+
+        public override FlexTagBuilder PagingLinkSize(FlexTagBuilder tagBuilder, PagingLinkSizeStyle size)
+        {
+            switch (size)
+            {
+                case PagingLinkSizeStyle.Large:
+                    tagBuilder.Tag().AddCssClass("pagination-lg");
+                    break;
+                case PagingLinkSizeStyle.Small:
+                    tagBuilder.Tag().AddCssClass("pagination-sm");
+                    break;
             }
             return tagBuilder;
         }

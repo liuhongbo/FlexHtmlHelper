@@ -49,6 +49,12 @@ namespace FlexHtmlHelper
         ExtraSmall
     }
 
+    public enum PagingLinkSizeStyle
+    {
+        Large,
+        Small
+    }
+
     public enum ButtonOptionStyle
     {
         Default,
@@ -83,6 +89,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder LinkHelper(FlexTagBuilder tagBuilder, string linkText, string url, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ButtonHelper(FlexTagBuilder tagBuilder, string type, string text, string value, string name, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder LinkButtonHelper(FlexTagBuilder tagBuilder);
+        FlexTagBuilder PagingLinkHelper(FlexTagBuilder tagBuilder, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, IDictionary<string, object> htmlAttributes);
 
         #endregion
 
@@ -133,6 +140,12 @@ namespace FlexHtmlHelper
         FlexTagBuilder ButtonSize(FlexTagBuilder tagBuilder, ButtonSizeStyle size);
         FlexTagBuilder ButtonStyle(FlexTagBuilder tagBuilder, ButtonOptionStyle style);
         FlexTagBuilder ButtonBlock(FlexTagBuilder tagBuilder);
+
+        #endregion
+
+        #region Link
+
+        FlexTagBuilder PagingLinkSize(FlexTagBuilder tagBuilder, PagingLinkSizeStyle size);
 
         #endregion
 

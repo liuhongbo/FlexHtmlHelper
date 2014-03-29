@@ -265,6 +265,11 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder PagingLinkHelper(FlexTagBuilder tagBuilder, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, IDictionary<string, object> htmlAttributes)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System
@@ -412,6 +417,15 @@ namespace FlexHtmlHelper
         }
 
         public virtual FlexTagBuilder ButtonBlock(FlexTagBuilder tagBuilder)
+        {
+            return tagBuilder;
+        }
+
+        #endregion
+
+        #region Link
+
+        public virtual FlexTagBuilder PagingLinkSize(FlexTagBuilder tagBuilder, PagingLinkSizeStyle size)
         {
             return tagBuilder;
         }

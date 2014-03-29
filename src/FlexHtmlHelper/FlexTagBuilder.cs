@@ -665,6 +665,14 @@ namespace FlexHtmlHelper
             return this;
         }
 
+        public FlexTagBuilder AddHtmlText(string text)
+        {
+            var tag = new FlexTagBuilder(this);
+            tag.SetHtmlText(text);
+            InnerTags.Add(tag);
+            return this;
+        }
+
         public FlexTagBuilder InsertTag(int index, FlexTagBuilder tag)
         {
             InnerTags.Insert(index, tag);
@@ -1039,6 +1047,11 @@ namespace FlexHtmlHelper
         internal void SetText(string text)
         {
             _text = HttpUtility.HtmlEncode(text);
+        }
+
+        internal void SetHtmlText(string text)
+        {
+            _text = text;
         }
 
         internal HtmlString ToHtmlString(FlexTagRenderMode renderMode)

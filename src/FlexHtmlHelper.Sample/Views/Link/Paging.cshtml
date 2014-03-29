@@ -1,0 +1,29 @@
+﻿@model PagingModel
+@{
+    ViewBag.Title = "Paging";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Link", "Link")</li>
+        <li>@Html.ActionLink("Link Button", "Button")</li>
+        <li class="active">@Html.ActionLink("Paging Link", "Paging")</li>
+    </ul>
+</div>
+
+<br />
+<div class="row">
+    @Html.f().PagingLink(Model.TotalItemCount, Model.PageNumber, Model.PageSize, Model.MaxPagingLinks, p => @Url.Action("Paging", new {page = p}))
+</div>
+<br />
+<div class="row">
+    @Html.f().PagingLink(Model.TotalItemCount, Model.PageNumber, Model.PageSize, Model.MaxPagingLinks, p => @Url.Action("Paging", new { page = p })).pagination_lg()
+</div>
+<br />
+<div class="row">
+    @Html.f().PagingLink(Model.TotalItemCount, Model.PageNumber, Model.PageSize, Model.MaxPagingLinks, p => @Url.Action("Paging", new { page = p })).pagination_sm()
+</div>
+
+
