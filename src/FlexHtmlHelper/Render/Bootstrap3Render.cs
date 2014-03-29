@@ -376,14 +376,15 @@ namespace FlexHtmlHelper.Render
             FlexTagBuilder ul = new FlexTagBuilder("ul");
             ul.AddCssClass("pagination");
             
-            FlexTagBuilder preLi = new FlexTagBuilder("li");            
+            FlexTagBuilder preLi = new FlexTagBuilder("li");    
+            
             if (hasPreviousPage)
             {
-                preLi.AddTag("a").AddHtmlText(@"&laquo;").Attributes.Add("href", pagingUrlResolver(pageNumber - 1));
+                preLi.AddTag("a").MergeAttributes(htmlAttributes).AddHtmlText(@"&laquo;").Attributes.Add("href", pagingUrlResolver(pageNumber - 1));
             }
             else
             {
-                preLi.AddCssClass("disabled").AddTag("a").AddHtmlText(@"&laquo;").Attributes.Add("href", "#");
+                preLi.AddCssClass("disabled").AddTag("a").MergeAttributes(htmlAttributes).AddHtmlText(@"&laquo;").Attributes.Add("href", "#");
             }
             ul.AddTag(preLi);
 
@@ -391,8 +392,8 @@ namespace FlexHtmlHelper.Render
             for(int i=startPageNumber; i<=endPageNumber; i++)
             {
                 FlexTagBuilder li = new FlexTagBuilder("li");
-                
-                li.AddTag("a").AddText(i.ToString()).Attributes.Add("href", pagingUrlResolver(i));
+
+                li.AddTag("a").MergeAttributes(htmlAttributes).AddText(i.ToString()).Attributes.Add("href", pagingUrlResolver(i));
                 if (i == pageNumber)
                 {
                     li.AddCssClass("active");
@@ -404,11 +405,11 @@ namespace FlexHtmlHelper.Render
             FlexTagBuilder nextLi = new FlexTagBuilder("li");
             if (hasNextPage)
             {
-                nextLi.AddTag("a").AddHtmlText(@"&raquo;").Attributes.Add("href", pagingUrlResolver(pageNumber + 1));
+                nextLi.AddTag("a").MergeAttributes(htmlAttributes).AddHtmlText(@"&raquo;").Attributes.Add("href", pagingUrlResolver(pageNumber + 1));
             }
             else
             {
-                nextLi.AddCssClass("disabled").AddTag("a").AddHtmlText(@"&raquo;").Attributes.Add("href", "#");
+                nextLi.AddCssClass("disabled").AddTag("a").MergeAttributes(htmlAttributes).AddHtmlText(@"&raquo;").Attributes.Add("href", "#");
             }
 
             ul.AddTag(nextLi);

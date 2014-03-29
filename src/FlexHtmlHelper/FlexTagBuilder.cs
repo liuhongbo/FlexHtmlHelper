@@ -1008,12 +1008,13 @@ namespace FlexHtmlHelper
             }
         }
 
-        public void MergeAttribute(string key, string value)
+        public FlexTagBuilder MergeAttribute(string key, string value)
         {
             MergeAttribute(key, value, replaceExisting: false);
+            return this;
         }
 
-        public void MergeAttribute(string key, string value, bool replaceExisting)
+        public FlexTagBuilder MergeAttribute(string key, string value, bool replaceExisting)
         {
             if (String.IsNullOrEmpty(key))
             {
@@ -1024,14 +1025,16 @@ namespace FlexHtmlHelper
             {
                 TagAttributes[key] = value;
             }
+            return this;
         }
 
-        public void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes)
+        public FlexTagBuilder MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes)
         {
             MergeAttributes(attributes, replaceExisting: false);
+            return this;
         }
 
-        public void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting)
+        public FlexTagBuilder MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting)
         {
             if (attributes != null)
             {
@@ -1042,6 +1045,7 @@ namespace FlexHtmlHelper
                     MergeAttribute(key, value, replaceExisting);
                 }
             }
+            return this;
         }
 
         internal void SetText(string text)
