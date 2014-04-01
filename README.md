@@ -3,7 +3,7 @@ FlexHtmlHelper
 
 A flexible html helper library for asp.net mvc and asp.net webpages application.
 
-V1.0 is really just a htmlhelper for bootstrap 3.
+V1.0 is really just a asp.net mvc htmlhelper for bootstrap 3.
 
 Quick Start
 ----------

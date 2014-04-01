@@ -402,6 +402,13 @@ namespace FlexHtmlHelper.Render
                 ul.AddTag(li);
             }
 
+            if (endPageNumber < pageCount)
+            {
+                FlexTagBuilder moreLi = new FlexTagBuilder("li");
+                moreLi.AddCssClass("disabled").AddTag("a").MergeAttributes(htmlAttributes).AddHtmlText(@"...").Attributes.Add("href", "#");
+                ul.AddTag(moreLi);
+            }
+
             FlexTagBuilder nextLi = new FlexTagBuilder("li");
             if (hasNextPage)
             {

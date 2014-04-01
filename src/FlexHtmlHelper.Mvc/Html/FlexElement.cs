@@ -73,13 +73,13 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static  T css<T>(this T flexElement, string className) where T: FlexElement
         {
-            flexElement.TagBuilder.AddCssClass(className);
+            flexElement.TagBuilder.Tag().AddCssClass(className);
             return (T)flexElement;
         }
 
         public static T attr<T>(this T flexElement, string name, string value) where T : FlexElement
         {
-            flexElement.TagBuilder.Attributes[name] = value;
+            flexElement.TagBuilder.Tag().Attributes[name] = value;
             return (T)flexElement;
         }
 
