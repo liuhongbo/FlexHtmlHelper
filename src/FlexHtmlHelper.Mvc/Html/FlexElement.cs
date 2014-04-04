@@ -18,6 +18,10 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             _tagBuilder = tagBuilder;
             _flexHtmlHelper = flexHtmlHelper;
+            if (tagBuilder != null)
+            {
+                tagBuilder.BuildContext = flexHtmlHelper;
+            }
         }
 
         public FlexElement(FHtmlHelper flexHtmlHelper, string tagName)
@@ -30,7 +34,7 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
-        internal FlexTagBuilder TagBuilder
+        public FlexTagBuilder TagBuilder
         {
             get { return _tagBuilder; }
         }
@@ -58,30 +62,63 @@ namespace FlexHtmlHelper.Mvc.Html
         public override string ToString()
         {
             return (_tagBuilder == null) ? string.Empty : _tagBuilder.ToString();
-        }       
+        }
+
+        public void Write()
+        {
+            HtmlHelper.ViewContext.Writer.Write(this);
+        }
         
     }
 
 
     public static class FlexElementExtensions
     {
-
-        public static FlexElement Rent(this FlexTagBuilder tagBuilder)
+        public static T Add<T>(this T flexElement, FlexElement element) where T : FlexElement
         {
-            return new FlexElement((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
+            flexElement.TagBuilder.Tag().AddTag(element.TagBuilder);
+            return flexElement;
+        }
+
+        public static T Add<T>(this T flexElement, FlexTagBuilder tagBuilder) where T : FlexElement
+        {
+            flexElement.TagBuilder.Tag().AddTag(tagBuilder);
+            return flexElement;
+        }
+
+        public static T Insert<T>(this T flexElement, int index, FlexElement element) where T : FlexElement
+        {
+            flexElement.TagBuilder.Tag().InsertTag(index, element.TagBuilder);
+            return flexElement;
+        }
+
+        public static T Insert<T>(this T flexElement, int index, FlexTagBuilder tagBuilder) where T : FlexElement
+        {
+            flexElement.TagBuilder.Tag().InsertTag(index, tagBuilder);
+            return flexElement;
+        }
+
+        public static T AddFirst<T>(this T flexElement, FlexElement element) where T : FlexElement
+        {
+            return flexElement.Insert(0, element);
+        }
+
+        public static T AddFirst<T>(this T flexElement, FlexTagBuilder tagBuilder) where T : FlexElement
+        {
+            return flexElement.Insert(0, tagBuilder);
         }
 
         public static  T css<T>(this T flexElement, string className) where T: FlexElement
         {
             flexElement.TagBuilder.Tag().AddCssClass(className);
-            return (T)flexElement;
+            return flexElement;
         }
 
         public static T attr<T>(this T flexElement, string name, string value) where T : FlexElement
         {
             flexElement.TagBuilder.Tag().Attributes[name] = value;
-            return (T)flexElement;
-        }
+            return flexElement;
+        }        
 
         #region Grid System
 

@@ -17,5 +17,15 @@ namespace FlexHtmlHelper.Mvc.Html
         {
             return new FlexInput((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
         }
+
+        public static FlexButton AsButton(this FlexTagBuilder tagBuilder)
+        {
+            return new FlexButton((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
+        }
+
+        public static FlexLink AsLink(this FlexTagBuilder tagBuilder)
+        {
+            return new FlexLink((FHtmlHelper)tagBuilder.BuildContext, tagBuilder);
+        }
     }
 }

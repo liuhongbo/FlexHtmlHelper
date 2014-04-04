@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Tag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("Tag", "Tag")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+    @{
+        var f = Html.f();
+        
+        f.Button("button", " Search").btn_info().btn_lg()
+            //.Add(f.Tag("span").AddCssClass("caret"))
+            .AddFirst(f.Tag("span").AddCssClass("glyphicon glyphicon-search"))            
+            .Write();
+    }
+</div>
+<br />

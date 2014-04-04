@@ -122,6 +122,7 @@
     <Compile Include="Controllers\InputController.cs" />
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +190,7 @@
     <Content Include="Views\Form\_Address.cshtml" />
     <Content Include="Views\JavaScript\Collapse.cshtml" />
     <Content Include="Views\Link\Paging.cshtml" />
+    <Content Include="Views\Tag\Tag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
