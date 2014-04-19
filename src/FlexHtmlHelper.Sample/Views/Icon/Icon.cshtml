@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Icon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var f = Html.f();
+}
+
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li class="active">@Html.ActionLink("Icon", "Icon")</li>
+        <li>@Html.ActionLink("Button Icon", "Button")</li>
+    </ul>
+</div>
+
+<br />
+
+<div class="row">
+    @f.Icon("new-window")
+</div>
+<br />
+
+<div class="row">
+    @f.Icon("hand-up")
+</div>
+<br />
+<div class="row">
+    @f.Icon("star")
+</div>
+

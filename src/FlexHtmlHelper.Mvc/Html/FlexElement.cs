@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using FlexHtmlHelper.Mvc;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
     public class FlexElement: IHtmlString
-    {
+    {       
         private FlexTagBuilder _tagBuilder;
         private FHtmlHelper _flexHtmlHelper;
 
@@ -67,8 +69,68 @@ namespace FlexHtmlHelper.Mvc.Html
         public void Write()
         {
             HtmlHelper.ViewContext.Writer.Write(this);
+        }        
+
+        protected static string GenerateAjaxScript(AjaxOptions ajaxOptions, string scriptFormat)
+        {
+            string optionsString = ToJavascriptString(ajaxOptions);
+            return String.Format(CultureInfo.InvariantCulture, scriptFormat, optionsString);
         }
-        
+
+        protected static string ToJavascriptString(AjaxOptions ajaxOptions)
+        {
+            // creates a string of the form { key1: value1, key2 : value2, ... }
+            StringBuilder optionsBuilder = new StringBuilder("{");
+            optionsBuilder.Append(String.Format(CultureInfo.InvariantCulture, " insertionMode: {0},", InsertionModeString(ajaxOptions)));
+            optionsBuilder.Append(PropertyStringIfSpecified("confirm", ajaxOptions.Confirm));
+            optionsBuilder.Append(PropertyStringIfSpecified("httpMethod", ajaxOptions.HttpMethod));
+            optionsBuilder.Append(PropertyStringIfSpecified("loadingElementId", ajaxOptions.LoadingElementId));
+            optionsBuilder.Append(PropertyStringIfSpecified("updateTargetId", ajaxOptions.UpdateTargetId));
+            optionsBuilder.Append(PropertyStringIfSpecified("url", ajaxOptions.Url));
+            optionsBuilder.Append(EventStringIfSpecified("onBegin", ajaxOptions.OnBegin));
+            optionsBuilder.Append(EventStringIfSpecified("onComplete", ajaxOptions.OnComplete));
+            optionsBuilder.Append(EventStringIfSpecified("onFailure", ajaxOptions.OnFailure));
+            optionsBuilder.Append(EventStringIfSpecified("onSuccess", ajaxOptions.OnSuccess));
+            optionsBuilder.Length--;
+            optionsBuilder.Append(" }");
+            return optionsBuilder.ToString();
+        }
+
+        protected static string InsertionModeString(AjaxOptions ajaxOptions)
+        {
+
+            switch (ajaxOptions.InsertionMode)
+            {
+                case InsertionMode.Replace:
+                    return "Sys.Mvc.InsertionMode.replace";
+                case InsertionMode.InsertBefore:
+                    return "Sys.Mvc.InsertionMode.insertBefore";
+                case InsertionMode.InsertAfter:
+                    return "Sys.Mvc.InsertionMode.insertAfter";
+                default:
+                    return ((int)ajaxOptions.InsertionMode).ToString(CultureInfo.InvariantCulture);
+            }
+
+        }
+
+        protected static string EventStringIfSpecified(string propertyName, string handler)
+        {
+            if (!String.IsNullOrEmpty(handler))
+            {
+                return String.Format(CultureInfo.InvariantCulture, " {0}: Function.createDelegate(this, {1}),", propertyName, handler.ToString());
+            }
+            return String.Empty;
+        }
+
+        protected static string PropertyStringIfSpecified(string propertyName, string propertyValue)
+        {
+            if (!String.IsNullOrEmpty(propertyValue))
+            {
+                string escapedPropertyValue = propertyValue.Replace("'", @"\'");
+                return String.Format(CultureInfo.InvariantCulture, " {0}: '{1}',", propertyName, escapedPropertyValue);
+            }
+            return String.Empty;
+        }        
     }
 
 

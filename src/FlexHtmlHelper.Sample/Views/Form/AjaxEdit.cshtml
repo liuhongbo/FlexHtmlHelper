@@ -1,0 +1,27 @@
+﻿@model Person
+@{    
+    Layout = null;
+}
+
+@using (var form = Html.f().Form().Ajax(new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "ajaxUpdate", InsertionMode =  InsertionMode.Replace }).BeginForm())
+{
+    @Html.f().ValidationSummary()
+    @form.HiddenFor(m => m.PersonId)
+    @form.TextBoxFor(m => m.FirstName)
+    @form.TextBoxFor(m => m.LastName)
+    @form.TextBoxFor(m => m.Email)
+    @form.TextBoxFor(m => m.Title)
+    @form.PasswordFor(m => m.Password)
+    @form.RadioButtonFor(m => m.Gender, "M")
+    @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).input_col_md(6)
+    @form.ListBoxFor(m => m.FavoriteMusicGenres, Model.AvailableFavoriteMusicGenres)
+    @form.RadioButtonFor(m => m.Race, "W").label_text("White").RadioButtonFor(m => m.Race, "B").label_text("Black").RadioButtonFor(m => m.Race, "A").label_text("Asian").RadioButtonFor(m => m.Race, "L").label_text("latin")
+
+    @form.TextAreaFor(m => m.Description)
+    @form.CheckBoxFor(m => m.ForumPosts).CheckBoxFor(m => m.Newsletter).CheckBoxFor(m => m.BlogPosts)
+    @form.CheckBoxFor(m => m.AcceptTerms).label_text("I have read and accepted the terms and conditions")
+    @form.StaticFor(m => m.Log)
+
+    @form.Button(Html.f().Button("submit", "Submit").btn_primary())
+
+}

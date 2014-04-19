@@ -16,9 +16,9 @@
     @{
         var f = Html.f();
         
-        f.Button("button", " Search").btn_info().btn_lg()
-            //.Add(f.Tag("span").AddCssClass("caret"))
-            .AddFirst(f.Tag("span").AddCssClass("glyphicon glyphicon-search"))            
+        f.Button("button", " Search ").btn_info().btn_lg()
+            .AddFirst(f.Tag("span").AddCssClass("glyphicon glyphicon-search"))
+            .Add(f.Tag("span").AddCssClass("caret"))
             .Write();
     }
 </div>

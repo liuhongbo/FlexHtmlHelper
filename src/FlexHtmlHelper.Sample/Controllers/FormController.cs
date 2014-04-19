@@ -79,5 +79,29 @@ namespace FlexHtmlHelperSample.Controllers
             model.AvailableFavoriteMusicGenres.Add(new SelectListItem() { Text = "Asian", Value = "Asian", Selected = false });
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult Ajax()
+        {
+            var model = new Person()
+            {
+                Log = "Login @ 127.0.0.1"
+            };
+            foreach (var tzi in TimeZoneInfo.GetSystemTimeZones())
+                model.AvailableTimeZones.Add(new SelectListItem() { Text = tzi.DisplayName, Value = tzi.Id, Selected = false });
+
+            model.AvailableFavoriteMusicGenres.Add(new SelectListItem() { Text = "African", Value = "African", Selected = false });
+            model.AvailableFavoriteMusicGenres.Add(new SelectListItem() { Text = "Blues", Value = "Blues", Selected = false });
+            model.AvailableFavoriteMusicGenres.Add(new SelectListItem() { Text = "Country", Value = "Country", Selected = false });
+            model.AvailableFavoriteMusicGenres.Add(new SelectListItem() { Text = "Asian", Value = "Asian", Selected = false });
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Ajax")]
+        public ActionResult AjaxUpdate(Person person)
+        {
+            return PartialView("ajaxEdit",person);
+        }
 	}
 }

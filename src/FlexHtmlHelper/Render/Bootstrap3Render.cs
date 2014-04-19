@@ -426,6 +426,18 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
+        public override FlexTagBuilder IconHelper(FlexTagBuilder tagBuilder, string name, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("span");
+            tag.AddCssClass("glyphicon ").AddCssClass("glyphicon-" + name);
+            tag.MergeAttributes(htmlAttributes);
+
+
+            tagBuilder.AddTag(tag);
+            return tagBuilder;
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System

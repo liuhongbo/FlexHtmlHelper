@@ -1092,9 +1092,12 @@ namespace FlexHtmlHelper
                 sb.Append('>');               
             }
 
-            foreach (var t in InnerTags)
+            if (InnerTags != null)
             {
-                t.AppendString(sb);
+                foreach (var t in InnerTags)
+                {
+                    t.AppendString(sb);
+                }
             }
 
             if (!IsAbstractTag())

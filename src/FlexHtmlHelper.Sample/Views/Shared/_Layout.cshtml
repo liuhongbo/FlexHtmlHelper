@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FlexHtmlHelper Sample Site</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")    
+    @Scripts.Render("~/bundles/modernizr")     
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,6 +25,7 @@
                     <li>@Html.ActionLink("Form", "Default", "Form")</li>                    
                     <li>@Html.ActionLink("Link", "Link", "Link")</li>
                     <li>@Html.ActionLink("Button", "Button", "Button")</li>
+                    <li>@Html.ActionLink("Icon", "Icon", "Icon")</li>
                     <li>@Html.ActionLink("Table", "Table", "Table")</li>
                     <li>@Html.ActionLink("JavaScript", "Collapse", "JavaScript")</li>
                     <li>@Html.ActionLink("Tag", "Tag", "Tag")</li>
@@ -37,7 +37,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - FlexHtmlHelper</p>
         </footer>
     </div>
 

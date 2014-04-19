@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Person>
+@{
+    ViewBag.Title = "Ajax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    
+    function showDialog(data)
+    {
+        var form = $('#myModal form');
+        form.attr("data-ajax", "true");
+        form.attr('data-ajax-method','post')
+        form.attr("data-ajax-success", "saveDialog");
+        form.attr("data-ajax-update", "#AjaxEdit");
+        $('#myModal').modal();
+    }
+
+    function saveDialog(data)
+    {
+        var form = $('#myModal form');        
+        if (form.attr("data-ajax-result") == 'success') {
+            
+            var o = {};
+            var a = form.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+           
+            var r = $("#personTable").find("tr[data-id='" + o.PersonId + "']");
+            
+            r.find('td').eq(0).text(o.FirstName)
+            r.find('td').eq(1).text(o.LastName)
+            r.find('td').eq(2).find('a').text(o.Email)
+            $('#myModal').modal('hide');
+        }
+       
+    }
+</script>
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Link", "Link")</li>
+        <li>@Html.ActionLink("Link Button", "Button")</li>
+        <li>@Html.ActionLink("Paging Link", "Paging")</li>
+        <li class="active">@Html.ActionLink("Ajax Link", "Ajax")</li>
+    </ul>
+</div>
+
+<br />
+
+<div>
+    <table id="personTable" class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+            
+                <th>
+                    Last Name
+                </th>
+           
+                <th>
+                    EMail
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr data-id="@p.PersonId">
+                    <td>
+                        @p.FirstName
+                    </td>
+                    <td>
+                        @p.LastName
+                    </td>
+                    <td>
+                        @Html.f().ActionLink(p.Email, "AjaxEdit", new { id = p.PersonId}).Ajax(new AjaxOptions() { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "AjaxEdit", OnSuccess = "showDialog" })
+            </td>
+        </tr>
+            }
+        </tbody>
+    </table>
+    
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Person</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="AjaxEdit">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,18 @@
+﻿@model Person
+
+@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";    
+    var f = @Html.f();
+}
+
+
+@using (var form = f.Form().attr("data-ajax-result",(string)@ViewData["ajax-save-result"]??"").BeginForm())
+{
+    @f.ValidationSummary()
+    @form.HiddenFor(m=>m.PersonId)
+    @form.TextBoxFor(m => m.FirstName)
+    @form.TextBoxFor(m => m.LastName)
+    @form.TextBoxFor(m => m.Email)
+    @form.Button(Html.f().Button("submit", "Save").btn_primary())
+
+}

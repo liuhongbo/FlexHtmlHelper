@@ -115,6 +115,7 @@
     <Compile Include="Html\FlexForm.cs" />
     <Compile Include="Html\FlexFormGroup.cs" />
     <Compile Include="Html\FlexHidden.cs" />
+    <Compile Include="Html\FlexIcon.cs" />
     <Compile Include="Html\FlexInput.cs" />
     <Compile Include="Html\FlexLabel.cs" />
     <Compile Include="Html\FlexLink.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Html\FlexValidationMessage.cs" />
     <Compile Include="Html\FlexValidationSummary.cs" />
     <Compile Include="Html\FormExtensions.cs" />
+    <Compile Include="Html\IconExtensions.cs" />
     <Compile Include="Html\InputExtensions.cs" />
     <Compile Include="Html\LabelExtensions.cs" />
     <Compile Include="Html\LinkExtensions.cs" />

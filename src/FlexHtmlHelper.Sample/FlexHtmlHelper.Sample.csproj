@@ -119,6 +119,7 @@
     <Compile Include="Controllers\ButtonController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\GridController.cs" />
+    <Compile Include="Controllers\IconController.cs" />
     <Compile Include="Controllers\InputController.cs" />
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
@@ -144,6 +145,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -191,6 +194,12 @@
     <Content Include="Views\JavaScript\Collapse.cshtml" />
     <Content Include="Views\Link\Paging.cshtml" />
     <Content Include="Views\Tag\Tag.cshtml" />
+    <Content Include="Views\Icon\Icon.cshtml" />
+    <Content Include="Views\Icon\Button.cshtml" />
+    <Content Include="Views\Link\Ajax.cshtml" />
+    <Content Include="Views\Link\AjaxEdit.cshtml" />
+    <Content Include="Views\Form\Ajax.cshtml" />
+    <Content Include="Views\Form\AjaxEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

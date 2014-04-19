@@ -270,6 +270,11 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder IconHelper(FlexTagBuilder tagBuilder, string name, IDictionary<string, object> htmlAttributes)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System

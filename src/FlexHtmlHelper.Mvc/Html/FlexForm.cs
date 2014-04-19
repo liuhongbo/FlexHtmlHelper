@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 
 namespace FlexHtmlHelper.Mvc.Html
 {
     public class FlexForm: FlexElement
     {
+        private const string FormOnClickValue = "Sys.Mvc.AsyncForm.handleClick(this, new Sys.UI.DomEvent(event));";
+        private const string FormOnSubmitFormat = "Sys.Mvc.AsyncForm.handleSubmit(this, new Sys.UI.DomEvent(event), {0});";
 
         private FlexFormContext _formContext = new FlexFormContext();
-
+       
         public FlexForm(FHtmlHelper flexHtmlHelper,FlexTagBuilder tagBuilder)
             : base(flexHtmlHelper,tagBuilder)
         {
@@ -73,6 +76,20 @@ namespace FlexHtmlHelper.Mvc.Html
             FHtmlHelper.FormConext = FormContext;
             return new FlexMvcForm(this.FHtmlHelper, FormContext);
         }
+
+        public FlexForm Ajax(AjaxOptions ajaxOptions)
+        {
+            if (HtmlHelper.ViewContext.UnobtrusiveJavaScriptEnabled)
+            {
+                this.TagBuilder.Tag().MergeAttributes(ajaxOptions.ToUnobtrusiveHtmlAttributes());
+            }
+            else
+            {
+                this.TagBuilder.Tag().MergeAttribute("onclick", FormOnClickValue);
+                this.TagBuilder.Tag().MergeAttribute("onsubmit", GenerateAjaxScript(ajaxOptions, FormOnSubmitFormat));
+            }
+            return this;
+        }      
     }
 
     public static class FlexFormExtensions
@@ -254,6 +271,12 @@ namespace FlexHtmlHelper.Mvc.Html
             FHtmlHelper.FormConext = FormContext;
             return new FlexMvcForm<TModel>(this.FHtmlHelper, FormContext);
         }
+
+        public new FlexForm<TModel> Ajax(AjaxOptions ajaxOptions)
+        {
+            base.Ajax(ajaxOptions);
+            return this;
+        }      
     }
   
 }
