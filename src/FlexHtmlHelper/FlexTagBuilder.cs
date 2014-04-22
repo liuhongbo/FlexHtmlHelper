@@ -643,6 +643,8 @@ namespace FlexHtmlHelper
             return null;
         }
 
+
+        //return new tag
         public FlexTagBuilder AddTag(string tagName)
         {
             var tag = new FlexTagBuilder(tagName, this);
@@ -650,11 +652,12 @@ namespace FlexHtmlHelper
             return tag;
         }
 
+        //return this tag
         public FlexTagBuilder AddTag(FlexTagBuilder tag)
         {
             InnerTags.Add(tag);            
             tag.Parent = this;
-            return tag;
+            return this;
         }
 
         public FlexTagBuilder AddText(string text)
@@ -669,6 +672,14 @@ namespace FlexHtmlHelper
         {
             var tag = new FlexTagBuilder(this);
             tag.SetHtmlText(text);
+            InnerTags.Add(tag);
+            return this;
+        }
+
+        public FlexTagBuilder AddHtmlText(IHtmlString text)
+        {
+            var tag = new FlexTagBuilder(this);
+            tag.SetHtmlText(text.ToHtmlString());
             InnerTags.Add(tag);
             return this;
         }
@@ -1025,6 +1036,16 @@ namespace FlexHtmlHelper
             {
                 TagAttributes[key] = value;
             }
+            return this;
+        }
+
+        public FlexTagBuilder AddAttribute(string key, string value)
+        {
+            if (String.IsNullOrEmpty(key))
+            {
+                throw new ArgumentException("key");
+            }
+            TagAttributes[key] = value;
             return this;
         }
 

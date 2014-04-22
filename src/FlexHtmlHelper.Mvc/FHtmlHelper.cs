@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
+using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Mvc.Properties;
@@ -162,6 +163,14 @@ namespace FlexHtmlHelper.Mvc
             var tagBuilder = new FlexTagBuilder(tagName);
             tagBuilder.BuildContext = htmlHelper;
             return tagBuilder;
-        }        
+        }
+
+        public static FlexTagBuilder Tag(this FHtmlHelper htmlHelper, IHtmlString htmlString)
+        {
+            var tagBuilder = new FlexTagBuilder();
+            tagBuilder.AddHtmlText(htmlString);
+            tagBuilder.BuildContext = htmlHelper;
+            return tagBuilder;
+        }
     }
 }

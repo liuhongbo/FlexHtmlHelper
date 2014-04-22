@@ -119,6 +119,7 @@
     <Compile Include="Html\FlexInput.cs" />
     <Compile Include="Html\FlexLabel.cs" />
     <Compile Include="Html\FlexLink.cs" />
+    <Compile Include="Html\FlexModal.cs" />
     <Compile Include="Html\FlexMvcForm.cs" />
     <Compile Include="Html\FlexPagingLink.cs" />
     <Compile Include="Html\FlexPassword.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Html\InputExtensions.cs" />
     <Compile Include="Html\LabelExtensions.cs" />
     <Compile Include="Html\LinkExtensions.cs" />
+    <Compile Include="Html\ModalExtensions.cs" />
     <Compile Include="Html\SelectExtensions.cs" />
     <Compile Include="Html\TagBuilderExtensions.cs" />
     <Compile Include="Html\TextAreaExtensions.cs" />

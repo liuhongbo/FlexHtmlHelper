@@ -1,0 +1,19 @@
+﻿@model Person
+@{
+    Layout = null;
+}
+
+@using (var form = Html.f().Form().BeginForm())
+{
+    @Html.f().ValidationSummary()
+    @form.HiddenFor(m => m.PersonId)
+    @form.TextBoxFor(m => m.FirstName)
+    @form.TextBoxFor(m => m.LastName)
+    @form.TextBoxFor(m => m.Email)
+    @form.TextBoxFor(m => m.Title)
+    @form.PasswordFor(m => m.Password)
+   
+    @form.Button(Html.f().Button("submit", "Submit").btn_primary())
+
+}
+

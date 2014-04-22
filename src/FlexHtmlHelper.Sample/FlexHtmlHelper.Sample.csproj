@@ -197,9 +197,11 @@
     <Content Include="Views\Icon\Icon.cshtml" />
     <Content Include="Views\Icon\Button.cshtml" />
     <Content Include="Views\Link\Ajax.cshtml" />
-    <Content Include="Views\Link\AjaxEdit.cshtml" />
+    <Content Include="Views\Link\_AjaxEdit.cshtml" />
     <Content Include="Views\Form\Ajax.cshtml" />
-    <Content Include="Views\Form\AjaxEdit.cshtml" />
+    <Content Include="Views\Form\_AjaxEdit.cshtml" />
+    <Content Include="Views\JavaScript\Modal.cshtml" />
+    <Content Include="Views\JavaScript\_ModalEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

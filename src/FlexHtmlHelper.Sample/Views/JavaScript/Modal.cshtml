@@ -1,0 +1,25 @@
+﻿@model Person
+@using FlexHtmlHelper.Mvc;
+@using FlexHtmlHelper.Mvc.Html;
+@using FlexHtmlHelper.Render;
+@{
+    ViewBag.Title = "Modal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var f = @Html.f();
+}
+
+<br />
+<div class="row">
+    <ul class="nav nav-pills">
+        <li>@Html.ActionLink("Collapse", "Collapse")</li>
+        <li class="active">@Html.ActionLink("Modal", "Modal")</li>
+    </ul>
+</div>
+
+<br />
+
+<button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+    Edit
+</button>
+
+@f.Modal("Edit").id("myModal").Body(@f.Tag(@Html.Partial("_ModalEdit", Model))).Footer(f.Button("Button", "Close").attr("data-dismiss", "modal"))

@@ -101,7 +101,7 @@ namespace FlexHtmlHelperSample.Controllers
         [ActionName("Ajax")]
         public ActionResult AjaxUpdate(Person person)
         {
-            return PartialView("ajaxEdit",person);
+            return PartialView("_AjaxEdit",person);
         }
 	}
 }

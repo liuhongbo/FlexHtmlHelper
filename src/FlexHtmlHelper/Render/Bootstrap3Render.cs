@@ -123,12 +123,12 @@ namespace FlexHtmlHelper.Render
                         case "static":
                             tag.AddCssClass("form-group");
                             tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control-static");
+                            tag.AddTag(inputTag.AddCssClass("form-control-static"));
                             break;
                         default:
                             tag.AddCssClass("form-group");
                             tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(inputTag.AddCssClass("form-control"));
                             tag.AddTag(validationMessageTag);
                             break;
                     }
@@ -199,7 +199,7 @@ namespace FlexHtmlHelper.Render
                                 GridColumns(fileDivTag, col.Key, col.Value);
                             }
 
-                            fileDivTag.AddTag(inputTag).AddCssClass("form-control");
+                            fileDivTag.AddTag(inputTag.AddCssClass("form-control"));
 
                             tag.AddTag(fileDivTag);
                             tag.AddTag(validationMessageTag);
@@ -218,7 +218,7 @@ namespace FlexHtmlHelper.Render
                             {
                                 GridColumns(staticDivTag, col.Key, col.Value);
                             }
-                            staticDivTag.AddTag(inputTag).AddCssClass("form-control-static");
+                            staticDivTag.AddTag(inputTag.AddCssClass("form-control-static"));
                             tag.AddTag(staticDivTag);
                             break;
                         default:                            
@@ -235,7 +235,7 @@ namespace FlexHtmlHelper.Render
                             {
                                 GridColumns(inputDivTag, col.Key, col.Value);
                             }
-                            inputDivTag.AddTag(inputTag).AddCssClass("form-control");
+                            inputDivTag.AddTag(inputTag.AddCssClass("form-control"));
                             inputDivTag.AddTag(validationMessageTag);
                             tag.AddTag(inputDivTag);                            
                             break;
@@ -273,13 +273,13 @@ namespace FlexHtmlHelper.Render
                             tag.AddCssClass("form-group");
                             labelTag.AddCssClass("sr-only");
                             tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control-static");
+                            tag.AddTag(inputTag.AddCssClass("form-control-static"));
                             break;
                         default:
                             tag.AddCssClass("form-group");
                             labelTag.AddCssClass("sr-only");
                             tag.AddTag(labelTag);
-                            tag.AddTag(inputTag).AddCssClass("form-control");
+                            tag.AddTag(inputTag.AddCssClass("form-control"));
                             tag.AddTag(validationMessageTag);
                             break;
                     }
@@ -434,7 +434,53 @@ namespace FlexHtmlHelper.Render
 
 
             tagBuilder.AddTag(tag);
+            return tagBuilder;            
+        }
+
+        public override FlexTagBuilder ModalHelper(FlexTagBuilder tagBuilder, string title, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("div");
+            tag.AddCssClass("modal").AddCssClass("fade").AddAttribute("tabindex", "-1").AddAttribute("role", "dialog").AddAttribute("aria-hidden", "true")
+               .AddTag(new FlexTagBuilder("div").AddCssClass("modal-dialog")
+                        .AddTag(new FlexTagBuilder("div").AddCssClass("modal-content")
+                            .AddTag(new FlexTagBuilder("div").AddCssClass("modal-header")
+                                .AddTag(new FlexTagBuilder("button").AddCssClass("close").AddAttribute("type", "button").AddAttribute("data-dismiss", "modal").AddAttribute("aria-hidden", "true").AddHtmlText("&times;"))
+                                .AddTag(new FlexTagBuilder("h4").AddCssClass("modal-title").AddText(title??"")))
+                            .AddTag(new FlexTagBuilder("div").AddCssClass("modal-body"))
+                            .AddTag(new FlexTagBuilder("div").AddCssClass("modal-footer"))));
+
+            tag.MergeAttributes(htmlAttributes);
+            tagBuilder.AddTag(tag);
             return tagBuilder;
+        }
+
+        public override FlexTagBuilder ModalHeaderHelper(FlexTagBuilder tagBuilder, FlexTagBuilder header)
+        {
+            var tag = tagBuilder.TagWithCssClass("modal-header");
+            if (tag != null)
+            {
+                tag.AddTag(header);
+            }
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder ModalBodyHelper(FlexTagBuilder tagBuilder, FlexTagBuilder body)
+        {
+            var tag = tagBuilder.TagWithCssClass("modal-body");
+            if (tag != null)
+            {
+                tag.AddTag(body);
+            }
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ModalFooterHelper(FlexTagBuilder tagBuilder, FlexTagBuilder footer)
+        {
+            var tag = tagBuilder.TagWithCssClass("modal-footer");
+            if (tag != null)
+            {
+                tag.AddTag(footer);
+            }
             return tagBuilder;
         }
 

@@ -91,6 +91,10 @@ namespace FlexHtmlHelper
         FlexTagBuilder LinkButtonHelper(FlexTagBuilder tagBuilder);
         FlexTagBuilder PagingLinkHelper(FlexTagBuilder tagBuilder, int totalItemCount, int pageNumber, int pageSize, int maxPagingLinks, Func<int, string> pagingUrlResolver, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder IconHelper(FlexTagBuilder tagBuilder, string name, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder ModalHelper(FlexTagBuilder tagBuilder, string title, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder ModalHeaderHelper(FlexTagBuilder tagBuilder, FlexTagBuilder header);
+        FlexTagBuilder ModalBodyHelper(FlexTagBuilder tagBuilder, FlexTagBuilder body);
+        FlexTagBuilder ModalFooterHelper(FlexTagBuilder tagBuilder, FlexTagBuilder footer);
 
         #endregion
 

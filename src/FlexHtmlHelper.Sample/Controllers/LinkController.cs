@@ -58,7 +58,7 @@ namespace FlexHtmlHelperSample.Controllers
         [HttpGet]
         public ActionResult AjaxEdit(int id)
         {           
-            return PartialView(GetModel()[id-1]);
+            return PartialView("_AjaxEdit",GetModel()[id-1]);
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace FlexHtmlHelperSample.Controllers
             {
                 ViewData["ajax-save-result"] = "error";
             }
-            return View(person);
+            return View("_AjaxEdit",person);
         }
 	}
 }

@@ -275,6 +275,26 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder ModalHelper(FlexTagBuilder tagBuilder, string title, IDictionary<string, object> htmlAttributes)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ModalHeaderHelper(FlexTagBuilder tagBuilder, FlexTagBuilder header)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ModalBodyHelper(FlexTagBuilder tagBuilder, FlexTagBuilder body)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ModalFooterHelper(FlexTagBuilder tagBuilder, FlexTagBuilder footer)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
         #region Grid System
