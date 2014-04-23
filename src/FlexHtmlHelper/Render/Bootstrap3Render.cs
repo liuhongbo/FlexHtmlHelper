@@ -1035,5 +1035,37 @@ namespace FlexHtmlHelper.Render
         }
 
         #endregion
+
+        #region Modal
+
+        public override FlexTagBuilder ModalSize(FlexTagBuilder tagBuilder, ModalSizeStyle size)
+        {
+            var tag = tagBuilder.TagWithCssClass("modal-dialog");
+            if (tag != null)
+            {
+                switch (size)
+                {
+                    case ModalSizeStyle.Large:
+                        tag.AddCssClass("modal-lg");
+                        break;
+                    case ModalSizeStyle.Small:
+                        tag.AddCssClass("modal-sm");
+                        break;
+                }
+            }
+            return tagBuilder;
+        }
+
+        public override FlexTagBuilder ModalOption(FlexTagBuilder tagBuilder, string name, string value)
+        {
+            var tag = tagBuilder.TagWithCssClass("modal");
+            if (tag != null)
+            {
+                tag.AddAttribute("data-"+name, value);
+            }
+            return tagBuilder;
+        }
+
+        #endregion
     }
 }

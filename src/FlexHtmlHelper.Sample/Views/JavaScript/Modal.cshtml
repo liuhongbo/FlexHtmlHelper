@@ -23,3 +23,15 @@
 </button>
 
 @f.Modal("Edit").id("myModal").Body(@f.Tag(@Html.Partial("_ModalEdit", Model))).Footer(f.Button("Button", "Close").attr("data-dismiss", "modal"))
+
+<button class="btn btn-default" data-toggle="modal" data-target="#myLargeModal">
+    Edit (Large)
+</button>
+
+@f.Modal("Edit").id("myLargeModal").Body(@f.Tag(@Html.Partial("_ModalEdit", Model))).Footer(f.Button("Button", "Close").attr("data-dismiss", "modal")).modal_lg()
+
+<button class="btn btn-default" data-toggle="modal" data-target="#mySmallModal">
+    Edit (Small)
+</button>
+
+@f.Modal("Edit").id("mySmallModal").Body(@f.Tag(@Html.Partial("_ModalEdit", Model))).Footer(f.Button("Button", "Close").attr("data-dismiss", "modal")).modal_sm().modal_backdrop("static")

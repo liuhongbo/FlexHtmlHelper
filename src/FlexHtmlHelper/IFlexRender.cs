@@ -49,6 +49,12 @@ namespace FlexHtmlHelper
         ExtraSmall
     }
 
+    public enum ModalSizeStyle
+    {
+        Large,
+        Small
+    }
+
     public enum PagingLinkSizeStyle
     {
         Large,
@@ -151,6 +157,13 @@ namespace FlexHtmlHelper
         #region Link
 
         FlexTagBuilder PagingLinkSize(FlexTagBuilder tagBuilder, PagingLinkSizeStyle size);
+
+        #endregion
+
+        #region Modal
+
+        FlexTagBuilder ModalSize(FlexTagBuilder tagBuilder, ModalSizeStyle size);
+        FlexTagBuilder ModalOption(FlexTagBuilder tagBuilder, string name, string value);
 
         #endregion
 

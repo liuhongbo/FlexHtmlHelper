@@ -61,4 +61,43 @@ namespace FlexHtmlHelper.Mvc.Html
         }       
 
     }
+
+    public static class FlexModalExtensions
+    {
+        public static T modal_lg<T>(this T flexModal) where T : FlexModal
+        {
+            flexModal.Render.ModalSize(flexModal.TagBuilder, ModalSizeStyle.Large);
+            return flexModal;
+        } 
+
+        public static T modal_sm<T>(this T flexModal) where T: FlexModal
+        {
+            flexModal.Render.ModalSize(flexModal.TagBuilder, ModalSizeStyle.Small);
+            return flexModal;
+        }
+
+        public static T modal_backdrop<T>(this T flexModal, string backdrop) where T:FlexModal
+        {
+            flexModal.Render.ModalOption(flexModal.TagBuilder, "backdrop", backdrop);
+            return flexModal;
+        }
+
+        public static T modal_keyboard<T>(this T flexModal, bool keyboard) where T:FlexModal
+        {
+            flexModal.Render.ModalOption(flexModal.TagBuilder,"keyboard",keyboard?"true":"false");
+            return flexModal;
+        }
+
+        public static T modal_show<T>(this T flexModal, bool show) where T : FlexModal
+        {
+            flexModal.Render.ModalOption(flexModal.TagBuilder, "show", show ? "true" : "false");
+            return flexModal;
+        }
+
+        public static T modal_remote<T>(this T flexModal, bool remote) where T: FlexModal
+        {
+            flexModal.Render.ModalOption(flexModal.TagBuilder, "remote", remote ? "true" : "false");
+            return flexModal;
+        }
+    }
 }

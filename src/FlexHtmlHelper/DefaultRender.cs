@@ -456,6 +456,20 @@ namespace FlexHtmlHelper
         }
 
         #endregion
+
+        #region Modal
+
+        public virtual FlexTagBuilder ModalSize(FlexTagBuilder tagBuilder, ModalSizeStyle size)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ModalOption(FlexTagBuilder tagBuilder, string name, string value)
+        {
+            return tagBuilder;
+        }
+
+        #endregion
     }
 
 }
