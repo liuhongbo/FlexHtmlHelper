@@ -855,8 +855,43 @@ namespace FlexHtmlHelper
                 return _idAttributeDotReplacement;
             }
             set { _idAttributeDotReplacement = value; }
-        }       
+        }
 
+
+        private FlexTagBuilder CssStyle(string name, string value, bool checkDuplicate = false)
+        {
+            string s;
+
+            if (TagAttributes.TryGetValue("style", out s))
+            {
+                if (checkDuplicate)
+                {
+                    var styles = s.Split(new char[]{';',' '},  StringSplitOptions.RemoveEmptyEntries);
+                    if (styles.Any(style=>{var t = style.Split(new char[]{';',' '},  StringSplitOptions.RemoveEmptyEntries); if ((t.Length>1)&&(t[0] == name)) return true; return false;  }))
+                    {
+                        return this;
+                    }
+                }
+                TagAttributes["style"] = s + string.Format("{0}:{1};", name, value);
+            }
+            else
+            {
+                TagAttributes["style"] = string.Format("{0}:{1};", name, value);
+            }
+            return this;
+        }
+
+        public FlexTagBuilder AddCssStyle(string name, string value, bool checkDuplicate = false)
+        {
+            FlexTagBuilder tag = this.Tag();
+
+            if (tag != null)
+            {
+                tag.CssStyle(name, value, checkDuplicate);
+            }
+
+            return this;
+        }
 
         /// <summary>
         /// add css to this tag
@@ -899,7 +934,7 @@ namespace FlexHtmlHelper
 
             if (tag != null)
             {
-                tag.CssClass(value);
+                tag.CssClass(value, checkDuplicate);
             }
              
             return this;
