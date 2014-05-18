@@ -36,7 +36,7 @@
 </div>
 <br />
 <div class="row">
-    @Html.f().DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones)
+    @Html.f().DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).TagBuilder.Tag("select").ForEachChildTag("option", (t,i)=>t.AddTag("img").AddAttribute("src","test.png"))
 </div>
 <br />
 <div class="row">

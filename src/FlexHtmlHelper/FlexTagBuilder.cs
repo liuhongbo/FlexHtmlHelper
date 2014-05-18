@@ -276,6 +276,17 @@ namespace FlexHtmlHelper
             return list;
         }
 
+        public FlexTagBuilder ForEachTag(string tagName, Action<FlexTagBuilder, int> action)
+        {
+            int i = 0;
+            foreach (var tag in this.Tags(tagName))
+            {
+                action(tag, i);
+                i++;
+            }
+            return this;
+        }
+
         public FlexTagBuilder LastTag(string tagName)
         {
             FlexTagBuilder lastTag = null;
@@ -532,6 +543,51 @@ namespace FlexHtmlHelper
             return null;
         }
 
+        /// <summary>
+        /// find all the direct/child tags with tag name tagName
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        public IList<FlexTagBuilder> ChildTags(string tagName)
+        {
+            List<FlexTagBuilder> list = new List<FlexTagBuilder>();
+
+            if (InnerTags != null)
+            {
+                foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+                {
+                    if (tag.Tag().TagName == tagName)
+                    {
+                        list.Add(tag.Tag());
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public FlexTagBuilder ForEachChildTag(string tagName, Action<FlexTagBuilder, int> action)
+        {
+            if (InnerTags != null)
+            {
+                int i = 0;
+                foreach (FlexTagBuilder tag in this.Tag().InnerTags)
+                {
+                    if (tag.Tag().TagName == tagName)
+                    {
+                        action(tag.Tag(), i);
+                        i++;
+                    }
+                }
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// find the first direct child tag with name tagName
+        /// </summary>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
         public FlexTagBuilder ChildTag(string tagName)
         {
             if (InnerTags == null) return null;

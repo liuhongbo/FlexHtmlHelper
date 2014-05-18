@@ -27,5 +27,15 @@ namespace FlexHtmlHelper.Mvc.Html
 
         public static FlexSelect Empty = new FlexSelect();
 
+        public FlexSelect ForEachOption(Action<FlexTagBuilder, int, string> action)
+        {
+            int i = 0;
+            foreach (var option in TagBuilder.Tag().Tags("option"))
+            {
+                action(option, i, option.TagAttributes.ContainsKey("value")? option.TagAttributes["value"] :null);
+                i++;
+            }
+            return this;
+        }
     }
 }
