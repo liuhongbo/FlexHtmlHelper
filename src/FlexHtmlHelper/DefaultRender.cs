@@ -257,6 +257,7 @@ namespace FlexHtmlHelper
             tag.MergeAttribute("type", type);
             tag.MergeAttribute("value", value);
             tag.MergeAttribute("name", name);
+            tagBuilder.AddTag(tag);
             return tagBuilder;
         }
 

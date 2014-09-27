@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>FlexHtmlHelper.Mvc</id>
-        <version>1.5.0.0</version>
+        <version>1.5.2.0</version>
         <title>FlexHtmlHelper</title>
         <authors>liuhongbo@live.com</authors>
         <owners>liuhongbo@live.com</owners>
@@ -17,6 +17,9 @@
 	<tags>Html Helper Mvc</tags>
     </metadata>
     <files>
-        <file src="..\FlexHtmlHelper.Mvc\bin\release\FlexHtmlHelper.Mvc.dll" target="lib\net45\FlexHtmlHelper.Mvc.dll" />
+        <file src="..\FlexHtmlHelper.Mvc\bin\release\FlexHtmlHelper.Mvc.dll" target="lib\net45" />
+		<file src="..\FlexHtmlHelper.Mvc\bin\release\FlexHtmlHelper.Mvc.pdb" target="lib\net45" />
+		<file src="..\FlexHtmlHelper.Mvc\**\*.cs" target="src" />
+		<file src="..\FlexHtmlHelper\**\*.cs" target="src" />
     </files>
 </package>

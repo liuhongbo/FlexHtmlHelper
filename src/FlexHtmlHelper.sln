@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.Mvc", "FlexHtmlHelper.Mvc\FlexHtmlHelper.Mvc.csproj", "{143BD4CA-34E9-4F52-B349-0A2096A7C271}"
 EndProject
@@ -37,6 +37,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A0D08D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.WebSite", "FlexHtmlHelper.WebSite\FlexHtmlHelper.WebSite.csproj", "{B0E84A1D-D7A7-49DE-AB04-D68AD8684996}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{CD8AB236-4957-4787-8C33-2484ED6DD3FC}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{28EB03B4-AC71-4EA5-8AD0-A8ABE19E29D7}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\FlexHtmlHelperWebSite-WAWS-dev.json = PublishScripts\Configurations\FlexHtmlHelperWebSite-WAWS-dev.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,11 +72,16 @@ Global
 		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{213348B8-F7C1-420B-B8FE-9B3037E75B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E84A1D-D7A7-49DE-AB04-D68AD8684996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E84A1D-D7A7-49DE-AB04-D68AD8684996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E84A1D-D7A7-49DE-AB04-D68AD8684996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E84A1D-D7A7-49DE-AB04-D68AD8684996}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{59546118-1090-4098-96B1-98A115F483CF} = {A66BF9F3-CC45-455E-AD2F-F230D5AE725C}
+		{28EB03B4-AC71-4EA5-8AD0-A8ABE19E29D7} = {CD8AB236-4957-4787-8C33-2484ED6DD3FC}
 	EndGlobalSection
 EndGlobal

@@ -474,7 +474,7 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder ModalFooterHelper(FlexTagBuilder tagBuilder, FlexTagBuilder footer)
+        public override FlexTagBuilder ModalFooterHelper(FlexTagBuilder tagBuilder, FlexTagBuilder footer)
         {
             var tag = tagBuilder.TagWithCssClass("modal-footer");
             if (tag != null)
@@ -755,8 +755,7 @@ namespace FlexHtmlHelper.Render
         public override FlexTagBuilder FormGroupInputGridColumns(FlexTagBuilder tagBuilder, FlexFormContext formContext, GridStyle style, int columns)
         {
             FlexTagBuilder div = null;
-            FlexTagBuilder input = null;
-            int index = 0;
+            FlexTagBuilder input = null;            
             string inputType = string.Empty;
 
             string cssClass = "";
