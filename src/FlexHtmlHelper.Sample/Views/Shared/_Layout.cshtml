@@ -1,6 +1,19 @@
-﻿@{
+﻿@using System.Collections.Generic;
+@{
+    List<KeyValuePair<string, string>> navbar = new List<KeyValuePair<string, string>>();
+    navbar.Add(new KeyValuePair<string, string>("Grid", "Row"));
+    navbar.Add(new KeyValuePair<string, string>("Input", "Label"));
+    navbar.Add(new KeyValuePair<string, string>("Form", "Default"));
+    navbar.Add(new KeyValuePair<string, string>("Link", "Link"));
+    navbar.Add(new KeyValuePair<string, string>("Button", "Button"));
+    navbar.Add(new KeyValuePair<string, string>("Icon", "Icon"));
+    navbar.Add(new KeyValuePair<string, string>("Table", "Table"));
+    navbar.Add(new KeyValuePair<string, string>("JavaScript", "Collapse"));
+    navbar.Add(new KeyValuePair<string, string>("Tag", "Tag"));
+    
     var menu = (List<KeyValuePair<string, string>>)ViewBag.menu;
-    ViewBag.Title = @Html.ViewContext.RouteData.Values["controller"].ToString() + " " + @Html.ViewContext.RouteData.Values["action"].ToString();
+    ViewBag.Title = @Html.ViewContext.RouteData.Values["controller"].ToString() + " " + @Html.ViewContext.RouteData.Values["action"].ToString();   
+    
 }
 <!DOCTYPE html>
 <html>
@@ -24,15 +37,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Grid", "Row", "Grid")</li>
-                    <li>@Html.ActionLink("Input", "Label", "Input")</li>
-                    <li>@Html.ActionLink("Form", "Default", "Form")</li>
-                    <li>@Html.ActionLink("Link", "Link", "Link")</li>
-                    <li>@Html.ActionLink("Button", "Button", "Button")</li>
-                    <li>@Html.ActionLink("Icon", "Icon", "Icon")</li>
-                    <li>@Html.ActionLink("Table", "Table", "Table")</li>
-                    <li>@Html.ActionLink("JavaScript", "Collapse", "JavaScript")</li>
-                    <li>@Html.ActionLink("Tag", "Tag", "Tag")</li>
+                    @foreach (var item in navbar)
+                    {
+                        <li class='@(Html.ViewContext.RouteData.Values["controller"].ToString()==item.Key?"active":null)'>@Html.ActionLink(item.Key, item.Value, item.Key)</li>
+                    }                    
                 </ul>
             </div>
         </div>
