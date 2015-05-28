@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Person>
 @{
-    ViewBag.Title = "Ajax";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -44,18 +43,6 @@
        
     }
 </script>
-
-<br />
-<div class="row">
-    <ul class="nav nav-pills">
-        <li>@Html.ActionLink("Link", "Link")</li>
-        <li>@Html.ActionLink("Link Button", "Button")</li>
-        <li>@Html.ActionLink("Paging Link", "Paging")</li>
-        <li class="active">@Html.ActionLink("Ajax Link", "Ajax")</li>
-    </ul>
-</div>
-
-<br />
 
 <div>
     <table id="personTable" class="table table-condensed table-hover">

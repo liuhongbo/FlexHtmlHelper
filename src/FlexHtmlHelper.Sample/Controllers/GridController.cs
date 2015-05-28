@@ -9,6 +9,17 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class GridController : Controller
     {
+        public GridController()
+        {
+            var menu = new List<KeyValuePair<string, string>>();
+            menu.Add(new KeyValuePair<string, string>("Row", "Row"));
+            menu.Add(new KeyValuePair<string, string>("Column", "Column"));
+            menu.Add(new KeyValuePair<string, string>("ColumnOffset", "Column Offset"));
+            menu.Add(new KeyValuePair<string, string>("ColumnOrder", "Column Order"));
+            menu.Add(new KeyValuePair<string, string>("ColumnVisible", "Column Visible"));
+            ViewBag.menu = menu;
+        }
+
         public ActionResult Row()
         {
             var model = new Person()

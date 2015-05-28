@@ -1,22 +1,7 @@
 ﻿@model Person
 @{
-    ViewBag.Title = "Grid Column Offset";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<br />
-<div class="row">
-    <ul class="nav nav-pills">
-        <li>@Html.ActionLink("Row", "Row")</li>
-        <li>@Html.ActionLink("Column", "Column")</li>
-        <li>@Html.ActionLink("Column Offset", "ColumnOffset")</li>
-        <li class="active">@Html.ActionLink("Column Order", "ColumnOrder")</li>
-        <li>@Html.ActionLink("Column Visible", "ColumnVisible")</li>
-    </ul>
-</div>
-
-<br />
-
 
 <div class="row">
     @Html.f().TextBoxFor(m => m.FirstName).col_md(4).placeholder("First Name").col_md_push(5)

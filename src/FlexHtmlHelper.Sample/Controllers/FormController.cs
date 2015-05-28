@@ -10,6 +10,16 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class FormController : Controller
     {
+        public FormController()
+        {
+            var menu = new List<KeyValuePair<string, string>>();
+            menu.Add(new KeyValuePair<string, string>("Default", "Default"));
+            menu.Add(new KeyValuePair<string, string>("Horizontal", "Horizontal"));
+            menu.Add(new KeyValuePair<string, string>("Inline", "Inline"));
+            menu.Add(new KeyValuePair<string, string>("Partial", "Partial"));
+            menu.Add(new KeyValuePair<string, string>("Ajax", "Ajax"));
+            ViewBag.menu = menu;
+        }
         //
         // GET: /Form/
         public ActionResult Inline()

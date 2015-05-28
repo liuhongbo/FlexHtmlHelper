@@ -1,11 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var menu = (List<KeyValuePair<string, string>>)ViewBag.menu;
+    ViewBag.Title = @Html.ViewContext.RouteData.Values["controller"].ToString() + " " + @Html.ViewContext.RouteData.Values["action"].ToString();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - FlexHtmlHelper Sample Site</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")     
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,9 +24,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Grid", "Row", "Grid")</li>                
+                    <li>@Html.ActionLink("Grid", "Row", "Grid")</li>
                     <li>@Html.ActionLink("Input", "Label", "Input")</li>
-                    <li>@Html.ActionLink("Form", "Default", "Form")</li>                    
+                    <li>@Html.ActionLink("Form", "Default", "Form")</li>
                     <li>@Html.ActionLink("Link", "Link", "Link")</li>
                     <li>@Html.ActionLink("Button", "Button", "Button")</li>
                     <li>@Html.ActionLink("Icon", "Icon", "Icon")</li>
@@ -34,7 +38,23 @@
         </div>
     </div>
     <div class="container body-content">
+        <br />
+        <div class="row">
+            <ul class="nav nav-pills">
+                @foreach (var item in menu)
+                {
+                   <li class='@(Html.ViewContext.RouteData.Values["action"].ToString()==item.Key?"active":null)'>@Html.ActionLink(item.Value, item.Key)</li>
+                }
+            </ul>
+        </div>
+        <br />
         @RenderBody()
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <script src="@string.Format("http://gist-it.appspot.com/github/liuhongbo/FlexHtmlHelper/blob/master/src/FlexHtmlHelper.Sample/Views/{0}/{1}.cshtml?footer=0",Html.ViewContext.RouteData.Values["Controller"].ToString(),Html.ViewContext.RouteData.Values["action"].ToString())"></script>
+            </div>
+        </div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - FlexHtmlHelper</p>

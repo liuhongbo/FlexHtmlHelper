@@ -1,19 +1,8 @@
 ﻿@model Person
 @{
-    ViewBag.Title = "Button";
     Layout = "~/Views/Shared/_Layout.cshtml";    
-    }
-<br />
-<div class="row">
-    <ul class="nav nav-pills">
-        <li>@Html.ActionLink("Link", "Link")</li>
-        <li class="active">@Html.ActionLink("Link Button", "Button")</li>
-        <li>@Html.ActionLink("Paging Link", "Paging")</li>
-        <li>@Html.ActionLink("Ajax Link", "Ajax")</li>
-    </ul>
-</div>
+}
 
-<br />
 <div class="row">
     @Html.f().ActionLink("Link Button", "Button").Button().btn_primary()
 </div>

@@ -9,6 +9,18 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class InputController : Controller
     {
+        public InputController()
+        {
+            var menu = new List<KeyValuePair<string, string>>();
+            menu.Add(new KeyValuePair<string, string>("Label", "Label"));
+            menu.Add(new KeyValuePair<string, string>("TextBox", "TextBox"));
+            menu.Add(new KeyValuePair<string, string>("CheckBox", "CheckBox"));
+            menu.Add(new KeyValuePair<string, string>("Radio", "Radio"));
+            menu.Add(new KeyValuePair<string, string>("Select", "Select"));
+            menu.Add(new KeyValuePair<string, string>("TextArea", "TextArea"));
+            menu.Add(new KeyValuePair<string, string>("Style", "Style"));
+            ViewBag.menu = menu;
+        }
 
         public ActionResult Label()
         {

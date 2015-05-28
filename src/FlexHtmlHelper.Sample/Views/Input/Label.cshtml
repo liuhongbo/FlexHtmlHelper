@@ -1,23 +1,7 @@
 ﻿@model Person
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<br />
-<div class="row">
-    <ul class="nav nav-pills">
-        <li class="active">@Html.ActionLink("Label", "Label")</li>
-        <li>@Html.ActionLink("TextBox", "TextBox")</li>
-        <li>@Html.ActionLink("CheckBox", "CheckBox")</li>
-        <li>@Html.ActionLink("Radio", "Radio")</li>
-        <li>@Html.ActionLink("Select", "Select")</li>
-        <li>@Html.ActionLink("TextArea", "TextArea")</li>
-        <li>@Html.ActionLink("Style", "Style")</li>
-    </ul>
-</div>
-
-<br />
 
 <div class="row">
     @Html.f().Label("FirstName")   

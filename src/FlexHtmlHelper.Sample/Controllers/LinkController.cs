@@ -9,6 +9,15 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class LinkController : Controller
     {
+        public LinkController()
+        {
+            var menu = new List<KeyValuePair<string, string>>();
+            menu.Add(new KeyValuePair<string, string>("Link", "Link"));
+            menu.Add(new KeyValuePair<string, string>("Button", "Link Button"));
+            menu.Add(new KeyValuePair<string, string>("Paging", "Paging Link"));
+            menu.Add(new KeyValuePair<string, string>("Ajax", "Ajax Link"));
+            ViewBag.menu = menu;
+        }
 
         private static List<Person> _personList;
 

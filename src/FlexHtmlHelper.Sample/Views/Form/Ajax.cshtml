@@ -1,21 +1,7 @@
 ﻿@model Person
 @{
-    ViewBag.Title = "Ajax";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<br />
-<div class="row">
-    <ul class="nav nav-pills">
-        <li>@Html.ActionLink("Default", "Default")</li>
-        <li>@Html.ActionLink("Horizontal", "Horizontal")</li>
-        <li>@Html.ActionLink("Inline", "Inline")</li>
-        <li>@Html.ActionLink("Partial", "Partial")</li>
-        <li class="active">@Html.ActionLink("Ajax", "Ajax")</li>
-    </ul>
-</div>
-
-<br />
 
 <div class="row" id="ajaxUpdate">
 

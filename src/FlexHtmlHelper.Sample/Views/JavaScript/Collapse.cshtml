@@ -1,21 +1,7 @@
-﻿@using FlexHtmlHelper.Mvc;
-@using FlexHtmlHelper.Mvc.Html;
-@using FlexHtmlHelper.Render;
-@model FindPerson
+﻿@model FindPerson
 @{
-    ViewBag.Title = "Collapse";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<br />
-<div class="row">
-    <ul class="nav nav-pills">       
-        <li class="active">@Html.ActionLink("Collapse", "Collapse")</li>
-        <li>@Html.ActionLink("Modal", "Modal")</li>
-    </ul>
-</div>
-
-<br />
 
 @Html.f().Button("button", "Search").collapse("#search1").row()
 

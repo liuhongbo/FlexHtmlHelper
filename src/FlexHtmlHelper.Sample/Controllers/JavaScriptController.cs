@@ -9,7 +9,14 @@ namespace FlexHtmlHelperSample.Controllers
 {
     public class JavaScriptController : Controller
     {
-        
+        public JavaScriptController()
+        {
+            var menu = new List<KeyValuePair<string, string>>();
+            menu.Add(new KeyValuePair<string, string>("Collapse", "Collapse"));
+            menu.Add(new KeyValuePair<string, string>("Modal", "Modal"));
+            ViewBag.menu = menu;
+        }
+
         public ActionResult Collapse()
         {
             var model = new FindPerson();
