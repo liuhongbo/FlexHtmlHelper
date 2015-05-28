@@ -5,6 +5,8 @@ A flexible html helper library for asp.net mvc and asp.net webpages application.
 
 V1.0 is really just a asp.net mvc htmlhelper for bootstrap 3.
 
+Visit the  [example site](http://flexhtmlhelper.azurewebsites.net/ "example").
+
 Quick Start
 ----------
 
@@ -60,6 +62,7 @@ Quick Start
 Why FlexHtmlHelper
 ----------
 
+Write less code.
 
 
 
