@@ -1,0 +1,44 @@
+﻿@model Person
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var f = Html.f();
+}
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_muted()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_primary()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_success()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_info()
+
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_warning()
+
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).text_danger()
+
+</div>
+
+<br />

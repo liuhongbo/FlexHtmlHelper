@@ -1017,6 +1017,102 @@ namespace FlexHtmlHelper.Render
 
         #endregion
 
+        #region Text Helper
+
+        public virtual FlexTagBuilder TextAlignment(FlexTagBuilder tagBuilder, TextAlignment textAlignment)
+        {
+            switch (textAlignment)
+            {
+                case  FlexHtmlHelper.TextAlignment.Left:
+                    tagBuilder.Tag().AddCssClass("text-left");
+                    break;
+                case FlexHtmlHelper.TextAlignment.Center:
+                    tagBuilder.Tag().AddCssClass("text-center");
+                    break;
+                case FlexHtmlHelper.TextAlignment.Right:
+                    tagBuilder.Tag().AddCssClass("text-right");
+                    break;
+                case FlexHtmlHelper.TextAlignment.Justify:
+                    tagBuilder.Tag().AddCssClass("text-justify");
+                    break;
+                case FlexHtmlHelper.TextAlignment.NoWrap:
+                    tagBuilder.Tag().AddCssClass("text-nowrap");
+                    break;
+            }
+
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder TextTransformation(FlexTagBuilder tagBuilder, TextTransformation textTransformation)
+        {
+            switch (textTransformation)
+            {
+                case FlexHtmlHelper.TextTransformation.LowerCase:
+                    tagBuilder.Tag().AddCssClass("text-lowercase");
+                    break;
+                case FlexHtmlHelper.TextTransformation.UpperCase:
+                    tagBuilder.Tag().AddCssClass("text-uppercase");
+                    break;
+                case FlexHtmlHelper.TextTransformation.Capitalize:
+                    tagBuilder.Tag().AddCssClass("text-capitalize");
+                    break;
+            }
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder TextContextualColor(FlexTagBuilder tagBuilder, TextContextualColor textContextualColor)
+        {
+            switch (textContextualColor)
+            {
+                case FlexHtmlHelper.TextContextualColor.Muted:
+                    tagBuilder.Tag().AddCssClass("text-muted");
+                    break;
+                case FlexHtmlHelper.TextContextualColor.Primary:
+                    tagBuilder.Tag().AddCssClass("text-primary");
+                    break;
+                case FlexHtmlHelper.TextContextualColor.Success:
+                    tagBuilder.Tag().AddCssClass("text-success");
+                    break;
+                case FlexHtmlHelper.TextContextualColor.Info:
+                    tagBuilder.Tag().AddCssClass("text-info");
+                    break;
+                case FlexHtmlHelper.TextContextualColor.Warning:
+                    tagBuilder.Tag().AddCssClass("text-warning");
+                    break;
+                case FlexHtmlHelper.TextContextualColor.Danger:
+                    tagBuilder.Tag().AddCssClass("text-danger");
+                    break;
+            }
+
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ContextualBackground(FlexTagBuilder tagBuilder, ContextualBackground contextualBackground)
+        {
+            switch (contextualBackground)
+            {
+                case FlexHtmlHelper.ContextualBackground.Primary:
+                    tagBuilder.Tag().AddCssClass("bg-primary");
+                    break;
+                case FlexHtmlHelper.ContextualBackground.Success:
+                    tagBuilder.Tag().AddCssClass("bg-success");
+                    break;
+                case FlexHtmlHelper.ContextualBackground.Info:
+                    tagBuilder.Tag().AddCssClass("bg-info");
+                    break;
+                case FlexHtmlHelper.ContextualBackground.Warning:
+                    tagBuilder.Tag().AddCssClass("bg-warning");
+                    break;
+                case FlexHtmlHelper.ContextualBackground.Danger:
+                    tagBuilder.Tag().AddCssClass("bg-danger");
+                    break;
+            }
+
+            return tagBuilder;
+        }
+
+        #endregion
+
         #region Link
 
         public override FlexTagBuilder PagingLinkSize(FlexTagBuilder tagBuilder, PagingLinkSizeStyle size)

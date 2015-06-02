@@ -430,6 +430,30 @@ namespace FlexHtmlHelper
 
         #endregion
 
+        #region Text Helper
+
+        public virtual FlexTagBuilder TextAlignment(FlexTagBuilder tagBuilder, TextAlignment textAlignment)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder TextTransformation(FlexTagBuilder tagBuilder, TextTransformation textTransformation)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder TextContextualColor(FlexTagBuilder tagBuilder, TextContextualColor textContextualColor)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder ContextualBackground(FlexTagBuilder tagBuilder, ContextualBackground contextualBackground)
+        {
+            return tagBuilder;
+        }
+
+        #endregion
+
         #region Button
 
         public virtual FlexTagBuilder ButtonSize(FlexTagBuilder tagBuilder, ButtonSizeStyle size)

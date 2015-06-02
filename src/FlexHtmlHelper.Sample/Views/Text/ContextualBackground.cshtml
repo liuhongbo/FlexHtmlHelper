@@ -1,0 +1,38 @@
+﻿@model Person
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var f = Html.f();
+}
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).bg_primary()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).bg_success()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).bg_info()
+
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).bg_warning()
+
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextBoxFor(m => m.Description).col_md(4).bg_danger()
+
+</div>
+
+<br />

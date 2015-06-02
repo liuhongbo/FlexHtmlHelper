@@ -1,0 +1,42 @@
+﻿@model Person
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var f = Html.f();
+}
+
+<div class="row">
+    @f.TextAreaFor(m => m.Description, 6, 0, null).col_md(4).text_left()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextAreaFor(m => m.Description, 6, 0, null).col_md(4).text_center()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextAreaFor(m => m.Description, 6, 0, null).col_md(4).text_right()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextAreaFor(m => m.Description, 6, 0, null).col_md(4).text_justify()
+</div>
+
+<br />
+
+<div class="row">
+    @f.TextAreaFor(m => m.Description, 6, 0, null).col_md(4).text_nowrap()    
+</div>
+
+<br />
+
+<div class="row">
+    @f.Tag("p").AddText(Model.Description).AsElement().col_md(4).text_right();
+</div>
+
+<br />
+

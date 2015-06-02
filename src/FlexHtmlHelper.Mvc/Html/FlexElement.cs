@@ -377,6 +377,124 @@ namespace FlexHtmlHelper.Mvc.Html
 
         #endregion
 
+        #region Text Helper
+
+        public static T text_left<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextAlignment(flexElement.TagBuilder, TextAlignment.Left);
+            return flexElement;
+        }
+
+        public static T text_center<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextAlignment(flexElement.TagBuilder, TextAlignment.Center);
+            return flexElement;
+        }
+
+        public static T text_right<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextAlignment(flexElement.TagBuilder, TextAlignment.Right);
+            return flexElement;
+        }
+
+        public static T text_justify<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextAlignment(flexElement.TagBuilder, TextAlignment.Justify);
+            return flexElement;
+        }
+
+        public static T text_nowrap<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextAlignment(flexElement.TagBuilder, TextAlignment.NoWrap);
+            return flexElement;
+        }
+
+        public static T text_lowercase<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextTransformation(flexElement.TagBuilder, TextTransformation.LowerCase);
+            return flexElement;
+        }
+
+        public static T text_uppercase<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextTransformation(flexElement.TagBuilder, TextTransformation.UpperCase);
+            return flexElement;
+        }
+
+        public static T text_capitalize<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextTransformation(flexElement.TagBuilder, TextTransformation.Capitalize);
+            return flexElement;
+        }
+
+        public static T text_muted<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Muted);
+            return flexElement;
+        }
+
+        public static T text_primary<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Primary);
+            return flexElement;
+        }
+
+        public static T text_success<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Success);
+            return flexElement;
+        }
+
+        public static T text_info<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Info);
+            return flexElement;
+        }
+
+        public static T text_warning<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Warning);
+            return flexElement;
+        }
+
+        public static T text_danger<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.TextContextualColor(flexElement.TagBuilder, TextContextualColor.Danger);
+            return flexElement;
+        }
+
+        public static T bg_primary<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.ContextualBackground(flexElement.TagBuilder, ContextualBackground.Primary);
+            return flexElement;
+        }        
+
+        public static T bg_success<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.ContextualBackground(flexElement.TagBuilder, ContextualBackground.Success);
+            return flexElement;
+        }
+
+        public static T bg_info<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.ContextualBackground(flexElement.TagBuilder, ContextualBackground.Info);
+            return flexElement;
+        }
+
+        public static T bg_warning<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.ContextualBackground(flexElement.TagBuilder, ContextualBackground.Warning);
+            return flexElement;
+        }
+
+        public static T bg_danger<T>(this T flexElement) where T : FlexElement
+        {
+            flexElement.Render.ContextualBackground(flexElement.TagBuilder, ContextualBackground.Danger);
+            return flexElement;
+        }
+
+        #endregion
+
 
         #region Collapse
 

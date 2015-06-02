@@ -72,6 +72,41 @@ namespace FlexHtmlHelper
         Link
     }
 
+    public enum TextAlignment
+    {
+        Left,
+        Center,
+        Right,
+        Justify,
+        NoWrap
+    }
+
+    public enum TextTransformation
+    {
+        LowerCase,
+        UpperCase,
+        Capitalize
+    }
+
+    public enum TextContextualColor
+    {
+        Muted,
+        Primary,
+        Success,
+        Info,
+        Warning,
+        Danger
+    }
+
+    public enum ContextualBackground
+    {
+        Primary,
+        Success,
+        Info,
+        Warning,
+        Danger
+    }
+
     public interface IFlexRender
     {
         string Name { get; }
@@ -143,6 +178,15 @@ namespace FlexHtmlHelper
         FlexTagBuilder Id(FlexTagBuilder tagBuilder, string id);
         FlexTagBuilder Collapse(FlexTagBuilder tagBuilder, string target);
         FlexTagBuilder Collapsible(FlexTagBuilder tagBuilder, bool show = false);
+
+        #endregion
+
+        #region Text Helper
+
+        FlexTagBuilder TextAlignment(FlexTagBuilder tagBuilder, TextAlignment textAlignment);
+        FlexTagBuilder TextTransformation(FlexTagBuilder tagBuilder, TextTransformation textTransformation);
+        FlexTagBuilder TextContextualColor(FlexTagBuilder tagBuilder, TextContextualColor textContextualColor);
+        FlexTagBuilder ContextualBackground(FlexTagBuilder tagBuilder, ContextualBackground contextualBackground);
 
         #endregion
 
