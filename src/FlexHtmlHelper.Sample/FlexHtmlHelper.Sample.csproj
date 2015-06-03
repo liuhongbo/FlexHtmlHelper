@@ -217,6 +217,7 @@
     <Content Include="Views\Text\Transformation.cshtml" />
     <Content Include="Views\Text\ContextualColor.cshtml" />
     <Content Include="Views\Text\ContextualBackground.cshtml" />
+    <Content Include="Views\Form\Tag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

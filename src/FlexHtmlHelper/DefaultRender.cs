@@ -32,7 +32,7 @@ namespace FlexHtmlHelper
             return tag;
         }
 
-        public virtual FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string formAction, string formMethod, IDictionary<string, object> htmlAttributes)
+        public virtual FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string tagName, string formAction, string formMethod, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("form");
             tag.MergeAttributes(htmlAttributes);

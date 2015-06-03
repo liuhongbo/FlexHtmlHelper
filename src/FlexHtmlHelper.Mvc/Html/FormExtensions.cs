@@ -18,6 +18,11 @@ namespace FlexHtmlHelper.Mvc.Html
             return FormHelper(htmlHelper, formAction, FormMethod.Post, new RouteValueDictionary());
         }
 
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string tagName)
+        {
+            return FormHelper(htmlHelper, tagName, null, null, null);
+        }
+
         public static FlexForm Form(this FHtmlHelper htmlHelper, object routeValues)
         {
             return Form(htmlHelper, null, null, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
@@ -143,8 +148,12 @@ namespace FlexHtmlHelper.Mvc.Html
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Because disposing the object would write to the response stream, you don't want to prematurely dispose of this object.")]
         private static FlexForm FormHelper(this FHtmlHelper htmlHelper, string formAction, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
+            return FormHelper(htmlHelper, "form", formAction, method, htmlAttributes);
+        }
 
-            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), formAction, HtmlHelper.GetFormMethodString(method), htmlAttributes);
+        private static FlexForm FormHelper(this FHtmlHelper htmlHelper, string tagName, string formAction, FormMethod? method, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), tagName, formAction, method.HasValue ? HtmlHelper.GetFormMethodString(method.Value) : null, htmlAttributes);
 
             return new FlexForm(htmlHelper, form);
         }
@@ -154,6 +163,11 @@ namespace FlexHtmlHelper.Mvc.Html
             // generates <form action="{current url}" method="post">...</form>
             string formAction = htmlHelper.HtmlHelper.ViewContext.HttpContext.Request.RawUrl;
             return FormHelper<TModel>(htmlHelper, formAction, FormMethod.Post, new RouteValueDictionary());
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string tagName)
+        {
+            return FormHelper<TModel>(htmlHelper, tagName, null, null, null);
         }
 
         public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, object routeValues)
@@ -281,8 +295,12 @@ namespace FlexHtmlHelper.Mvc.Html
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Because disposing the object would write to the response stream, you don't want to prematurely dispose of this object.")]
         private static FlexForm<TModel> FormHelper<TModel>(this FHtmlHelper<TModel> htmlHelper, string formAction, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
+            return FormHelper(htmlHelper, "form", formAction, method, htmlAttributes);
+        }
 
-            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), formAction, HtmlHelper.GetFormMethodString(method), htmlAttributes);
+        private static FlexForm<TModel> FormHelper<TModel>(this FHtmlHelper<TModel> htmlHelper, string tagName, string formAction, FormMethod? method, IDictionary<string, object> htmlAttributes)
+        {
+            FlexTagBuilder form = htmlHelper.Render.FormHelper(new FlexTagBuilder(), tagName, formAction, method.HasValue ? HtmlHelper.GetFormMethodString(method.Value) : null, htmlAttributes);
 
             return new FlexForm<TModel>(htmlHelper, form);
         }

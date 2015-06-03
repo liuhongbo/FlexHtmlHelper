@@ -31,9 +31,9 @@ namespace FlexHtmlHelper.Render
             return tag;
         }
 
-        public override FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string formAction, string formMethod, IDictionary<string, object> htmlAttributes)
+        public override FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string tagName, string formAction, string formMethod, IDictionary<string, object> htmlAttributes)
         {
-            FlexTagBuilder tag = new FlexTagBuilder("form");
+            FlexTagBuilder tag = new FlexTagBuilder(tagName);
             tag.MergeAttributes(htmlAttributes);
             // action is implicitly generated, so htmlAttributes take precedence.
             tag.MergeAttribute("action", formAction);
