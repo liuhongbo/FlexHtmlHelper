@@ -137,6 +137,18 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
+        public static T group_lg<T>(this T formGroup) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupHeight(formGroup.TagBuilder, FormGroupHeightStyle.Large);            
+            return formGroup;
+        }
+
+        public static T group_sm<T>(this T formGroup) where T : FlexFormGroup
+        {
+            formGroup.Render.FormGroupHeight(formGroup.TagBuilder, FormGroupHeightStyle.Small);
+            return formGroup;
+        }
+
         public static T input_col_xs<T>(this T formGroup, int columns) where T : FlexFormGroup
         {
             formGroup.Render.FormGroupInputGridColumns(formGroup.TagBuilder, formGroup.FormContext, GridStyle.ExtraSmall, columns);

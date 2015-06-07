@@ -27,6 +27,12 @@ namespace FlexHtmlHelper
         Horizontal
     }
 
+    public enum FormGroupHeightStyle
+    {
+        Small,
+        Normal,
+        Large
+    }
 
     public enum ValidationState
     {
@@ -160,7 +166,7 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormGroupInputGridColumns(FlexTagBuilder tagBuilder, FlexFormContext formContext, GridStyle style, int columns);
         FlexTagBuilder FormGroupButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag);
         FlexTagBuilder FormGroupAddButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag);
-
+        FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size);
         #endregion
 
         #region Input

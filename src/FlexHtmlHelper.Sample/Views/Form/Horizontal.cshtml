@@ -8,7 +8,10 @@
     @using (var form = Html.f().Form().horizontal().control_label_col_sm(2).control_col_sm(4).control_col_md(4).BeginForm())
     {
         @form.HiddenFor(m => m.PersonId)
+        @form.TextBoxFor(m => m.FirstName)
         @form.TextBoxFor(m => m.FirstName).input_placeholder("input_lg input_focus").input_focus().input_lg()
+        @form.TextBoxFor(m => m.FirstName).input_placeholder("form_group_lg").group_lg()
+        @form.TextBoxFor(m => m.FirstName).input_placeholder("form_group_sm").group_sm()
         @form.TextBoxFor(m => m.LastName).input_placeholder("has_error").has_error()
         @form.TextBoxFor(m => m.Email).input_placeholder("col_md_6").input_col_md(10)
         @form.TextBoxFor(m => m.Title).input_placeholder("disabled").input_disabled()

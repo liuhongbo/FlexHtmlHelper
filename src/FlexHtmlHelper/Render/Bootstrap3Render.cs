@@ -36,9 +36,16 @@ namespace FlexHtmlHelper.Render
             FlexTagBuilder tag = new FlexTagBuilder(tagName);
             tag.MergeAttributes(htmlAttributes);
             // action is implicitly generated, so htmlAttributes take precedence.
-            tag.MergeAttribute("action", formAction);
+            if (!string.IsNullOrEmpty(formAction))
+            {
+                tag.MergeAttribute("action", formAction);
+            }
+
             // method is an explicit parameter, so it takes precedence over the htmlAttributes.
-            tag.MergeAttribute("method", formMethod, true);
+            if (!string.IsNullOrEmpty(formMethod))
+            {
+                tag.MergeAttribute("method", formMethod, true);
+            }
 
             tag.MergeAttribute("role", "form");
 
@@ -904,6 +911,27 @@ namespace FlexHtmlHelper.Render
             {
                 p.AddText(" ");
                 p.AddTag(buttonTag);
+            }
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size)
+        {
+
+            var groupTag = tagBuilder.TagWithCssClass("form-group");
+            if (groupTag != null)
+            {
+                switch (size)
+                {
+                    case FormGroupHeightStyle.Small:
+                        tagBuilder.Tag().AddCssClass("form-group-sm");
+                        break;
+                    case FormGroupHeightStyle.Normal:
+                        break;
+                    case FormGroupHeightStyle.Large:
+                        tagBuilder.Tag().AddCssClass("form-group-lg");
+                        break;
+                }
             }
             return tagBuilder;
         }

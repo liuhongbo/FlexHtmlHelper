@@ -23,6 +23,11 @@ namespace FlexHtmlHelper.Mvc.Html
             return FormHelper(htmlHelper, tagName, null, null, null);
         }
 
+        public static FlexForm Form(this FHtmlHelper htmlHelper, string tagName, object htmlAttributes)
+        {
+            return FormHelper(htmlHelper, tagName, null, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
         public static FlexForm Form(this FHtmlHelper htmlHelper, object routeValues)
         {
             return Form(htmlHelper, null, null, TypeHelper.ObjectToDictionary(routeValues), FormMethod.Post, new RouteValueDictionary());
@@ -168,6 +173,11 @@ namespace FlexHtmlHelper.Mvc.Html
         public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string tagName)
         {
             return FormHelper<TModel>(htmlHelper, tagName, null, null, null);
+        }
+
+        public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, string tagName, object htmlAttributes)
+        {
+            return FormHelper<TModel>(htmlHelper, tagName, null, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         public static FlexForm<TModel> Form<TModel>(this FHtmlHelper<TModel> htmlHelper, object routeValues)

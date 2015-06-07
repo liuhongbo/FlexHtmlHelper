@@ -374,6 +374,12 @@ namespace FlexHtmlHelper
         {
             return tagBuilder;
         }
+
+        public virtual FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
 
