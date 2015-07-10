@@ -625,7 +625,6 @@ namespace FlexHtmlHelper.Render
 
         #endregion
 
-
         #region Form
 
         public override FlexTagBuilder FormLayout(FlexTagBuilder tagBuilder, FormLayoutStyle layout)
@@ -901,10 +900,10 @@ namespace FlexHtmlHelper.Render
         {
             FlexTagBuilder p = null;           
 
-            var input = tagBuilder.LastTag("button");
-            if (input != null)
+            var btn = tagBuilder.LastTag("button");
+            if (btn != null)
             {
-                p = input.ParentTag;
+                p = btn.ParentTag;
             }            
 
             if (p != null)
@@ -915,7 +914,7 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size)
+        public override FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size)
         {
 
             var groupTag = tagBuilder.TagWithCssClass("form-group");
@@ -936,8 +935,55 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        #endregion
+        public override FlexTagBuilder FormGroupLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag)
+        {
+            FlexTagBuilder tag = new FlexTagBuilder("div");
+            tag.AddCssClass("form-group");
+            switch (formContext.LayoutStyle)
+            {
+                case FormLayoutStyle.Default:
+                    tag.AddTag(linkTag);
+                    break;
+                case FormLayoutStyle.Horizontal:
+                    FlexTagBuilder colTag = new FlexTagBuilder("div");
+                    foreach (var col in formContext.LabelColumns)
+                    {
+                        GridColumnOffset(colTag, col.Key, col.Value);
+                    }
+                    foreach (var col in formContext.InputColumns)
+                    {
+                        GridColumns(colTag, col.Key, col.Value);
+                    }
+                    tag.AddTag(colTag);
+                    colTag.AddTag(linkTag);
+                    break;
+                case FormLayoutStyle.Inline:
+                    break;
 
+            }
+
+            return tagBuilder.AddTag(tag);
+        }
+
+        public override FlexTagBuilder FormGroupAddLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag)
+        {
+            FlexTagBuilder p = null;
+
+            var link = tagBuilder.LastTag("a");
+            if (link != null)
+            {
+                p = link.ParentTag;
+            }
+
+            if (p != null)
+            {
+                p.AddText(" ");
+                p.AddTag(linkTag);
+            }
+            return tagBuilder;
+        }
+
+        #endregion
 
         #region Input      
 

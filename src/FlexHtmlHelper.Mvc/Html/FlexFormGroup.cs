@@ -366,6 +366,26 @@ namespace FlexHtmlHelper.Mvc.Html
         }
 
         #endregion   
+
+        #region Link
+
+        public static FlexFormGroup Link(this FlexFormGroup formGroup, FlexLink link)
+        {
+            formGroup.Render.FormGroupAddLink(formGroup.TagBuilder, formGroup.FormContext, link.TagBuilder);
+
+            return formGroup;
+
+        }
+
+        public static FlexFormGroup Link(this FlexFormGroup formGroup, FlexTagBuilder linkTag)
+        {
+            formGroup.Render.FormGroupAddLink(formGroup.TagBuilder, formGroup.FormContext, linkTag);
+
+            return formGroup;
+
+        }
+
+        #endregion
     }
 
     public class FlexFormGroup<TModel> : FlexFormGroup

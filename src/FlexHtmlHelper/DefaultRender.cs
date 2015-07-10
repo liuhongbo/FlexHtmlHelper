@@ -380,6 +380,16 @@ namespace FlexHtmlHelper
             return tagBuilder;
         }
 
+        public virtual FlexTagBuilder FormGroupLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag)
+        {
+            return tagBuilder;
+        }
+
+        public virtual FlexTagBuilder FormGroupAddLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag)
+        {
+            return tagBuilder;
+        }
+
         #endregion
 
 

@@ -1440,6 +1440,27 @@ namespace FlexHtmlHelper.Mvc.Html
 
         }
 
-        #endregion        
+        #endregion   
+     
+
+        #region Link
+
+        public static FlexFormGroup Link(this FlexMvcForm form, FlexLink link)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            return new FlexFormGroup(form.FormContext, htmlHelper, htmlHelper.Render.FormGroupLink(new FlexTagBuilder(), form.FormContext, link.TagBuilder));
+
+        }
+
+        public static FlexFormGroup Link(this FlexMvcForm form, FlexTagBuilder linkTag)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            return new FlexFormGroup(form.FormContext, htmlHelper, htmlHelper.Render.FormGroupLink(new FlexTagBuilder(), form.FormContext, linkTag));
+
+        }
+
+        #endregion
     }
 }

@@ -167,6 +167,9 @@ namespace FlexHtmlHelper
         FlexTagBuilder FormGroupButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag);
         FlexTagBuilder FormGroupAddButton(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder buttonTag);
         FlexTagBuilder FormGroupHeight(FlexTagBuilder tagBuilder, FormGroupHeightStyle size);
+        FlexTagBuilder FormGroupLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag);
+        FlexTagBuilder FormGroupAddLink(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder linkTag);
+
         #endregion
 
         #region Input
