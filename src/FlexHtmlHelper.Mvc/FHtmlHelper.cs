@@ -99,6 +99,23 @@ namespace FlexHtmlHelper.Mvc
             return Convert.ToString(this.HtmlHelper.ViewData.Eval(key, format), CultureInfo.CurrentCulture);
         }
 
+        internal string FormatValue(object value, string format)
+        {
+            if (value == null)
+            {
+                if (string.IsNullOrEmpty(format))
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return string.Format(format, string.Empty);
+                }
+            }
+
+            return this.HtmlHelper.FormatValue(value, format);
+        }
+
         internal object GetModelStateValue(string key, Type destinationType)
         {
             ModelState modelState;

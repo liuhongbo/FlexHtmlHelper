@@ -26,6 +26,7 @@
         @form.CheckBoxFor(m => m.ForumPosts).CheckBoxFor(m => m.Newsletter).CheckBoxFor(m => m.BlogPosts)
         @form.CheckBoxFor(m => m.AcceptTerms).label_text("I have read and accepted the terms and conditions")
         @form.StaticFor(m => m.Log)
+        @form.StaticFor(m => m.PhoneNumber, string.IsNullOrEmpty(Model.PhoneNumber) ? "No Phone Number" : null)
         @form.Link(Html.f().ActionLink("Link", "Row", "Grid"))
         @form.Link(Html.f().ActionLink("Link1", "Column", "Grid")).Link(Html.f().ActionLink("Link2", "Row", "Grid"))
         @form.Button(Html.f().Button("submit", "Submit").btn_primary()).Button(Html.f().Button("button", "Cancel"))

@@ -604,7 +604,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 throw new ArgumentException("name");
             }
 
-            string valueParameter = htmlHelper.HtmlHelper.FormatValue(value, format);
+            string valueParameter = htmlHelper.FormatValue(value, format);
             
             string attemptedValue = null;
 

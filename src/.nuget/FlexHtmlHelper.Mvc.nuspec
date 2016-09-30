@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>FlexHtmlHelper.Mvc</id>
-        <version>1.5.3.0</version>
+        <version>1.5.5.0</version>
         <title>FlexHtmlHelper</title>
         <authors>liuhongbo@live.com</authors>
         <owners>liuhongbo@live.com</owners>
@@ -10,7 +10,7 @@
         <projectUrl>https://github.com/liuhongbo/FlexHtmlHelper</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A Flexible Html Helper Library for ASP.NET Mvc</description>
-        <copyright>Copyright ©  2015 liuhongbo@live.com</copyright>
+        <copyright>Copyright ©  2016 liuhongbo@live.com</copyright>
         <dependencies>
             <dependency id="Microsoft.AspNet.Mvc" version="5.0.0" />
         </dependencies>

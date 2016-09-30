@@ -94,7 +94,10 @@ namespace FlexHtmlHelperSample.Models
         public bool ForumPosts { get; set; }
 
         [DisplayName("Blog Posts")]
-        public bool BlogPosts { get; set; }      
+        public bool BlogPosts { get; set; }
+
+        [DisplayName("Phone Number")]
+        public string PhoneNumber { get; set; }    
 
     }
 }
