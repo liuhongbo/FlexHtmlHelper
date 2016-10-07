@@ -901,6 +901,14 @@ namespace FlexHtmlHelper.Render
             FlexTagBuilder p = null;           
 
             var btn = tagBuilder.LastTag("button");
+            if (btn == null)
+            {
+                btn = tagBuilder.LastTag("a");
+                if (btn.TagWithCssClass("btn") != btn)
+                {
+                    btn = null;
+                }
+            }
             if (btn != null)
             {
                 p = btn.ParentTag;
