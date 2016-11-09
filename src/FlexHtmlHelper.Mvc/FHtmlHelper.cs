@@ -21,7 +21,8 @@ namespace FlexHtmlHelper.Mvc
     public class FHtmlHelper
     {        
         private HtmlHelper _htmlHelper;
-        private IFlexRender _render;        
+        private IFlexRender _render;
+        private IFlexTemplate _template;
 
         private static ResourceManager _mvcResource = new ResourceManager("System.Web.Mvc.Properties.MvcResources", typeof(System.Web.Mvc.MvcHtmlString).Assembly);
         internal static string MvcResources_Common_ValueNotValidForProperty = "Common_ValueNotValidForProperty";
@@ -52,16 +53,38 @@ namespace FlexHtmlHelper.Mvc
             
         }
 
-        public FHtmlHelper(HtmlHelper htmlHelper, IFlexRender render)
+        public FHtmlHelper(HtmlHelper htmlHelper, string renderName, string templateName) : this(htmlHelper, FlexRenders.Renders.GetRender(renderName), FlexTemplates.Templates.GetTemplate(templateName))
+        {
+
+        }
+
+        public FHtmlHelper(HtmlHelper htmlHelper, IFlexRender render) : this(htmlHelper, render, FlexTemplates.Templates.DefaultTemplate)
+        {
+                       
+        }
+
+        public FHtmlHelper(HtmlHelper htmlHelper, IFlexTemplate template) : this(htmlHelper, FlexRenders.Renders.DefaultRender, template)
+        {
+
+        }
+
+        public FHtmlHelper(HtmlHelper htmlHelper, IFlexRender render, IFlexTemplate template)
         {
             _htmlHelper = htmlHelper;
             _render = render;
+            _template = template;
         }
 
         public IFlexRender Render
         {
             get { return _render; }
             set { _render = value; }
+        }
+
+        public IFlexTemplate Template
+        {
+            get { return _template; }
+            set { _template = value; }
         }
 
         internal HtmlHelper HtmlHelper
@@ -171,6 +194,22 @@ namespace FlexHtmlHelper.Mvc
         {
             string k = _viewDataKey + render.Name;
             var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper, render);
+            htmlHelper.ViewData[k] = f;
+            return f;
+        }
+
+        public static FHtmlHelper t(this HtmlHelper htmlHelper, string templateName)
+        {
+            string k = _viewDataKey + templateName;
+            var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper, FlexRenders.Renders.DefaultRender.Name, templateName);
+            htmlHelper.ViewData[k] = f;
+            return f;
+        }
+
+        public static FHtmlHelper t(this HtmlHelper htmlHelper, IFlexTemplate template)
+        {
+            string k = _viewDataKey + template.Name;
+            var f = (FHtmlHelper)htmlHelper.ViewData[k] ?? new FHtmlHelper(htmlHelper, template);
             htmlHelper.ViewData[k] = f;
             return f;
         }

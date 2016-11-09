@@ -410,9 +410,9 @@ namespace FlexHtmlHelper.Mvc.Html
                 selectList = GetSelectListWithDefaultValue(selectList, defaultValue, allowMultiple);
             }
 
-
-
-            FlexTagBuilder select = htmlHelper.Render.SelectHelper(new FlexTagBuilder(), optionLabel, fullName, selectList, allowMultiple, htmlAttributes);
+            FlexTagBuilder select = htmlHelper.Render.SelectHelper(new FlexTagBuilder(), optionLabel, fullName,
+                selectList.Select<SelectListItem, SelectListItemEx>(item => new SelectListItemEx(item) { Selected = htmlHelper.Template.GetSelected(fullName, item.Value, item.Selected) }),
+                allowMultiple, htmlAttributes);
 
             if (select != null)
             {

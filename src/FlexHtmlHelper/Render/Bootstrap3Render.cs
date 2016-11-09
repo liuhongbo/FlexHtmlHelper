@@ -1101,7 +1101,7 @@ namespace FlexHtmlHelper.Render
 
         #region Text Helper
 
-        public virtual FlexTagBuilder TextAlignment(FlexTagBuilder tagBuilder, TextAlignment textAlignment)
+        public override FlexTagBuilder TextAlignment(FlexTagBuilder tagBuilder, TextAlignment textAlignment)
         {
             switch (textAlignment)
             {
@@ -1125,7 +1125,7 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder TextTransformation(FlexTagBuilder tagBuilder, TextTransformation textTransformation)
+        public override FlexTagBuilder TextTransformation(FlexTagBuilder tagBuilder, TextTransformation textTransformation)
         {
             switch (textTransformation)
             {
@@ -1142,7 +1142,7 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder TextContextualColor(FlexTagBuilder tagBuilder, TextContextualColor textContextualColor)
+        public override FlexTagBuilder TextContextualColor(FlexTagBuilder tagBuilder, TextContextualColor textContextualColor)
         {
             switch (textContextualColor)
             {
@@ -1169,7 +1169,7 @@ namespace FlexHtmlHelper.Render
             return tagBuilder;
         }
 
-        public virtual FlexTagBuilder ContextualBackground(FlexTagBuilder tagBuilder, ContextualBackground contextualBackground)
+        public override FlexTagBuilder ContextualBackground(FlexTagBuilder tagBuilder, ContextualBackground contextualBackground)
         {
             switch (contextualBackground)
             {

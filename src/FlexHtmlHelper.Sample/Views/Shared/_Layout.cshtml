@@ -11,10 +11,11 @@
     navbar.Add(new KeyValuePair<string, string>("Table", "Table"));
     navbar.Add(new KeyValuePair<string, string>("JavaScript", "Collapse"));
     navbar.Add(new KeyValuePair<string, string>("Tag", "Tag"));
-    
+    navbar.Add(new KeyValuePair<string, string>("Template", "Form"));
+
     var menu = (List<KeyValuePair<string, string>>)ViewBag.menu;
-    ViewBag.Title = @Html.ViewContext.RouteData.Values["controller"].ToString() + " " + @Html.ViewContext.RouteData.Values["action"].ToString();   
-    
+    ViewBag.Title = @Html.ViewContext.RouteData.Values["controller"].ToString() + " " + @Html.ViewContext.RouteData.Values["action"].ToString();
+
 }
 <!DOCTYPE html>
 <html>

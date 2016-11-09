@@ -174,7 +174,7 @@ namespace FlexHtmlHelper.Mvc.Html
                 value = String.Empty;
             }
 
-            FlexTagBuilder textArea = htmlHelper.Render.TextAreaHelper(new FlexTagBuilder(), fullName, value, rowsAndColumns, htmlAttributes, innerHtmlPrefix);
+            FlexTagBuilder textArea = htmlHelper.Render.TextAreaHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetValue(fullName, value), rowsAndColumns, htmlAttributes, innerHtmlPrefix);
 
             if (textArea != null)
             {

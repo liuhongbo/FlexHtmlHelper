@@ -113,6 +113,23 @@ namespace FlexHtmlHelper
         Danger
     }
 
+    public class SelectListItemEx: SelectListItem
+    {
+        public SelectListItemEx()
+        {
+
+        }
+        public SelectListItemEx(SelectListItem item)
+        {
+            this.Disabled = item.Disabled;
+            this.Group = item.Group;
+            this.Selected = null;
+            this.Text = item.Text;
+            this.Value = item.Value;
+        }
+        public new string Selected { get; set; }
+    }
+
     public interface IFlexRender
     {
         string Name { get; }
@@ -122,15 +139,15 @@ namespace FlexHtmlHelper
 
         FlexTagBuilder LabelHelper(FlexTagBuilder tagBuilder, string @for, string text, IDictionary<string, object> htmlAttributes = null);
         FlexTagBuilder FormHelper(FlexTagBuilder tagBuilder, string tagName, string formAction, string formMethod, IDictionary<string, object> htmlAttributes);
-        FlexTagBuilder CheckBoxHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder CheckBoxHelper(FlexTagBuilder tagBuilder, string name, string @checked, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder HiddenHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder PasswordHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
-        FlexTagBuilder RadioHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder RadioHelper(FlexTagBuilder tagBuilder, string name, string @checked, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder TextBoxHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ValidationMessageHelper(FlexTagBuilder tagBuilder, string validationMessage, bool isValid, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder ValidationSummaryHelper(FlexTagBuilder tagBuilder, string validationMessage, IEnumerable<string> errorMessages, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder FormGroupHelper(FlexTagBuilder tagBuilder, FlexFormContext formContext, FlexTagBuilder labelTag, FlexTagBuilder inputTag, FlexTagBuilder validationMessageTag);
-        FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes);
+        FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItemEx> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder TextAreaHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> rowsAndColumns, IDictionary<string, object> htmlAttributes, string innerHtmlPrefix = null);
         FlexTagBuilder StaticHelper(FlexTagBuilder tagBuilder, string name, string value, IDictionary<string, object> htmlAttributes);
         FlexTagBuilder LinkHelper(FlexTagBuilder tagBuilder, string linkText, string url, IDictionary<string, object> htmlAttributes);

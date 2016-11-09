@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlexHtmlHelper.Mvc", "FlexHtmlHelper.Mvc\FlexHtmlHelper.Mvc.csproj", "{143BD4CA-34E9-4F52-B349-0A2096A7C271}"
 EndProject
@@ -10,12 +10,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlexHtmlHelper", "FlexHtmlHelper", "{A66BF9F3-CC45-455E-AD2F-F230D5AE725C}"
 	ProjectSection(SolutionItems) = preProject
 		FlexHtmlHelper\DefaultRender.cs = FlexHtmlHelper\DefaultRender.cs
+		FlexHtmlHelper\DefaultTemplate.cs = FlexHtmlHelper\DefaultTemplate.cs
 		FlexHtmlHelper\DictionaryHelpers.cs = FlexHtmlHelper\DictionaryHelpers.cs
 		FlexHtmlHelper\FlexFormContext.cs = FlexHtmlHelper\FlexFormContext.cs
 		FlexHtmlHelper\FlexRenderDictionary.cs = FlexHtmlHelper\FlexRenderDictionary.cs
 		FlexHtmlHelper\FlexRenders.cs = FlexHtmlHelper\FlexRenders.cs
 		FlexHtmlHelper\FlexTagBuilder.cs = FlexHtmlHelper\FlexTagBuilder.cs
+		FlexHtmlHelper\FlexTemplateDictionary.cs = FlexHtmlHelper\FlexTemplateDictionary.cs
+		FlexHtmlHelper\FlexTemplates.cs = FlexHtmlHelper\FlexTemplates.cs
 		FlexHtmlHelper\IFlexRender.cs = FlexHtmlHelper\IFlexRender.cs
+		FlexHtmlHelper\IFlexTemplate.cs = FlexHtmlHelper\IFlexTemplate.cs
 		FlexHtmlHelper\PropertyHelper.cs = FlexHtmlHelper\PropertyHelper.cs
 		FlexHtmlHelper\TypeHelper.cs = FlexHtmlHelper\TypeHelper.cs
 	EndProjectSection
@@ -48,6 +52,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{28EB03B4-AC71-4EA5-8AD0-A8ABE19E29D7}"
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\Configurations\FlexHtmlHelperWebSite-WAWS-dev.json = PublishScripts\Configurations\FlexHtmlHelperWebSite-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{C23A09F6-F5CE-4CA2-AEA0-0B64CE3FADCD}"
+	ProjectSection(SolutionItems) = preProject
+		FlexHtmlHelper\Template\HandlebarsTemplate.cs = FlexHtmlHelper\Template\HandlebarsTemplate.cs
 	EndProjectSection
 EndProject
 Global
@@ -83,5 +92,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{59546118-1090-4098-96B1-98A115F483CF} = {A66BF9F3-CC45-455E-AD2F-F230D5AE725C}
 		{28EB03B4-AC71-4EA5-8AD0-A8ABE19E29D7} = {CD8AB236-4957-4787-8C33-2484ED6DD3FC}
+		{C23A09F6-F5CE-4CA2-AEA0-0B64CE3FADCD} = {A66BF9F3-CC45-455E-AD2F-F230D5AE725C}
 	EndGlobalSection
 EndGlobal

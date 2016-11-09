@@ -1101,12 +1101,20 @@ namespace FlexHtmlHelper
                 {
                     continue; // DevDiv Bugs #227595: don't output empty IDs
                 }
-                string value = HttpUtility.HtmlAttributeEncode(attribute.Value);
-                sb.Append(' ')
-                    .Append(key)
-                    .Append("=\"")
-                    .Append(value)
-                    .Append('"');
+                if (attribute.Value == null)
+                {
+                    sb.Append(' ')
+                        .Append(key);
+                }
+                else
+                {
+                    string value = HttpUtility.HtmlAttributeEncode(attribute.Value);
+                    sb.Append(' ')
+                        .Append(key)
+                        .Append("=\"")
+                        .Append(value)
+                        .Append('"');
+                }
             }
         }
 

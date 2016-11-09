@@ -518,14 +518,14 @@ namespace FlexHtmlHelper.Mvc.Html
                     {
                         isChecked = htmlHelper.EvalBoolean(fullName);
                     }
-                    input = htmlHelper.Render.CheckBoxHelper(new FlexTagBuilder(), fullName, isChecked, valueParameter, htmlAttributes);                   
+                    input = htmlHelper.Render.CheckBoxHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetChecked(fullName, valueParameter, isChecked), htmlHelper.Template.GetValue(fullName, valueParameter), htmlAttributes);                   
                     break;
                 case InputType.Hidden:
                     attemptedValue = (string)htmlHelper.GetModelStateValue(fullName, typeof(string));
-                    input = htmlHelper.Render.HiddenHelper(new FlexTagBuilder(), fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter), htmlAttributes);
+                    input = htmlHelper.Render.HiddenHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetValue(fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter)), htmlAttributes);
                     break;
                 case InputType.Password:
-                    input = htmlHelper.Render.PasswordHelper(new FlexTagBuilder(), fullName, valueParameter, htmlAttributes);
+                    input = htmlHelper.Render.PasswordHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetValue(fullName, valueParameter), htmlAttributes);
                     break;
                 case InputType.Radio:
                     if (!usedModelState)
@@ -541,11 +541,11 @@ namespace FlexHtmlHelper.Mvc.Html
                     {
                         isChecked = htmlHelper.EvalBoolean(fullName);
                     }
-                    input = htmlHelper.Render.RadioHelper(new FlexTagBuilder(), fullName, isChecked, valueParameter, htmlAttributes);
+                    input = htmlHelper.Render.RadioHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetChecked(fullName, valueParameter, isChecked), valueParameter, htmlAttributes);
                     break;
                 case InputType.Text:
                     attemptedValue = (string)htmlHelper.GetModelStateValue(fullName, typeof(string));
-                    input = htmlHelper.Render.TextBoxHelper(new FlexTagBuilder(), fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter), htmlAttributes);
+                    input = htmlHelper.Render.TextBoxHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetValue(fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter)), htmlAttributes);
                     break;
             }
 
@@ -609,10 +609,9 @@ namespace FlexHtmlHelper.Mvc.Html
             string attemptedValue = null;
 
             FlexTagBuilder input = null;
-
            
             attemptedValue = (string)htmlHelper.GetModelStateValue(fullName, typeof(string));
-            input = htmlHelper.Render.StaticHelper(new FlexTagBuilder(), fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter), htmlAttributes);
+            input = htmlHelper.Render.StaticHelper(new FlexTagBuilder(), fullName, htmlHelper.Template.GetValue(fullName, attemptedValue ?? ((useViewData) ? htmlHelper.EvalString(fullName, format) : valueParameter)), htmlAttributes);
            
             Object ret = null;
 

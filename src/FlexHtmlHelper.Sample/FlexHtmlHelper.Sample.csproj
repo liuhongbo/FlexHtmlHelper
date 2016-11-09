@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TextController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -149,9 +151,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Properties\PublishProfiles\flexhtmlhelper.pubxml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -221,6 +220,7 @@
     <Content Include="Views\Text\ContextualColor.cshtml" />
     <Content Include="Views\Text\ContextualBackground.cshtml" />
     <Content Include="Views\Form\Tag.cshtml" />
+    <Content Include="Views\Template\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

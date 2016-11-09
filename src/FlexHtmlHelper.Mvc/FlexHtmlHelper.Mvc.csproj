@@ -76,6 +76,9 @@
     <Compile Include="..\FlexHtmlHelper\DefaultRender.cs">
       <Link>DefaultRender.cs</Link>
     </Compile>
+    <Compile Include="..\FlexHtmlHelper\DefaultTemplate.cs">
+      <Link>DefaultTemplate.cs</Link>
+    </Compile>
     <Compile Include="..\FlexHtmlHelper\DictionaryHelpers.cs">
       <Link>DictionaryHelpers.cs</Link>
     </Compile>
@@ -91,8 +94,17 @@
     <Compile Include="..\FlexHtmlHelper\FlexTagBuilder.cs">
       <Link>FlexTagBuilder.cs</Link>
     </Compile>
+    <Compile Include="..\FlexHtmlHelper\FlexTemplateDictionary.cs">
+      <Link>FlexTemplateDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\FlexHtmlHelper\FlexTemplates.cs">
+      <Link>FlexTemplates.cs</Link>
+    </Compile>
     <Compile Include="..\FlexHtmlHelper\IFlexRender.cs">
       <Link>IFlexRender.cs</Link>
+    </Compile>
+    <Compile Include="..\FlexHtmlHelper\IFlexTemplate.cs">
+      <Link>IFlexTemplate.cs</Link>
     </Compile>
     <Compile Include="..\FlexHtmlHelper\PropertyHelper.cs">
       <Link>PropertyHelper.cs</Link>
@@ -102,6 +114,9 @@
     </Compile>
     <Compile Include="..\FlexHtmlHelper\Render\Foundation5Render.cs">
       <Link>Render\Foundation5Render.cs</Link>
+    </Compile>
+    <Compile Include="..\FlexHtmlHelper\Template\HandlebarsTemplate.cs">
+      <Link>Template\HandlebarsTemplate.cs</Link>
     </Compile>
     <Compile Include="..\FlexHtmlHelper\TypeHelper.cs">
       <Link>TypeHelper.cs</Link>

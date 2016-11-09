@@ -1,0 +1,91 @@
+﻿@model Person
+@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" id="form-div">    
+
+</div>
+<div>
+    <button id="render-button">Click me</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+<script id="form-template" type="text/x-handlebars-template">
+    @using (var form = Html.t("Handlebars").Form().BeginForm())
+    {
+        @form.HiddenFor(m => m.PersonId)
+        @form.TextBoxFor(m => m.FirstName).input_placeholder("input_lg input_focus").input_focus().input_lg()
+        @form.TextBoxFor(m => m.LastName).input_placeholder("has_error").has_error()
+        @form.TextBoxFor(m => m.Email).input_placeholder("col_md_6").input_col_md(6)
+        @form.TextBoxFor(m => m.Title).input_placeholder("disabled").input_disabled()
+        @form.PasswordFor(m => m.Password).input_col_md(4).help_text("at least 6 characters")
+        @form.RadioButtonFor(m => m.Gender, "M").label_text("Male").RadioButtonFor(m => m.Gender, "F").label_text("Female")
+        @form.DropDownListFor(m => m.TimeZoneId, Model.AvailableTimeZones).input_col_md(6)
+        @form.ListBoxFor(m => m.FavoriteMusicGenres, Model.AvailableFavoriteMusicGenres).input_col_md(6).help_text("You can select multiple genres by holding the ctrl key on your keyboard")
+        @form.RadioButtonFor(m => m.Race, "W").label_text("White").RadioButtonFor(m => m.Race, "B").label_text("Black").RadioButtonFor(m => m.Race, "A").label_text("Asian").RadioButtonFor(m => m.Race, "L").label_text("latin")
+        @form.TextBoxFor(m => m.File, new { type = "file" })
+        @form.TextAreaFor(m => m.Description).input_col_md(6)
+        @form.CheckBoxFor(m => m.ForumPosts).CheckBoxFor(m => m.Newsletter).CheckBoxFor(m => m.BlogPosts)
+        @form.CheckBoxFor(m => m.AcceptTerms).label_text("I have read and accepted the terms and conditions")
+        @form.StaticFor(m => m.Log)
+        @form.StaticFor(m => m.PhoneNumber, string.IsNullOrEmpty(Model.PhoneNumber) ? "No Phone Number" : null)
+        @form.Button(Html.f().Button("submit", "Submit").btn_primary()).Button(Html.f().Button("button", "Cancel"))
+        @form.Button(Html.f().ActionLink("New", "new").Button()).Button(Html.f().ActionLink("Edit", "edit").Button()).Button(Html.f().ActionLink("Delete", "delete").Button())
+        @form.Button(Html.f().Button("button", "Delete").btn_danger().btn_block()).input_col_md(4)
+    }
+</script>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#render-button').click(function () {
+            var source = $("<textarea/>").html($("#form-template").text()).text();
+            var template = Handlebars.compile(source);
+            var context = {
+                FirstName: "John",
+                LastName: "Hood",
+                AcceptTerms: false,
+                Gender: "M",
+                Email: "test@abc.com",
+                Title: "CEO",
+                Password: "123456",
+                TimeZoneId: 'Central Standard Time',
+                FavoriteMusicGenres: 'Country',
+                Race: "B",
+                Description: "The best employee of 2016",
+                ForumPosts: false,
+                Newsletter: false,
+                BlogPosts: true,
+                Log: 'login@127.0.0.1',
+                PhoneNumber:'877-123-4987'
+            };
+            var html = template(context);
+            $('#form-div').append(html);
+        });
+        Handlebars.registerHelper('check_acceptterms', function (p1,p2) {
+            return p1 == p2+'' ? "checked" : "";
+        });
+        Handlebars.registerHelper('check_gender', function (p1, p2) {
+            return p1 == p2 ? "checked" : "";
+        });
+        Handlebars.registerHelper('check_race', function (p1, p2) {
+            return p1 == p2 ? "checked" : "";
+        });
+        Handlebars.registerHelper('check_forumposts', function (p1, p2) {
+            return p1 == p2 ? "checked" : "";
+        });
+        Handlebars.registerHelper('check_newsletter', function (p1, p2) {
+            return p1 == p2+'' ? "checked" : "";
+        });
+        Handlebars.registerHelper('check_blogposts', function (p1, p2) {
+            return p1 == p2+'' ? "checked" : "";
+        });
+        Handlebars.registerHelper('select_timezoneid', function (p1, p2) {
+            return p1 == p2+''  ? "selected" : "";
+        });
+        
+        Handlebars.registerHelper('select_favoritemusicgenres', function (p1, p2) {
+            return p1 == p2 ? "selected" : "";
+        });
+    </script>
+}

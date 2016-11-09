@@ -46,15 +46,15 @@ namespace FlexHtmlHelper
             return tag;
         }
 
-        public virtual FlexTagBuilder CheckBoxHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes)
+        public virtual FlexTagBuilder CheckBoxHelper(FlexTagBuilder tagBuilder, string name, string @checked, string value, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("input");
             tag.MergeAttributes(htmlAttributes);
             tag.MergeAttribute("type", "checkbox");
             tag.MergeAttribute("name", name, true);
-            if (isChecked)
+            if (!string.IsNullOrEmpty(@checked))
             {
-                tag.MergeAttribute("checked", "checked");
+                tag.MergeAttribute(@checked, null);
             }
             tag.MergeAttribute("value", value, false);
             tag.GenerateId(name);
@@ -99,15 +99,15 @@ namespace FlexHtmlHelper
             return tag;
         }
 
-        public virtual FlexTagBuilder RadioHelper(FlexTagBuilder tagBuilder, string name, bool isChecked, string value, IDictionary<string, object> htmlAttributes)
+        public virtual FlexTagBuilder RadioHelper(FlexTagBuilder tagBuilder, string name, string @checked, string value, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("input");
             tag.MergeAttributes(htmlAttributes);
             tag.MergeAttribute("type", "radio");
             tag.MergeAttribute("name", name, true);
-            if (isChecked)
+            if (!string.IsNullOrEmpty(@checked))
             {
-                tag.MergeAttribute("checked", "checked");
+                tag.MergeAttribute(@checked, null);
             }
             tag.MergeAttribute("value", value, true);
             tag.GenerateId(name);
@@ -181,32 +181,32 @@ namespace FlexHtmlHelper
         }
 
 
-        protected FlexTagBuilder ListItemToOption(SelectListItem item)
+        protected FlexTagBuilder ListItemToOption(SelectListItemEx item)
         {
             FlexTagBuilder tag = new FlexTagBuilder("option");
             tag.AddText(item.Text);
             if (item.Value != null)
-            {
-                tag.TagAttributes["value"] = item.Value;
+            {                
+                tag.MergeAttribute("value", item.Value);
             }
-            if (item.Selected)
+            if (!string.IsNullOrEmpty(item.Selected))
             {
-                tag.TagAttributes["selected"] = "selected";
+                tag.MergeAttribute(item.Selected, null);
             }
             return tag;
         }
 
-        public virtual FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItem> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes)
+        public virtual FlexTagBuilder SelectHelper(FlexTagBuilder tagBuilder, string optionLabel, string name, IEnumerable<SelectListItemEx> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes)
         {
             FlexTagBuilder tag = new FlexTagBuilder("select");
 
             // Make optionLabel the first item that gets rendered.
             if (optionLabel != null)
             {
-                tag.AddTag(ListItemToOption(new SelectListItem() { Text = optionLabel, Value = String.Empty, Selected = false }));
+                tag.AddTag(ListItemToOption(new SelectListItemEx() { Text = optionLabel, Value = String.Empty, Selected = null }));
             }
 
-            foreach (SelectListItem item in selectList)
+            foreach (var item in selectList)
             {
                 tag.AddTag(ListItemToOption(item));
             }
