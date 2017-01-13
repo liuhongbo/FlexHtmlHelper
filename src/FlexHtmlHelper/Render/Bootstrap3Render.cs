@@ -81,7 +81,7 @@ namespace FlexHtmlHelper.Render
                 else if (inputTag.Tag().TagName.Equals("p", StringComparison.InvariantCultureIgnoreCase))
                 {
                     inputType = "static";
-                }               
+                }                
             }
             else
             {

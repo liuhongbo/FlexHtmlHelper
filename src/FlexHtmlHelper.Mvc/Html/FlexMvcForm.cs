@@ -1418,9 +1418,53 @@ namespace FlexHtmlHelper.Mvc.Html
             return formGroup;
         }
 
-        
+
         #endregion
 
+        #region Tag
+        
+        public static FlexFormGroup Tag(this FlexMvcForm form, string name, FlexTagBuilder tagBuilder)
+        {
+            return TagInternalHelper(form, 
+                metadata: null,
+                name:name,
+                tagBuilder: tagBuilder);
+        }
+
+        public static FlexFormGroup<TModel> TagFor<TModel, TProperty>(this FlexMvcForm<TModel> form, Expression<Func<TModel, TProperty>> expression, FlexTagBuilder tagBuilder)
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, form.FHtmlHelper.HtmlHelper.ViewData);
+            return TagInternalHelper(form, metadata, ExpressionHelper.GetExpressionText(expression), tagBuilder);
+        }
+
+        private static FlexFormGroup<TModel> TagInternalHelper<TModel>(FlexMvcForm<TModel> form, ModelMetadata metadata, string name, FlexTagBuilder tagBuilder)
+        {
+            FlexTagBuilder formGroup = TagBuilderHelper(form, metadata, name, tagBuilder);
+
+            return new FlexFormGroup<TModel>(form.FormContext, form.FHtmlHelper, formGroup);
+        }
+
+        private static FlexFormGroup TagInternalHelper(FlexMvcForm form, ModelMetadata metadata, string name, FlexTagBuilder tagBuilder)
+        {
+            FlexTagBuilder formGroup = TagBuilderHelper(form, metadata, name, tagBuilder);
+
+            return new FlexFormGroup(form.FormContext, form.FHtmlHelper, formGroup);
+        }
+
+        private static FlexTagBuilder TagBuilderHelper(FlexMvcForm form, ModelMetadata metadata, string name, FlexTagBuilder tagBuilder)
+        {
+            FHtmlHelper htmlHelper = form.FHtmlHelper;
+
+            string fullName = htmlHelper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            FlexLabel label = (metadata != null) ? htmlHelper.LabelHelper(metadata, name) : htmlHelper.Label(name);
+            FlexElement tag = new FlexElement(htmlHelper, tagBuilder);
+
+            FlexTagBuilder formGroup = htmlHelper.Render.FormGroupHelper(new FlexTagBuilder(), form.FormContext, label.TagBuilder, tag.TagBuilder, new FlexTagBuilder());
+            return formGroup;
+        }
+
+        #endregion
 
         #region Button
 

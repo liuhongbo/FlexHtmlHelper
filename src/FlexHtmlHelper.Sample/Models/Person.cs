@@ -97,7 +97,10 @@ namespace FlexHtmlHelperSample.Models
         public bool BlogPosts { get; set; }
 
         [DisplayName("Phone Number")]
-        public string PhoneNumber { get; set; }    
+        public string PhoneNumber { get; set; }
+
+        [DisplayName("Authorized")]
+        public bool Authorized { get; set; }
 
     }
 }
